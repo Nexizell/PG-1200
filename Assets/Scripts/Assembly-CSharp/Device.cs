@@ -65,19 +65,6 @@ public sealed class Device
 	{
 		get
 		{
-			if (Application.platform == RuntimePlatform.Android)
-			{
-				return SystemInfo.systemMemorySize < 900;
-			}
-			if (Tools.RuntimePlatform == RuntimePlatform.MetroPlayerX64)
-			{
-				if (Application.isEditor)
-				{
-					return false;
-				}
-				return true;
-			}
-			RuntimePlatform platform = Application.platform;
 			return false;
 		}
 	}
@@ -86,16 +73,6 @@ public sealed class Device
 	{
 		get
 		{
-			if (Application.platform == RuntimePlatform.Android)
-			{
-				return !IsQuiteGoodAndroidDevice();
-			}
-			if (Tools.RuntimePlatform == RuntimePlatform.MetroPlayerX64)
-			{
-				return true;
-			}
-			RuntimePlatform platform = Application.platform;
-			int num = 7;
 			return false;
 		}
 	}
@@ -104,14 +81,6 @@ public sealed class Device
 	{
 		get
 		{
-			if (Application.platform == RuntimePlatform.Android)
-			{
-				return IsWeakAndroid();
-			}
-			if (Tools.RuntimePlatform == RuntimePlatform.MetroPlayerX64)
-			{
-				return true;
-			}
 			return false;
 		}
 	}
@@ -120,7 +89,7 @@ public sealed class Device
 	{
 		get
 		{
-			return true;
+			return false;
 		}
 	}
 
@@ -128,11 +97,8 @@ public sealed class Device
 	{
 		get
 		{
-			if (Application.isEditor)
-			{
-				return true;
-			}
-			return false;
+			return true;
+			
 		}
 	}
 

@@ -391,7 +391,7 @@ public class TouchPadController : MonoBehaviour
 		reloadUISprite = reloadSpirte.GetComponent<UISprite>();
 		if (!Device.isPixelGunLow)
 		{
-			_touchControlScheme = new CameraTouchControlScheme_LowPassFilter();
+			_touchControlScheme = new CameraTouchControlScheme_CleanNGUI();
 		}
 		else if (Defs.isTouchControlSmoothDump)
 		{
@@ -1158,6 +1158,7 @@ public class TouchPadController : MonoBehaviour
 	{
 		if (_touchControlScheme != null)
 		{
+			UnityEngine.Debug.LogError("applying delta");
 			_touchControlScheme.ApplyDeltaTo(deltaPosition, yawTransform, pitchTransform, sensitivity, invert);
 		}
 	}

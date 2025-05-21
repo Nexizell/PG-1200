@@ -1,28 +1,41 @@
-Shader "Mobile/Particles/Additive Culled" {
-	Properties {
-		_TintColor ("Tint Color", Vector) = (0.5,0.5,0.5,0.5)
-		_MainTex ("Particle Texture", 2D) = "white" {}
+Shader "MADFINGER/Particles/Additive TwoSide" {
+Properties {
+	_TintColor ("Tint Color", Color) = (0.5,0.5,0.5,0.5)
+	_MainTex ("Particle Texture", 2D) = "white" {}
+}
+
+Category {
+	Tags { "Queue"="Transparent" "IgnoreProjector"="True" "RenderType"="Transparent" }
+	Blend SrcAlpha One
+	AlphaTest Greater .01
+	ColorMask RGB
+	Cull Off Lighting Off ZWrite Off Fog { Color (0,0,0,0) }
+	BindChannels {
+		Bind "Color", color
+		Bind "Vertex", vertex
+		Bind "TexCoord", texcoord
 	}
-	//DummyShaderTextExporter
-	SubShader{
-		Tags { "RenderType"="Opaque" }
-		LOD 200
-		CGPROGRAM
-#pragma surface surf Standard
-#pragma target 3.0
-
-		sampler2D _MainTex;
-		struct Input
-		{
-			float2 uv_MainTex;
-		};
-
-		void surf(Input IN, inout SurfaceOutputStandard o)
-		{
-			fixed4 c = tex2D(_MainTex, IN.uv_MainTex);
-			o.Albedo = c.rgb;
-			o.Alpha = c.a;
+	
+	// ---- Dual texture cards
+	SubShader {
+		Pass {
+			SetTexture [_MainTex] {
+				constantColor [_TintColor]
+				combine constant * primary
+			}
+			SetTexture [_MainTex] {
+				combine texture * previous DOUBLE
+			}
 		}
-		ENDCG
 	}
+	
+	// ---- Single texture cards (does not do color tint)
+	SubShader {
+		Pass {
+			SetTexture [_MainTex] {
+				combine texture * primary
+			}
+		}
+	}
+}
 }

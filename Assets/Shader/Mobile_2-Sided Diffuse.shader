@@ -1,28 +1,28 @@
 Shader "Mobile/2-Sided Diffuse" {
-	Properties {
-		_MainTex ("Base (RGB)", 2D) = "white" {}
-	}
-	//DummyShaderTextExporter
-	SubShader{
-		Tags { "RenderType"="Opaque" }
-		LOD 200
-		CGPROGRAM
-#pragma surface surf Standard
-#pragma target 3.0
+Properties {
+    _MainTex ("Base (RGB)", 2D) = "white" {}
+}
+SubShader {
+    Tags { "RenderType"="Opaque" }
+    LOD 150
+    Cull Off
 
-		sampler2D _MainTex;
-		struct Input
-		{
-			float2 uv_MainTex;
-		};
+CGPROGRAM
+#pragma surface surf Lambert noforwardadd
 
-		void surf(Input IN, inout SurfaceOutputStandard o)
-		{
-			fixed4 c = tex2D(_MainTex, IN.uv_MainTex);
-			o.Albedo = c.rgb;
-			o.Alpha = c.a;
-		}
-		ENDCG
-	}
-	Fallback "Mobile/VertexLit"
+sampler2D _MainTex;
+
+struct Input {
+    float2 uv_MainTex;
+};
+
+void surf (Input IN, inout SurfaceOutput o) {
+    fixed4 c = tex2D(_MainTex, IN.uv_MainTex);
+    o.Albedo = c.rgb;
+    o.Alpha = c.a;
+}
+ENDCG
+}
+
+Fallback "Mobile/VertexLit"
 }

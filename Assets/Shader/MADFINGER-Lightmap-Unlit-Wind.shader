@@ -1,5 +1,8 @@
 // Upgrade NOTE: commented out 'float4 unity_LightmapST', a built-in variable
 // Upgrade NOTE: commented out 'sampler2D unity_Lightmap', a built-in variable
+
+// Upgrade NOTE: commented out 'float4 unity_LightmapST', a built-in variable
+// Upgrade NOTE: commented out 'sampler2D unity_Lightmap', a built-in variable
 // Upgrade NOTE: replaced '_Object2World' with 'unity_ObjectToWorld'
 // Upgrade NOTE: replaced '_World2Object' with 'unity_WorldToObject'
 // Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
@@ -22,7 +25,7 @@ SubShader {
 	LOD 100
 	
 	Blend SrcAlpha OneMinusSrcAlpha
-	Cull Off ZWrite Off
+	Cull Off
 	
 	
 	CGINCLUDE
@@ -32,10 +35,8 @@ SubShader {
 	float4 _MainTex_ST;
 	samplerCUBE _ReflTex;
 	
-	#ifndef LIGHTMAP_OFF
 	// float4 unity_LightmapST;
 	// sampler2D unity_Lightmap;
-	#endif
 	
 	float _WindEdgeFlutter;
 	float _WindEdgeFlutterFreqScale;
@@ -43,9 +44,7 @@ SubShader {
 	struct v2f {
 		float4 pos : SV_POSITION;
 		float2 uv : TEXCOORD0;
-		#ifndef LIGHTMAP_OFF
 		float2 lmap : TEXCOORD1;
-		#endif
 		fixed3 spec : TEXCOORD2;
 	};
 
@@ -110,9 +109,7 @@ inline float4 AnimateVertex2(float4 pos, float3 normal, float4 animParams,float4
 		
 		o.spec = v.color;
 		
-		#ifndef LIGHTMAP_OFF
 		o.lmap = v.texcoord1.xy * unity_LightmapST.xy + unity_LightmapST.zw;
-		#endif
 		
 		return o;
 	}
@@ -133,10 +130,8 @@ inline float4 AnimateVertex2(float4 pos, float3 normal, float4 animParams,float4
 			c.rgb = tex.rgb;
 			c.a = tex.a;
 			
-			#ifndef LIGHTMAP_OFF
 			fixed3 lm = DecodeLightmap (UNITY_SAMPLE_TEX2D(unity_Lightmap, i.lmap));
 			c.rgb *= lm;
-			#endif
 			
 			return c;
 		}

@@ -402,7 +402,7 @@ public sealed class Player_move_c : MonoBehaviour
 
 	private int currentWeaponBeforeGrenade = -1;
 
-	private float stdFov = 60f;
+	private float stdFov = 90f;
 
 	private AudioSource myAudioSource;
 
@@ -1995,7 +1995,7 @@ public sealed class Player_move_c : MonoBehaviour
 				GetComponent<AudioSource>().PlayOneShot(_weaponManager.currentWeaponSounds.zoomOut);
 			}
 			myCamera.fieldOfView = stdFov;
-			gunCamera.fieldOfView = 75f;
+			gunCamera.fieldOfView = 90f;
 			gunCamera.gameObject.SetActive(true);
 			if (inGameGUI != null)
 			{
@@ -5328,7 +5328,7 @@ public sealed class Player_move_c : MonoBehaviour
 		else
 		{
 			mechBearPoint.SetActive(false);
-			gunCamera.fieldOfView = 75f;
+			gunCamera.fieldOfView = 90f;
 			base.transform.localPosition = myCamera.transform.localPosition;
 			gunCamera.transform.localPosition = new Vector3(-0.1f, 0f, 0f);
 		}

@@ -21,6 +21,7 @@ Properties {
 	_SineFreqX2 ("2nd layer sine freq X",Float) = 10 
 	_SineFreqY2 ("2nd layer sine freq Y",Float) = 10
 	
+	_Color("Color",Color) = (1,1,1,1)	
 	_MMultiplier ("Layer Multiplier", Float) = 2.0
 }
 
@@ -37,7 +38,6 @@ SubShader {
 	
 	CGINCLUDE
 	#pragma multi_compile LIGHTMAP_OFF LIGHTMAP_ON
-	#pragma exclude_renderers molehill
 	#include "UnityCG.cginc"
 	sampler2D _MainTex;
 	sampler2D _DetailTex;
@@ -60,6 +60,7 @@ SubShader {
 	float _SineAmplY2;
 	float _SineFreqX2;
 	float _SineFreqY2;
+	float4 _Color;
 	
 	struct v2f {
 		float4 pos : SV_POSITION;
@@ -81,7 +82,7 @@ SubShader {
 		o.uv.z += sin(_Time * _SineFreqX2) * _SineAmplX2;
 		o.uv.w += sin(_Time * _SineFreqY2) * _SineAmplY2;
 		
-		o.color = _MMultiplier.xxxx;
+		o.color = _MMultiplier.xxxx * _Color * v.color;
 		return o;
 	}
 	ENDCG

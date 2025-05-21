@@ -293,6 +293,7 @@ public static class EffectsController
 			return 1f;
 		}
 		float num = WeaponManager.sharedManager.currentWeaponSounds.speedModifier * (Storager.getString(Defs.HatEquppedSN).Equals("hat_KingsCrown") ? 1.05f : 1f) * (Storager.getString(Defs.HatEquppedSN).Equals("hat_Samurai") ? 1.05f : 1f) * (Storager.getString(Defs.CapeEquppedSN).Equals("cape_Custom") ? 1.05f : 1f) * (Storager.getString(Defs.HatEquppedSN).Equals("league6_hat_tiara") ? 1.08f : 1f) * (Storager.getString(Defs.HatEquppedSN).Equals("league3_hat_afro") ? 1.08f : 1f) * SlowdownCoeff;
+		num *= 1.25f; // THE GAME IS SO SLOWWW
 		if (i == 1 && Storager.getString(Defs.BootsEquppedSN).Equals("boots_red"))
 		{
 			num *= 1.05f;

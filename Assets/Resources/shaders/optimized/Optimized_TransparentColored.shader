@@ -3,28 +3,27 @@ Shader "Optimized/TransparentColored" {
 		_Color ("Color", Vector) = (1,1,1,1)
 		_MainTex ("Albedo (RGB)", 2D) = "white" {}
 	}
-	//DummyShaderTextExporter
-	SubShader{
-		Tags { "RenderType"="Opaque" }
+	SubShader {
 		LOD 200
-		CGPROGRAM
-#pragma surface surf Standard
-#pragma target 3.0
-
-		sampler2D _MainTex;
-		fixed4 _Color;
-		struct Input
-		{
-			float2 uv_MainTex;
-		};
-		
-		void surf(Input IN, inout SurfaceOutputStandard o)
-		{
-			fixed4 c = tex2D(_MainTex, IN.uv_MainTex) * _Color;
-			o.Albedo = c.rgb;
-			o.Alpha = c.a;
+		Tags { "QUEUE" = "Transparent" "RenderType" = "Transparent" }
+		Pass {
+			Name "FORWARD"
+			LOD 200
+			Tags { "LIGHTMODE" = "FORWARDBASE" "QUEUE" = "Transparent" "RenderType" = "Transparent" "SHADOWSUPPORT" = "true" }
+			Blend SrcAlpha OneMinusSrcAlpha, SrcAlpha OneMinusSrcAlpha
+			ColorMask RGB -1
+			GpuProgramID 10355
+			// No subprograms found
 		}
-		ENDCG
+		Pass {
+			Name "META"
+			LOD 200
+			Tags { "LIGHTMODE" = "META" "QUEUE" = "Transparent" "RenderType" = "Transparent" }
+			Blend SrcAlpha OneMinusSrcAlpha, SrcAlpha OneMinusSrcAlpha
+			Cull Off
+			GpuProgramID 118722
+			// No subprograms found
+		}
 	}
 	Fallback "Diffuse"
 }

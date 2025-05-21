@@ -190,6 +190,8 @@ public sealed class FirstPersonControlSharp : MonoBehaviour
 		}
 	}
 
+	public Vector2 delta { get; set; }
+
 	private void Awake()
 	{
 		isInet = Defs.isInet;
@@ -663,6 +665,7 @@ public sealed class FirstPersonControlSharp : MonoBehaviour
 
 	public void MoveCamera(Vector2 delta)
 	{
+		this.delta = delta;
 		if (!TrainingController.TrainingCompleted && TrainingController.CompletedTrainingStage == TrainingController.NewTrainingCompletedStage.None && TrainingController.stepTraining == TrainingState.SwipeToRotate && delta != Vector2.zero)
 		{
 			TrainingController.isNextStep = TrainingState.SwipeToRotate;
@@ -673,6 +676,7 @@ public sealed class FirstPersonControlSharp : MonoBehaviour
 		{
 			num *= (_moveC.isZooming ? 0.2f : 1f);
 		}
+		UnityEngine.Debug.LogError(delta + " : " + num);
 		if (isFirstPersonCamera)
 		{
 			if (JoystickController.rightJoystick != null)

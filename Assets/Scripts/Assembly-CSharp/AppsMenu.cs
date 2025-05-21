@@ -65,7 +65,7 @@ public sealed class AppsMenu : MonoBehaviour
 	{
 		yield return 0.1f;
 		Device.isPixelGunLow = Device.isPixelGunLowDevice;
-		Application.targetFrameRate = (GlobalGameController.is60FPSEnable ? 60 : 30);
+		Application.targetFrameRate = (120);
 		_startFrameIndex = Time.frameCount;
 		yield return 0.2f;
 		if (!Launcher.UsingNewLauncher)

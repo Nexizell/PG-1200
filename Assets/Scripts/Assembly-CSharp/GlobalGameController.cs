@@ -124,7 +124,7 @@ public class GlobalGameController
 			_is60FPSEnable = value;
 			PlayerPrefs.SetInt("fps60Enable", _is60FPSEnable ? 1 : 0);
 			is60FPSEnableInit = true;
-			Application.targetFrameRate = (_is60FPSEnable ? 60 : 30);
+			Application.targetFrameRate = (120);
 		}
 	}
 
