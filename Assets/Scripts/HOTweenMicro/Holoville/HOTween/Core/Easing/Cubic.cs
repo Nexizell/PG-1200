@@ -1,0 +1,24 @@
+namespace Holoville.HOTween.Core.Easing
+{
+	public static class Cubic
+	{
+		public static float EaseIn(float time, float startValue, float changeValue, float duration, float unusedOvershootOrAmplitude, float unusedPeriod)
+		{
+			return changeValue * (time /= duration) * time * time + startValue;
+		}
+
+		public static float EaseOut(float time, float startValue, float changeValue, float duration, float unusedOvershootOrAmplitude, float unusedPeriod)
+		{
+			return changeValue * ((time = time / duration - 1f) * time * time + 1f) + startValue;
+		}
+
+		public static float EaseInOut(float time, float startValue, float changeValue, float duration, float unusedOvershootOrAmplitude, float unusedPeriod)
+		{
+			if ((time /= duration * 0.5f) < 1f)
+			{
+				return changeValue * 0.5f * time * time * time + startValue;
+			}
+			return changeValue * 0.5f * ((time -= 2f) * time * time + 2f) + startValue;
+		}
+	}
+}
