@@ -88,7 +88,7 @@ public class UIJoystick : MonoBehaviour
 
 	private void ProcessTouches()
 	{
-		if (_touchId != -100)
+		/*if (_touchId != -100)
 		{
 			Touch? touchById = GetTouchById(_touchId);
 			if (touchById.HasValue)
@@ -110,12 +110,12 @@ public class UIJoystick : MonoBehaviour
 		else
 		{
 			Reset();
-		}
+		}*/
 	}
 
 	public static Touch? GetTouchById(int touchId)
 	{
-		int touchCount = Input.touchCount;
+		/*int touchCount = Input.touchCount;
 		for (int i = 0; i < touchCount; i++)
 		{
 			Touch touch = Input.GetTouch(i);
@@ -123,19 +123,19 @@ public class UIJoystick : MonoBehaviour
 			{
 				return touch;
 			}
-		}
+		}*/
 		return null;
 	}
 
 	private void OnPress(bool isDown)
 	{
-		if ((isDown && _touchId == -100) || (!isDown && _touchId != -100))
+		/*if ((isDown && _touchId == -100) || (!isDown && _touchId != -100))
 		{
 			_grabTouches = isDown;
 			_touchId = (isDown ? UICamera.currentTouchID : (-100));
 			_touchWorldPos = (isDown ? UICamera.currentTouch.pos : Vector2.zero);
 			_touchPrevWorldPos = _touchWorldPos;
-		}
+		}*/
 	}
 
 	public void SetJoystickActive(bool joyActive)

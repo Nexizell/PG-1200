@@ -2677,11 +2677,6 @@ public sealed class MainMenuController : ControlsSettingsBase
 					Storager.setString(abuseKey_f1a4329e, num.ToString());
 				}
 				TimeSpan timeSpan = TimeSpan.FromTicks(num - result);
-				if ((Defs.IsDeveloperBuild ? (timeSpan.TotalMinutes >= 3.0) : (timeSpan.TotalDays >= 1.0)) && Application.platform != RuntimePlatform.IPhonePlayer)
-				{
-					PhotonNetwork.PhotonServerSettings.AppID = "68c9fbdb-682a-411f-a229-1a9786b5835c";
-					PhotonNetwork.PhotonServerSettings.HostType = ServerSettings.HostingOption.PhotonCloud;
-				}
 			}
 		}
 		StartCoroutine(TryToShowExpiredBanner());

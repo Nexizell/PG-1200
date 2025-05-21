@@ -36,4 +36,34 @@ public sealed class JoystickController : MonoBehaviour
 		}
 		return false;
 	}
+
+	private void Update()
+	{
+		leftJoystick.value = GlobalControls.MovementVector;
+		if (GlobalControls.MouseLocked)
+		{
+			if (WeaponManager.sharedManager != null && WeaponManager.sharedManager.myPlayerMoveC != null && WeaponManager.sharedManager.myPlayerMoveC.mySkinName != null)
+			{
+				float mult = 8.36f;
+				WeaponManager.sharedManager.myPlayerMoveC.mySkinName.MoveCamera(new Vector2(Input.GetAxisRaw("Mouse X") * mult, Input.GetAxisRaw("Mouse Y") * mult));
+			}
+			rightJoystick.isShooting = Input.GetKey(KeyCode.Mouse0);
+			if (WeaponManager.sharedManager != null && WeaponManager.sharedManager.myPlayerMoveC != null && WeaponManager.sharedManager.currentWeaponSounds != null)
+			{
+				if (Input.GetKeyDown(KeyCode.Mouse1) && !WeaponManager.sharedManager.myPlayerMoveC.isZooming && WeaponManager.sharedManager.currentWeaponSounds.isZooming)
+				{
+					WeaponManager.sharedManager.myPlayerMoveC.ZoomPress();
+				}
+				if (Input.GetKeyUp(KeyCode.Mouse1) && WeaponManager.sharedManager.myPlayerMoveC.isZooming)
+				{
+					WeaponManager.sharedManager.myPlayerMoveC.ZoomPress();
+				}
+			}
+
+			if (Input.GetKeyDown(KeyCode.R) && !WeaponManager.sharedManager.myPlayerMoveC.isReloading)
+			{
+				WeaponManager.sharedManager.myPlayerMoveC.ReloadPressed();
+			}
+		}
+	}
 }

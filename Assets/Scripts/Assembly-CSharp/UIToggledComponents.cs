@@ -1,5 +1,14 @@
-using System.Collections.Generic;
+﻿//-------------------------------------------------
+//            NGUI: Next-Gen UI kit
+// Copyright © 2011-2017 Tasharen Entertainment Inc
+//-------------------------------------------------
+
 using UnityEngine;
+using System.Collections.Generic;
+
+/// <summary>
+/// Example script showing how to activate or deactivate MonoBehaviours with a toggle.
+/// </summary>
 
 [ExecuteInEditMode]
 [RequireComponent(typeof(UIToggle))]
@@ -7,51 +16,50 @@ using UnityEngine;
 public class UIToggledComponents : MonoBehaviour
 {
 	public List<MonoBehaviour> activate;
-
 	public List<MonoBehaviour> deactivate;
 
-	[SerializeField]
-	[HideInInspector]
-	protected internal MonoBehaviour target;
+	// Deprecated functionality
+	[HideInInspector][SerializeField] MonoBehaviour target;
+	[HideInInspector][SerializeField] bool inverse = false;
 
-	[SerializeField]
-	[HideInInspector]
-	protected internal bool inverse;
-
-	private void Awake()
+	void Awake ()
 	{
+		// Legacy functionality -- auto-upgrade
 		if (target != null)
 		{
 			if (activate.Count == 0 && deactivate.Count == 0)
 			{
-				if (inverse)
-				{
-					deactivate.Add(target);
-				}
-				else
-				{
-					activate.Add(target);
-				}
+				if (inverse) deactivate.Add(target);
+				else activate.Add(target);
 			}
-			else
-			{
-				target = null;
-			}
+			else target = null;
+
+#if UNITY_EDITOR
+			NGUITools.SetDirty(this);
+#endif
 		}
-		EventDelegate.Add(GetComponent<UIToggle>().onChange, Toggle);
+
+#if UNITY_EDITOR
+		if (!Application.isPlaying) return;
+#endif
+		UIToggle toggle = GetComponent<UIToggle>();
+		EventDelegate.Add(toggle.onChange, Toggle);
 	}
 
-	public void Toggle()
+	public void Toggle ()
 	{
-		if (base.enabled)
+		if (enabled)
 		{
-			for (int i = 0; i < activate.Count; i++)
+			for (int i = 0; i < activate.Count; ++i)
 			{
-				activate[i].enabled = UIToggle.current.value;
+				MonoBehaviour comp = activate[i];
+				comp.enabled = UIToggle.current.value;
 			}
-			for (int j = 0; j < deactivate.Count; j++)
+
+			for (int i = 0; i < deactivate.Count; ++i)
 			{
-				deactivate[j].enabled = !UIToggle.current.value;
+				MonoBehaviour comp = deactivate[i];
+				comp.enabled = !UIToggle.current.value;
 			}
 		}
 	}

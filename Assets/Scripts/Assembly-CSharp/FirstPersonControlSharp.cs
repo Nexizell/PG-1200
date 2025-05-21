@@ -401,6 +401,27 @@ public sealed class FirstPersonControlSharp : MonoBehaviour
 		{
 			TrainingController.isNextStep = TrainingState.TapToMove;
 		}
+		if (character.isGrounded)
+        {
+            if (Input.GetKey(KeyCode.Space) && !WeaponManager.sharedManager.myPlayerMoveC.showChat)
+            {
+                JoystickController.leftTouchPad.isJumpPressed = true;
+                JoystickController.rightJoystick.jumpPressed = true;
+            }
+        }
+        else
+        {
+            if (Input.GetKeyDown(KeyCode.Space) && !WeaponManager.sharedManager.myPlayerMoveC.showChat)
+            {
+                JoystickController.leftTouchPad.isJumpPressed = false;
+                JoystickController.rightJoystick.jumpPressed = true;
+            }
+            if (Input.GetKeyUp(KeyCode.Space))
+            {
+                JoystickController.leftTouchPad.isJumpPressed = false;
+                JoystickController.rightJoystick.jumpPressed = false;
+            }
+        }
 		_movement.y = 0f;
 		_movement.Normalize();
 		Vector2 vector = new Vector2(Mathf.Abs(JoystickController.leftJoystick.value.x), Mathf.Abs(JoystickController.leftJoystick.value.y));

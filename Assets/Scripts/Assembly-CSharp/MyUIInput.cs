@@ -1,83 +1,10 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Runtime.CompilerServices;
 using Rilisoft;
 using UnityEngine;
 
 public class MyUIInput : UIInput
 {
-	[CompilerGenerated]
-	internal sealed class _003CReSelect_003Ed__19 : IEnumerator<object>, IEnumerator, IDisposable
-	{
-		private int _003C_003E1__state;
-
-		private object _003C_003E2__current;
-
-		public MyUIInput _003C_003E4__this;
-
-		object IEnumerator<object>.Current
-		{
-			[DebuggerHidden]
-			get
-			{
-				return _003C_003E2__current;
-			}
-		}
-
-		object IEnumerator.Current
-		{
-			[DebuggerHidden]
-			get
-			{
-				return _003C_003E2__current;
-			}
-		}
-
-		[DebuggerHidden]
-		public _003CReSelect_003Ed__19(int _003C_003E1__state)
-		{
-			this._003C_003E1__state = _003C_003E1__state;
-		}
-
-		[DebuggerHidden]
-		void IDisposable.Dispose()
-		{
-		}
-
-		private bool MoveNext()
-		{
-			switch (_003C_003E1__state)
-			{
-			default:
-				return false;
-			case 0:
-				_003C_003E1__state = -1;
-				_003C_003E4__this.DeselectInput();
-				_003C_003E2__current = new WaitForRealSeconds(0.3f);
-				_003C_003E1__state = 1;
-				return true;
-			case 1:
-				_003C_003E1__state = -1;
-				_003C_003E4__this.isSelected = true;
-				return false;
-			}
-		}
-
-		bool IEnumerator.MoveNext()
-		{
-			//ILSpy generated this explicit interface implementation from .override directive in MoveNext
-			return this.MoveNext();
-		}
-
-		[DebuggerHidden]
-		void IEnumerator.Reset()
-		{
-			throw new NotSupportedException();
-		}
-	}
-
 	[NonSerialized]
 	public float heightKeyboard;
 
@@ -95,7 +22,7 @@ public class MyUIInput : UIInput
 
 	private bool _selectAfterPause;
 
-	private void Awake()
+	/*private void Awake()
 	{
 		hideInput = false;
 	}
@@ -110,16 +37,16 @@ public class MyUIInput : UIInput
 		{
 			OnDeselectEvent();
 		}
-	}
+	}*/
 
 	public void DeselectInput()
 	{
-		OnDeselectEventCustom();
+		//OnDeselectEventCustom();
 	}
 
 	protected void OnDeselectEventCustom()
 	{
-		if (mDoInit)
+		/*if (mDoInit)
 		{
 			Init();
 		}
@@ -145,10 +72,10 @@ public class MyUIInput : UIInput
 		}
 		base.isSelected = false;
 		UIInput.selection = null;
-		UpdateLabel();
+		UpdateLabel();*/
 	}
 
-	private new void Update()
+	/*private new void Update()
 	{
 		if (Application.isEditor)
 		{
@@ -179,7 +106,15 @@ public class MyUIInput : UIInput
 
 	private void SetKeyboardHeight()
 	{
-		heightKeyboard = TouchScreenKeyboard.area.height;
+		using (AndroidJavaClass androidJavaClass = new AndroidJavaClass("com.unity3d.player.UnityPlayer"))
+		{
+			AndroidJavaObject androidJavaObject = androidJavaClass.GetStatic<AndroidJavaObject>("currentActivity").Get<AndroidJavaObject>("mUnityPlayer").Call<AndroidJavaObject>("getView", new object[0]);
+			using (AndroidJavaObject androidJavaObject2 = new AndroidJavaObject("android.graphics.Rect"))
+			{
+				androidJavaObject.Call("getWindowVisibleDisplayFrame", androidJavaObject2);
+				heightKeyboard = Screen.height - androidJavaObject2.Call<int>("height", new object[0]);
+			}
+		}
 	}
 
 	private void OnDestroy()
@@ -213,7 +148,7 @@ public class MyUIInput : UIInput
 	{
 		DeselectInput();
 		yield return new WaitForRealSeconds(0.3f);
-		isSelected = true;
+		base.isSelected = true;
 	}
 
 	private void OnApplicationPause(bool pauseStatus)
@@ -234,5 +169,5 @@ public class MyUIInput : UIInput
 			}
 			_selectAfterPause = false;
 		}
-	}
+	}*/
 }
