@@ -163,7 +163,7 @@ public class UIJoystick : MonoBehaviour
 
 	public void Reset()
 	{
-		value = Vector2.zero;
+		//value = Vector2.zero;
 		target.localPosition = Vector3.zero;
 		_grabTouches = false;
 		_touchId = -100;
@@ -173,13 +173,13 @@ public class UIJoystick : MonoBehaviour
 
 	private void OnDrag2(Vector2 delta)
 	{
-		target.position = UICamera.currentCamera.ScreenToWorldPoint(_touchWorldPos);
+		/*target.position = UICamera.currentCamera.ScreenToWorldPoint(_touchWorldPos);
 		target.localPosition = new Vector3(target.localPosition.x, target.localPosition.y, 0f);
 		if (target.localPosition.magnitude > ActualRadius)
 		{
 			target.localPosition = Vector3.ClampMagnitude(target.localPosition, ActualRadius);
 		}
 		value = target.localPosition;
-		value = value / ActualRadius * Mathf.InverseLerp(ActualRadius, 2f, 1f);
+		value = value / ActualRadius * Mathf.InverseLerp(ActualRadius, 2f, 1f);*/
 	}
 }

@@ -2674,6 +2674,42 @@ public sealed class InGameGUI : MonoBehaviour
 		return _rankMemo.Value;
 	}
 
+	private void HandlePCWeaponSwitch()
+    {
+        if (playerMoveC != null && WeaponManager.sharedManager != null && WeaponManager.sharedManager.currentWeaponSounds != null && !playerMoveC.isMechActive && !WeaponManager.sharedManager.currentWeaponSounds.isGrenadeWeapon)
+        {
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+                SelectWeaponFromCategory(1);
+            if (Input.GetKeyDown(KeyCode.Alpha2))
+                SelectWeaponFromCategory(2);
+            if (Input.GetKeyDown(KeyCode.Alpha3))
+                SelectWeaponFromCategory(3);
+            if (Input.GetKeyDown(KeyCode.Alpha4))
+                SelectWeaponFromCategory(4);
+            if (Input.GetKeyDown(KeyCode.Alpha5))
+                SelectWeaponFromCategory(5);
+            if (Input.GetKeyDown(KeyCode.Alpha6))
+                SelectWeaponFromCategory(6);
+        }
+    }
+
+    private void InputCompatLayer()
+    {
+        if (!Application.isMobilePlatform)
+        {
+            HandlePCWeaponSwitch();
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                if (playerMoveC != null && !playerMoveC.isInappWinOpen) GlobalControls.MouseLocked = false;
+            }
+        }
+    }
+
+    private void LateUpdate()
+    {
+        InputCompatLayer();
+    }
+
 	private void SetMechHealth()
 	{
 		currentHealthStep = Mathf.FloorToInt(pastMechHealth);
