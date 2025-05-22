@@ -5699,7 +5699,7 @@ public class ShopNGUIController : MonoBehaviour
 			gameObject2.transform.localRotation = Quaternion.identity;
 			gameObject2.transform.localScale = new Vector3(1f, 1f, 1f);
 			Player_move_c.SetLayerRecursively(gameObject2, LayerMask.NameToLayer("NGUIShop"));
-			if (component2.leftBone != null && component3.LeftArmorHand != null)
+			if (component2 != null && component2.leftBone != null && component3 != null && component3.LeftArmorHand != null)
 			{
 				component2.leftBone.parent = component3.LeftArmorHand;
 				component2.leftBone.localPosition = Vector3.zero;
