@@ -186,7 +186,7 @@ public class BonusController : MonoBehaviour
 		photonView.RPC("AddWeaponAfterKillPlayerRPC", PhotonTargets.MasterClient, _weaponName, _pos);
 	}
 
-	[RPC]
+	
 	[PunRPC]
 	private void AddWeaponAfterKillPlayerRPC(string _weaponName, Vector3 _pos)
 	{
@@ -202,13 +202,13 @@ public class BonusController : MonoBehaviour
 	}
 
 	[PunRPC]
-	[RPC]
+	
 	private void AddBonusAfterKillPlayerRPC(Vector3 _pos)
 	{
 		AddBonusAfterKillPlayerRPC(IndexBonusOnKill(), _pos);
 	}
 
-	[RPC]
+	
 	[PunRPC]
 	private void AddBonusAfterKillPlayerRPC(int _type, Vector3 _pos)
 	{
@@ -392,7 +392,7 @@ public class BonusController : MonoBehaviour
 		}
 	}
 
-	[RPC]
+	
 	[PunRPC]
 	private void MakeBonusRPC(int index, int type, Vector3 position, float expireTime, int zoneNumber)
 	{
@@ -414,7 +414,7 @@ public class BonusController : MonoBehaviour
 		}
 	}
 
-	[RPC]
+	
 	[PunRPC]
 	private void RemoveBonusRPC(int index)
 	{
@@ -428,7 +428,7 @@ public class BonusController : MonoBehaviour
 		}
 	}
 
-	[RPC]
+	
 	[PunRPC]
 	private void RemoveBonusWithRewardRPC(PhotonPlayer sender, int index)
 	{
@@ -439,7 +439,7 @@ public class BonusController : MonoBehaviour
 	}
 
 	[PunRPC]
-	[RPC]
+	
 	private void GetBonusRewardRPC(int index)
 	{
 		if (index >= bonusStack.Length || !bonusStack[index].isActive || !bonusStack[index].isPickedUp)

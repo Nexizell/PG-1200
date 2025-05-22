@@ -133,7 +133,7 @@ public sealed class TwitterController : MonoBehaviour
 
 	private string _loginContext = "Unknown";
 
-	private static readonly Lazy<TwitterFacadeBase> _twitterFacade;
+	private static readonly Rilisoft.Lazy<TwitterFacadeBase> _twitterFacade;
 
 	private bool _postInProcess;
 
@@ -159,7 +159,7 @@ public sealed class TwitterController : MonoBehaviour
 	{
 		get
 		{
-			return BuildSettings.BuildTargetPlatform != RuntimePlatform.MetroPlayerX64;
+			return false;
 		}
 	}
 
@@ -167,10 +167,6 @@ public sealed class TwitterController : MonoBehaviour
 	{
 		get
 		{
-			if (TwitterSupported && BuildSettings.BuildTargetPlatform != RuntimePlatform.MetroPlayerX64 && Instance != null)
-			{
-				return !Instance.CanPostStatusUpdateWithPriority(FacebookController.StoryPriority.Green);
-			}
 			return false;
 		}
 	}
@@ -186,15 +182,6 @@ public sealed class TwitterController : MonoBehaviour
 	private void Awake()
 	{
 		Instance = this;
-		if (TwitterSupported)
-		{
-			string empty = string.Empty;
-			string empty2 = string.Empty;
-			empty = "13K6E5YAJvXSEaig0GVVFd68K";
-			empty2 = "I4DtR7TC0OU26OMYI0hLmP1jhVHfNuPRMskbYDIoOS2xYBBWdS";
-			TwitterFacade.Init(empty, empty2);
-			FriendsController.NewTwitterLimitsAvailable += HandleNewTwitterLimitsAvailable;
-		}
 	}
 
 	private void Start()
@@ -467,7 +454,7 @@ public sealed class TwitterController : MonoBehaviour
 				1
 			}
 		};
-		_twitterFacade = new Lazy<TwitterFacadeBase>(InitializeFacade);
+		_twitterFacade = new Rilisoft.Lazy<TwitterFacadeBase>(InitializeFacade);
 	}
 
 	private static TwitterFacadeBase InitializeFacade()

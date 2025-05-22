@@ -256,7 +256,7 @@ public sealed class FirstPersonControlSharp : MonoBehaviour
 		base.enabled = false;
 	}
 
-	[RPC]
+	
 	[PunRPC]
 	private void setIp(string _ip)
 	{
@@ -676,7 +676,6 @@ public sealed class FirstPersonControlSharp : MonoBehaviour
 		{
 			num *= (_moveC.isZooming ? 0.2f : 1f);
 		}
-		UnityEngine.Debug.LogError(delta + " : " + num);
 		if (isFirstPersonCamera)
 		{
 			if (JoystickController.rightJoystick != null)

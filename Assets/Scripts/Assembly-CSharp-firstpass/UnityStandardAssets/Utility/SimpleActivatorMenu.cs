@@ -4,7 +4,7 @@ namespace UnityStandardAssets.Utility
 {
 	public class SimpleActivatorMenu : MonoBehaviour
 	{
-		public GUIText camSwitchButton;
+		public UnityEngine.UI.Text camSwitchButton;
 
 		public GameObject[] objects;
 

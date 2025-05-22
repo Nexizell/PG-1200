@@ -42,10 +42,6 @@ namespace Rilisoft
 				return 4;
 			case TextureFormat.ETC_RGB4:
 				return 4;
-			case TextureFormat.ATC_RGB4:
-				return 4;
-			case TextureFormat.ATC_RGBA8:
-				return 8;
 			case TextureFormat.BGRA32:
 				return 32;
 			default:

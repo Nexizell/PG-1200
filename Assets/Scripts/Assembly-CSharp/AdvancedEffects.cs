@@ -103,7 +103,7 @@ public sealed class AdvancedEffects : MonoBehaviour
 		}
 	}
 
-	[RPC]
+	
 	[PunRPC]
 	public void AdvancedEffectRPC(int effectIndex, float effectTime)
 	{
@@ -119,7 +119,7 @@ public sealed class AdvancedEffects : MonoBehaviour
 		ActivateAdvancedEffect((AdvancedEffect)effectIndex);
 	}
 
-	[RPC]
+	
 	[PunRPC]
 	public void AdvancedEffectWithSenderRPC(int effectIndex, float effectTime, int senderPixelID)
 	{

@@ -578,7 +578,7 @@ public class TurretController : MonoBehaviour, IDamageable
 		}
 	}
 
-	[RPC]
+	
 	[PunRPC]
 	public void SynchNumUpdateRPC(int _numUpdate)
 	{
@@ -629,7 +629,7 @@ public class TurretController : MonoBehaviour, IDamageable
 		}
 	}
 
-	[RPC]
+	
 	[PunRPC]
 	protected void ShotRPC()
 	{
@@ -694,7 +694,7 @@ public class TurretController : MonoBehaviour, IDamageable
 		photonView.RPC("SynchHealth", player, health);
 	}
 
-	[RPC]
+	
 	[PunRPC]
 	public void SynchHealth(float _health)
 	{
@@ -768,7 +768,7 @@ public class TurretController : MonoBehaviour, IDamageable
 		}
 	}
 
-	[RPC]
+	
 	[PunRPC]
 	public void MinusLiveRPC(float dm, int idKiller)
 	{
@@ -776,7 +776,7 @@ public class TurretController : MonoBehaviour, IDamageable
 	}
 
 	[PunRPC]
-	[RPC]
+	
 	public void MinusLiveRPC(float dm, bool isExplosion, int idKiller)
 	{
 		MinusLiveReal(dm, isExplosion, idKiller);
@@ -819,7 +819,7 @@ public class TurretController : MonoBehaviour, IDamageable
 	}
 
 	[PunRPC]
-	[RPC]
+	
 	public void MeKillRPC(int idKiller)
 	{
 		string nick = string.Empty;
@@ -867,14 +867,14 @@ public class TurretController : MonoBehaviour, IDamageable
 	}
 
 	[PunRPC]
-	[RPC]
+	
 	public void ImKilledRPC()
 	{
 		ImKilledRPCWithExplosion(false);
 	}
 
 	[PunRPC]
-	[RPC]
+	
 	public void ImKilledRPCWithExplosion(bool isExplosion)
 	{
 		if (isKilled)
@@ -960,7 +960,7 @@ public class TurretController : MonoBehaviour, IDamageable
 		}
 	}
 
-	[RPC]
+	
 	[PunRPC]
 	public void StartTurretRPC()
 	{

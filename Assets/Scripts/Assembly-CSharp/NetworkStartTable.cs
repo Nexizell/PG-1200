@@ -941,7 +941,7 @@ public sealed class NetworkStartTable : MonoBehaviour
 	}
 
 	[PunRPC]
-	[RPC]
+	
 	public void ImDeadInHungerGamesRPC()
 	{
 		isDeadInMiniGame = true;
@@ -968,7 +968,7 @@ public sealed class NetworkStartTable : MonoBehaviour
 		SynhScore();
 	}
 
-	[RPC]
+	
 	[PunRPC]
 	private void RunGame()
 	{
@@ -1320,7 +1320,7 @@ public sealed class NetworkStartTable : MonoBehaviour
 		StartCoroutine(StartPlayerCoroutine());
 	}
 
-	[RPC]
+	
 	[PunRPC]
 	public void CreateChestRPC(Vector3 pos, Quaternion rot)
 	{
@@ -1328,14 +1328,14 @@ public sealed class NetworkStartTable : MonoBehaviour
 	}
 
 	[PunRPC]
-	[RPC]
+	
 	private void SetPlayerUniqID(int uniqID)
 	{
 		playerUniqID = uniqID;
 	}
 
 	[PunRPC]
-	[RPC]
+	
 	private void SetPixelBookID(string _pixelBookID)
 	{
 		pixelBookID = _pixelBookID;
@@ -1370,7 +1370,7 @@ public sealed class NetworkStartTable : MonoBehaviour
 		}
 	}
 
-	[RPC]
+	
 	[PunRPC]
 	private void SynhNickNameRPC(string _nick)
 	{
@@ -1398,7 +1398,7 @@ public sealed class NetworkStartTable : MonoBehaviour
 		}
 	}
 
-	[RPC]
+	
 	[PunRPC]
 	private void SynhRanksRPC(int _ranks)
 	{
@@ -1420,7 +1420,7 @@ public sealed class NetworkStartTable : MonoBehaviour
 		}
 	}
 
-	[RPC]
+	
 	[PunRPC]
 	private void SynhCommandRPC(int _command, int _oldCommand)
 	{
@@ -1468,7 +1468,7 @@ public sealed class NetworkStartTable : MonoBehaviour
 	}
 
 	[PunRPC]
-	[RPC]
+	
 	private void SynhCountKillsRPC(int _countKills, int _oldCountKills)
 	{
 		CountKills = _countKills;
@@ -1509,7 +1509,7 @@ public sealed class NetworkStartTable : MonoBehaviour
 		}
 	}
 
-	[RPC]
+	
 	[PunRPC]
 	private void SynhScoreRPC(int _score, int _oldScore)
 	{
@@ -1715,7 +1715,7 @@ public sealed class NetworkStartTable : MonoBehaviour
 	}
 
 	[PunRPC]
-	[RPC]
+	
 	private void SetMyClanTexture(string str, string _clanID, string _clanName, string _clanLeaderId)
 	{
 		try
@@ -1736,7 +1736,7 @@ public sealed class NetworkStartTable : MonoBehaviour
 		myClanLeaderID = _clanLeaderId;
 	}
 
-	[RPC]
+	
 	[PunRPC]
 	private void SetMySkinFromName(string _skinName)
 	{
@@ -1745,7 +1745,7 @@ public sealed class NetworkStartTable : MonoBehaviour
 	}
 
 	[PunRPC]
-	[RPC]
+	
 	private void SetMySkin(byte[] _skinByte)
 	{
 		if (photonView == null || !Defs.isMulti)
@@ -1772,7 +1772,7 @@ public sealed class NetworkStartTable : MonoBehaviour
 		}
 	}
 
-	[RPC]
+	
 	[PunRPC]
 	private void SetMySkinLocal(string str1, string str2)
 	{
@@ -2263,7 +2263,7 @@ public sealed class NetworkStartTable : MonoBehaviour
 		photonView.RPC("winInHungerRPC", PhotonTargets.AllBuffered, NamePlayer);
 	}
 
-	[RPC]
+	
 	[PunRPC]
 	public void winInHungerRPC(string winner)
 	{
@@ -3393,7 +3393,7 @@ public sealed class NetworkStartTable : MonoBehaviour
 	}
 
 	[PunRPC]
-	[RPC]
+	
 	public void ClearScoreCommandInFlagGameRPC()
 	{
 		if (WeaponManager.sharedManager.myTable != null)
@@ -3412,7 +3412,7 @@ public sealed class NetworkStartTable : MonoBehaviour
 	}
 
 	[PunRPC]
-	[RPC]
+	
 	private void AddPaticleBazeRPC(int _command)
 	{
 		GameObject gameObject = GameObject.FindGameObjectWithTag("BazaZoneCommand" + _command);
@@ -3444,7 +3444,7 @@ public sealed class NetworkStartTable : MonoBehaviour
 	}
 
 	[PunRPC]
-	[RPC]
+	
 	private void SynchScoreCommandRPC(int _command, int _score)
 	{
 		GameObject[] array = GameObject.FindGameObjectsWithTag("NetworkTable");
@@ -3492,7 +3492,7 @@ public sealed class NetworkStartTable : MonoBehaviour
 	}
 
 	[PunRPC]
-	[RPC]
+	
 	private void SynchGameRating(int _rating)
 	{
 		gameRating = _rating;

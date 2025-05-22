@@ -402,14 +402,14 @@ public class TimeGameController : MonoBehaviour
 		PhotonNetwork.isMessageQueueRunning = true;
 	}
 
-	[RPC]
+	
 	[PunRPC]
 	private void SynchTimeEnd(float synchTime)
 	{
 		timeEndMatch = synchTime;
 	}
 
-	[RPC]
+	
 	[PunRPC]
 	private void SynchTimeServer(float synchTime)
 	{

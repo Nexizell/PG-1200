@@ -276,7 +276,7 @@ public sealed class TrainingController : MonoBehaviour
 
 	private GameObject weapon;
 
-	private readonly Lazy<PlayerArrowToPortalController> _directionArrow;
+	private readonly Rilisoft.Lazy<PlayerArrowToPortalController> _directionArrow;
 
 	public static bool ShouldSyncInLobbyAfterSkippingRancho { get; set; }
 
@@ -413,7 +413,7 @@ public sealed class TrainingController : MonoBehaviour
 
 	public TrainingController()
 	{
-		_directionArrow = new Lazy<PlayerArrowToPortalController>(delegate
+		_directionArrow = new Rilisoft.Lazy<PlayerArrowToPortalController>(delegate
 		{
 			GameObject gameObject = GameObject.FindWithTag("Player");
 			return (gameObject == null) ? null : gameObject.GetComponent<PlayerArrowToPortalController>();

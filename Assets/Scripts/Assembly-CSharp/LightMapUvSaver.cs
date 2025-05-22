@@ -71,7 +71,7 @@ public class LightMapUvSaver : MonoBehaviour
 		for (int i = 0; i < oldLightmaps.Length; i++)
 		{
 			array[i] = new LightmapData();
-			array[i].lightmapLight = oldLightmaps[i];
+			array[i].lightmapColor = oldLightmaps[i];
 		}
 		LightmapSettings.lightmaps = array;
 		LightmapSettings.lightmapsMode = LightmapsMode.NonDirectional;

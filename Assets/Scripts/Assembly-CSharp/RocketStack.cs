@@ -51,7 +51,7 @@ public class RocketStack : MonoBehaviour
 	public void ReturnRocket(GameObject returnObject)
 	{
 		Rigidbody component = returnObject.GetComponent<Rigidbody>();
-		component.velocity = Vector3.zero;
+		component.linearVelocity = Vector3.zero;
 		component.isKinematic = false;
 		component.useGravity = false;
 		component.angularVelocity = Vector3.zero;

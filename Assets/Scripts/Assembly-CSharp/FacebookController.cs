@@ -323,7 +323,7 @@ public class FacebookController : MonoBehaviour
 	{
 		get
 		{
-			return BuildSettings.BuildTargetPlatform != RuntimePlatform.MetroPlayerX64;
+			return false;
 		}
 	}
 
@@ -611,7 +611,7 @@ public class FacebookController : MonoBehaviour
 		}
 		try
 		{
-			FB.LogAppEvent(eventName, null, parameters);
+			//FB.LogAppEvent(eventName, null, parameters);
 		}
 		catch (Exception exception)
 		{

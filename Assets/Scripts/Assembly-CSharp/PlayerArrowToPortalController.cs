@@ -21,11 +21,11 @@ public sealed class PlayerArrowToPortalController : MonoBehaviour
 
 	private Transform _arrowToPortal;
 
-	private readonly Lazy<Transform> _arrowToPortalPoint;
+	private readonly Rilisoft.Lazy<Transform> _arrowToPortalPoint;
 
-	private readonly Lazy<Camera> _camera;
+	private readonly Rilisoft.Lazy<Camera> _camera;
 
-	private readonly Lazy<Camera> _grandpaCamera;
+	private readonly Rilisoft.Lazy<Camera> _grandpaCamera;
 
 	private Transform _poi;
 
@@ -35,7 +35,7 @@ public sealed class PlayerArrowToPortalController : MonoBehaviour
 
 	private static readonly Queue<GameObject> _arrowPool = new Queue<GameObject>();
 
-	private static readonly Lazy<UnityEngine.Object> _arrowPrefab = new Lazy<UnityEngine.Object>(() => Resources.Load("ArrowToPortal"));
+	private static readonly Rilisoft.Lazy<UnityEngine.Object> _arrowPrefab = new Rilisoft.Lazy<UnityEngine.Object>(() => Resources.Load("ArrowToPortal"));
 
 	internal Camera ParentCamera
 	{
@@ -55,9 +55,9 @@ public sealed class PlayerArrowToPortalController : MonoBehaviour
 
 	public PlayerArrowToPortalController()
 	{
-		_arrowToPortalPoint = new Lazy<Transform>(() => ArrowToPortalPoint.transform);
-		_camera = new Lazy<Camera>(() => ArrowToPortalPoint.GetComponentInParents<Camera>());
-		_grandpaCamera = new Lazy<Camera>(() => ParentCamera.transform.parent.gameObject.GetComponentInParents<Camera>());
+		_arrowToPortalPoint = new Rilisoft.Lazy<Transform>(() => ArrowToPortalPoint.transform);
+		_camera = new Rilisoft.Lazy<Camera>(() => ArrowToPortalPoint.GetComponentInParents<Camera>());
+		_grandpaCamera = new Rilisoft.Lazy<Camera>(() => ParentCamera.transform.parent.gameObject.GetComponentInParents<Camera>());
 	}
 
 	private void Update()

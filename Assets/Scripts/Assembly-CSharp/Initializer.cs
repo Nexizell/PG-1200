@@ -479,7 +479,7 @@ public sealed class Initializer : MonoBehaviour
 
 	public LoadingNGUIController _loadingNGUIController;
 
-	private static readonly Lazy<string> _separator = new Lazy<string>(InitialiseSeparatorWrapper);
+	private static readonly Rilisoft.Lazy<string> _separator = new Rilisoft.Lazy<string>(InitialiseSeparatorWrapper);
 
 	public static Initializer Instance { get; private set; }
 
@@ -792,7 +792,7 @@ public sealed class Initializer : MonoBehaviour
 		_gameSessionStopwatch.Start();
 	}
 
-	[RPC]
+	
 	[PunRPC]
 	private void SpawnOnNetwork(Vector3 pos, Quaternion rot, int id1, PhotonPlayer np)
 	{

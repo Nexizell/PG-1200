@@ -19,7 +19,7 @@ public sealed class ObjectPictFlag : MonoBehaviour
 
 	public void SetTexture(Texture _texture)
 	{
-		GetComponent<GUITexture>().texture = _texture;
+		GetComponent<UnityEngine.UI.RawImage>().texture = _texture;
 	}
 
 	private void Update()

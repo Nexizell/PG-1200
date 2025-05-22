@@ -990,8 +990,8 @@ public sealed class Rocket : MonoBehaviour
 		{
 			Vector3 normalized = (WeaponManager.sharedManager.myPlayerMoveC.GetPointAutoAim(thisTransform.position) - thisTransform.position).normalized;
 			myRigidbody.AddForce(normalized * 27f);
-			myRigidbody.velocity = myRigidbody.velocity.normalized * currentRocketSettings.autoRocketForce;
-			thisTransform.rotation = Quaternion.LookRotation(myRigidbody.velocity);
+			myRigidbody.linearVelocity = myRigidbody.linearVelocity.normalized * currentRocketSettings.autoRocketForce;
+			thisTransform.rotation = Quaternion.LookRotation(myRigidbody.linearVelocity);
 		}
 	}
 
@@ -1004,7 +1004,7 @@ public sealed class Rocket : MonoBehaviour
 		if (currentRocketSettings.typeFly == RocketSettings.TypeFlyRocket.HomingGrenade)
 		{
 			base.transform.rotation = Quaternion.Lerp(base.transform.rotation, Quaternion.Euler(0f, base.transform.rotation.eulerAngles.y, 0f), Time.deltaTime * 2f);
-			myRigidbody.velocity = Vector3.Lerp(myRigidbody.velocity, new Vector3(myRigidbody.velocity.x, 0f, myRigidbody.velocity.z), Time.deltaTime * 2f);
+			myRigidbody.linearVelocity = Vector3.Lerp(myRigidbody.linearVelocity, new Vector3(myRigidbody.linearVelocity.x, 0f, myRigidbody.linearVelocity.z), Time.deltaTime * 2f);
 		}
 		if (targetAutoHoming == null || IsKilledTarget(targetAutoHoming) || (targetAutoHoming.position - thisTransform.position).sqrMagnitude > (currentRocketSettings.raduisDetectTarget + 1f) * (currentRocketSettings.raduisDetectTarget + 1f))
 		{
@@ -1019,8 +1019,8 @@ public sealed class Rocket : MonoBehaviour
 			}
 			Vector3 normalized = (targetAutoHoming.position + vector - thisTransform.position).normalized;
 			myRigidbody.AddForce(normalized * 9f);
-			myRigidbody.velocity = myRigidbody.velocity.normalized * currentRocketSettings.autoRocketForce;
-			thisTransform.rotation = Quaternion.LookRotation(myRigidbody.velocity);
+			myRigidbody.linearVelocity = myRigidbody.linearVelocity.normalized * currentRocketSettings.autoRocketForce;
+			thisTransform.rotation = Quaternion.LookRotation(myRigidbody.linearVelocity);
 		}
 	}
 
@@ -1102,7 +1102,7 @@ public sealed class Rocket : MonoBehaviour
 		Vector3 normalized = (dronePoint - base.transform.position).normalized;
 		float sqrMagnitude = (dronePoint - base.transform.position).sqrMagnitude;
 		myRigidbody.AddForce(normalized * Mathf.Min(8f, sqrMagnitude));
-		myRigidbody.velocity = myRigidbody.velocity.normalized * Mathf.Clamp(sqrMagnitude, 0f, currentRocketSettings.autoRocketForce);
+		myRigidbody.linearVelocity = myRigidbody.linearVelocity.normalized * Mathf.Clamp(sqrMagnitude, 0f, currentRocketSettings.autoRocketForce);
 		if (lastToxicHit > Time.time)
 		{
 			return;
@@ -1209,7 +1209,7 @@ public sealed class Rocket : MonoBehaviour
 				continue;
 			}
 			Vector3 a = item.position - thisTransform.position;
-			if (!(Vector3.Angle(myRigidbody.velocity.normalized, a.normalized) > searchAngle))
+			if (!(Vector3.Angle(myRigidbody.linearVelocity.normalized, a.normalized) > searchAngle))
 			{
 				float num2 = Vector3.SqrMagnitude(a);
 				RaycastHit hitInfo;
@@ -1363,13 +1363,13 @@ public sealed class Rocket : MonoBehaviour
 	}
 
 	[PunRPC]
-	[RPC]
+	
 	public void SetRocketActive(string weapon, float _radiusImpulse, Vector3 pos)
 	{
 		SetRocketActiveWithCharge(weapon, _radiusImpulse, pos, 1f);
 	}
 
-	[RPC]
+	
 	[PunRPC]
 	public void SetRocketActiveWithCharge(string _weaponName, float _radiusImpulse, Vector3 pos, float _chargePower)
 	{
@@ -1477,7 +1477,7 @@ public sealed class Rocket : MonoBehaviour
 	}
 
 	[PunRPC]
-	[RPC]
+	
 	public void StartRocketRPC()
 	{
 		if (isThrowingGrenade && IsGrenadeWeaponName(weaponPrefabName) && myPlayerMoveC != null && myPlayerMoveC.myCurrentWeaponSounds != null && myPlayerMoveC.myCurrentWeaponSounds.fakeGrenade != null && base.transform.parent != null)
@@ -1550,7 +1550,7 @@ public sealed class Rocket : MonoBehaviour
 		if (!Defs.isMulti || isMine)
 		{
 			myRigidbody.useGravity = false;
-			myRigidbody.velocity += Vector3.up;
+			myRigidbody.linearVelocity += Vector3.up;
 			dronePoint = base.transform.position;
 			RaycastHit hitInfo;
 			if (Physics.Raycast(base.transform.position, Vector3.down, out hitInfo, 10000f, Player_move_c._ShootRaycastLayerMask) && hitInfo.distance < 4.5f)
@@ -1634,7 +1634,7 @@ public sealed class Rocket : MonoBehaviour
 	}
 
 	[PunRPC]
-	[RPC]
+	
 	public void SetRocketStickedRPC(Vector3 position)
 	{
 		base.transform.position = position;
@@ -1661,7 +1661,7 @@ public sealed class Rocket : MonoBehaviour
 	}
 
 	[PunRPC]
-	[RPC]
+	
 	public void SetRocketStickedToPlayerRPC(int pixelID, Vector3 relativePosition)
 	{
 		Player_move_c player_move_c = null;
@@ -1903,14 +1903,14 @@ public sealed class Rocket : MonoBehaviour
 		Collide(explosionName, thisTransform.position);
 	}
 
-	[RPC]
+	
 	[PunRPC]
 	private void CollideIndex(short _explosionIndex, Vector3 _pos)
 	{
 		Collide("Explosion" + _explosionIndex, _pos);
 	}
 
-	[RPC]
+	
 	[PunRPC]
 	private void Collide(string _explosionName, Vector3 _pos)
 	{
@@ -1949,7 +1949,7 @@ public sealed class Rocket : MonoBehaviour
 	}
 
 	[PunRPC]
-	[RPC]
+	
 	private void ShowExplosion(string explosionName)
 	{
 		if (currentRocketSettings == null)
@@ -2004,7 +2004,7 @@ public sealed class Rocket : MonoBehaviour
 		SetRocketDeactive();
 	}
 
-	[RPC]
+	
 	[PunRPC]
 	public void SetRocketDeactive()
 	{

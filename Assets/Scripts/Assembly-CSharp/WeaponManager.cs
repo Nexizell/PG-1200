@@ -4460,7 +4460,7 @@ public sealed class WeaponManager : MonoBehaviour
 		}
 		else
 		{
-			Lazy<string> lazy = new Lazy<string>(delegate
+			Rilisoft.Lazy<string> lazy = new Rilisoft.Lazy<string>(delegate
 			{
 				string value;
 				if (!tagToStoreIDMapping.TryGetValue(wtag, out value))

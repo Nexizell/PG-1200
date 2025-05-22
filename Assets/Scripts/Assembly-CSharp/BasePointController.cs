@@ -360,7 +360,7 @@ public class BasePointController : MonoBehaviour
 		}
 	}
 
-	[RPC]
+	
 	[PunRPC]
 	public void SinchCapture(int command)
 	{
@@ -376,7 +376,7 @@ public class BasePointController : MonoBehaviour
 		}
 	}
 
-	[RPC]
+	
 	[PunRPC]
 	private void AddPlayerInCapturePoint(int _viewId, float _time)
 	{
@@ -428,7 +428,7 @@ public class BasePointController : MonoBehaviour
 		}
 	}
 
-	[RPC]
+	
 	[PunRPC]
 	private void RemovePlayerInCapturePoint(int _viewId, float _time)
 	{
@@ -492,7 +492,7 @@ public class BasePointController : MonoBehaviour
 		}
 	}
 
-	[RPC]
+	
 	[PunRPC]
 	public void SynchCaptureCounterNewPlayer(int _viewId, bool isMaster, float _captureCounter, int _captureCommand)
 	{
@@ -504,7 +504,7 @@ public class BasePointController : MonoBehaviour
 		}
 	}
 
-	[RPC]
+	
 	[PunRPC]
 	private void SynchCaptureCounter(float _captureCounter)
 	{

@@ -13,7 +13,7 @@ internal sealed class FyberFacade
 
 	private readonly LinkedList<Task<Ad>> _requests = new LinkedList<Task<Ad>>();
 
-	private static readonly Lazy<FyberFacade> _instance = new Lazy<FyberFacade>(() => new FyberFacade());
+	private static readonly Rilisoft.Lazy<FyberFacade> _instance = new Rilisoft.Lazy<FyberFacade>(() => new FyberFacade());
 
 	public static FyberFacade Instance
 	{
@@ -215,7 +215,7 @@ internal sealed class FyberFacade
 				Action<AdResult> adFinished = null;
 				adFinished = delegate(AdResult adResult)
 				{
-					Lazy<string> lazy = new Lazy<string>(() => string.Format("[Rilisoft] Ad show finished: {{ format: {0}, status: {1}, message: '{2}' }}", new object[3] { adResult.AdFormat, adResult.Status, adResult.Message }));
+					Rilisoft.Lazy<string> lazy = new Rilisoft.Lazy<string>(() => string.Format("[Rilisoft] Ad show finished: {{ format: {0}, status: {1}, message: '{2}' }}", new object[3] { adResult.AdFormat, adResult.Status, adResult.Message }));
 					if (adResult.Status == AdStatus.Error)
 					{
 						Debug.LogWarning(lazy.Value);

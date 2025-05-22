@@ -426,7 +426,7 @@ public sealed class LeaderboardsView : MonoBehaviour
 
 	private bool _leagueTopFooterActive;
 
-	private readonly Lazy<UIPanel> _leaderboardsPanel;
+	private readonly Rilisoft.Lazy<UIPanel> _leaderboardsPanel;
 
 	private bool _prepared;
 
@@ -464,12 +464,12 @@ public sealed class LeaderboardsView : MonoBehaviour
 			if (clansButton != null)
 			{
 				clansButton.isEnabled = value != State.Clans;
-				Transform transform = clansButton.gameObject.transform.FindChild("SpriteLabel");
+				Transform transform = clansButton.gameObject.transform.Find("SpriteLabel");
 				if (transform != null)
 				{
 					transform.gameObject.SetActive(value != State.Clans);
 				}
-				Transform transform2 = clansButton.gameObject.transform.FindChild("ChekmarkLabel");
+				Transform transform2 = clansButton.gameObject.transform.Find("ChekmarkLabel");
 				if (transform2 != null)
 				{
 					transform2.gameObject.SetActive(value == State.Clans);
@@ -486,12 +486,12 @@ public sealed class LeaderboardsView : MonoBehaviour
 			if (friendsButton != null)
 			{
 				friendsButton.isEnabled = value != State.Friends;
-				Transform transform3 = friendsButton.gameObject.transform.FindChild("SpriteLabel");
+				Transform transform3 = friendsButton.gameObject.transform.Find("SpriteLabel");
 				if (transform3 != null)
 				{
 					transform3.gameObject.SetActive(value != State.Friends);
 				}
-				Transform transform4 = friendsButton.gameObject.transform.FindChild("ChekmarkLabel");
+				Transform transform4 = friendsButton.gameObject.transform.Find("ChekmarkLabel");
 				if (transform4 != null)
 				{
 					transform4.gameObject.SetActive(value == State.Friends);
@@ -500,12 +500,12 @@ public sealed class LeaderboardsView : MonoBehaviour
 			if (bestPlayersButton != null)
 			{
 				bestPlayersButton.isEnabled = value != State.BestPlayers;
-				Transform transform5 = bestPlayersButton.gameObject.transform.FindChild("SpriteLabel");
+				Transform transform5 = bestPlayersButton.gameObject.transform.Find("SpriteLabel");
 				if (transform5 != null)
 				{
 					transform5.gameObject.SetActive(value != State.BestPlayers);
 				}
-				Transform transform6 = bestPlayersButton.gameObject.transform.FindChild("ChekmarkLabel");
+				Transform transform6 = bestPlayersButton.gameObject.transform.Find("ChekmarkLabel");
 				if (transform6 != null)
 				{
 					transform6.gameObject.SetActive(value == State.BestPlayers);
@@ -522,12 +522,12 @@ public sealed class LeaderboardsView : MonoBehaviour
 			if (tournamentButton != null)
 			{
 				tournamentButton.isEnabled = value != State.Tournament;
-				Transform transform7 = tournamentButton.gameObject.transform.FindChild("SpriteLabel");
+				Transform transform7 = tournamentButton.gameObject.transform.Find("SpriteLabel");
 				if (transform7 != null)
 				{
 					transform7.gameObject.SetActive(value != State.Tournament);
 				}
-				Transform transform8 = tournamentButton.gameObject.transform.FindChild("ChekmarkLabel");
+				Transform transform8 = tournamentButton.gameObject.transform.Find("ChekmarkLabel");
 				if (transform8 != null)
 				{
 					transform8.gameObject.SetActive(value == State.Tournament);
@@ -536,12 +536,12 @@ public sealed class LeaderboardsView : MonoBehaviour
 			if (craftersButton != null)
 			{
 				craftersButton.isEnabled = value != State.Crafters;
-				Transform transform9 = craftersButton.gameObject.transform.FindChild("SpriteLabel");
+				Transform transform9 = craftersButton.gameObject.transform.Find("SpriteLabel");
 				if (transform9 != null)
 				{
 					transform9.gameObject.SetActive(value != State.Crafters);
 				}
-				Transform transform10 = craftersButton.gameObject.transform.FindChild("ChekmarkLabel");
+				Transform transform10 = craftersButton.gameObject.transform.Find("ChekmarkLabel");
 				if (transform10 != null)
 				{
 					transform10.gameObject.SetActive(value == State.Crafters);
@@ -642,7 +642,7 @@ public sealed class LeaderboardsView : MonoBehaviour
 
 	public LeaderboardsView()
 	{
-		_leaderboardsPanel = new Lazy<UIPanel>(base.GetComponent<UIPanel>);
+		_leaderboardsPanel = new Rilisoft.Lazy<UIPanel>(base.GetComponent<UIPanel>);
 	}
 
 	public void SetOverallTopFooterActive()

@@ -1,7 +1,7 @@
 using System;
 using UnityEngine.SocialPlatforms;
 
-public class AGSSocialLeaderboard : ILeaderboard
+public class AGSSocialLeaderboard
 {
 	private readonly AGSLeaderboard leaderboard;
 
@@ -23,7 +23,7 @@ public class AGSSocialLeaderboard : ILeaderboard
 
 	public UserScope userScope { get; set; }
 
-	public Range range { get; set; }
+	public UnityEngine.SocialPlatforms.Range range { get; set; }
 
 	public TimeScope timeScope
 	{

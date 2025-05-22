@@ -190,7 +190,7 @@ public class FlagController : MonoBehaviour
 		photonView.RPC("GoBazaRPC", PhotonTargets.All);
 	}
 
-	[RPC]
+	
 	[PunRPC]
 	public void GoBazaRPC()
 	{
@@ -208,7 +208,7 @@ public class FlagController : MonoBehaviour
 		photonView.RPC("SetCaptureRPC", PhotonTargets.All, _viewIdCapture);
 	}
 
-	[RPC]
+	
 	[PunRPC]
 	public void SetCaptureRPC(int _viewIdCapture)
 	{
@@ -232,7 +232,7 @@ public class FlagController : MonoBehaviour
 	}
 
 	[PunRPC]
-	[RPC]
+	
 	public void SetNOCaptureRPC(Vector3 pos, Quaternion rot)
 	{
 		isCapture = false;
@@ -244,7 +244,7 @@ public class FlagController : MonoBehaviour
 		targetTrasform = null;
 	}
 
-	[RPC]
+	
 	[PunRPC]
 	public void SetNOCaptureRPCNewPlayer(int idNewPlayer, Vector3 pos, Quaternion rot, bool _isBaza)
 	{
@@ -259,7 +259,7 @@ public class FlagController : MonoBehaviour
 		}
 	}
 
-	[RPC]
+	
 	[PunRPC]
 	public void SetCaptureRPCNewPlayer(int idNewPlayer, int _viewIdCapture)
 	{
@@ -274,7 +274,7 @@ public class FlagController : MonoBehaviour
 	}
 
 	[PunRPC]
-	[RPC]
+	
 	public void SetMasterSeverIDRPC(int _id)
 	{
 		masterServerID = _id;

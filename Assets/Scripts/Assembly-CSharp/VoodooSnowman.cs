@@ -109,7 +109,7 @@ public class VoodooSnowman : TurretController
 	}
 
 	[PunRPC]
-	[RPC]
+	
 	public void SetTargetRPC()
 	{
 		myPlayerInTarget = true;

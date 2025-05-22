@@ -75,7 +75,7 @@ namespace UnityStandardAssets.Utility
 					_003C_003E4__this.transform.rotation = _003C_003E4__this.originalRotation;
 					if ((bool)_003C_003E4__this.Rigidbody)
 					{
-						_003C_003E4__this.Rigidbody.velocity = Vector3.zero;
+						_003C_003E4__this.Rigidbody.linearVelocity = Vector3.zero;
 						_003C_003E4__this.Rigidbody.angularVelocity = Vector3.zero;
 					}
 					_003C_003E4__this.SendMessage("Reset");
@@ -133,7 +133,7 @@ namespace UnityStandardAssets.Utility
 			this.transform.rotation = originalRotation;
 			if ((bool)Rigidbody)
 			{
-				Rigidbody.velocity = Vector3.zero;
+				Rigidbody.linearVelocity = Vector3.zero;
 				Rigidbody.angularVelocity = Vector3.zero;
 			}
 			SendMessage("Reset");

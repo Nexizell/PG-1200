@@ -433,12 +433,12 @@ namespace Edelweiss.DecalSystem
 
 		private void AddUnoptimized(Vector3[] a_Vertices, Vector3[] a_Normals, Vector4[] a_Tangents, Vector2[] a_UVs, Vector2[] a_UV2s, BoneWeight[] a_BoneWeights, int[] a_Triangles, int a_BoneIndexOffset, Matrix4x4[] a_BindPoses, SkinQuality a_SkinQuality, Vector3 a_ReversedProjectionNormal, float a_CullingDotProduct, Matrix4x4 a_WorldToDecalsMatrix, Matrix4x4 a_MeshToDecalsMatrix, Matrix4x4 a_MeshToDecalsMatrixInvertedTransposed)
 		{
-			if (a_SkinQuality == SkinQuality.Bone1 || (a_SkinQuality == SkinQuality.Auto && QualitySettings.blendWeights == BlendWeights.OneBone))
+			if (a_SkinQuality == SkinQuality.Bone1 || (a_SkinQuality == SkinQuality.Auto && QualitySettings.skinWeights == SkinWeights.OneBone))
 			{
 				AddUnoptimizedSkinQuality1(a_Vertices, a_Normals, a_Tangents, a_UVs, a_UV2s, a_BoneWeights, a_Triangles, a_BoneIndexOffset, a_BindPoses, a_ReversedProjectionNormal, a_CullingDotProduct, a_WorldToDecalsMatrix, a_MeshToDecalsMatrix, a_MeshToDecalsMatrixInvertedTransposed);
 				return;
 			}
-			if (a_SkinQuality == SkinQuality.Bone2 || (a_SkinQuality == SkinQuality.Auto && QualitySettings.blendWeights == BlendWeights.TwoBones))
+			if (a_SkinQuality == SkinQuality.Bone2 || (a_SkinQuality == SkinQuality.Auto && QualitySettings.skinWeights == SkinWeights.TwoBones))
 			{
 				AddUnoptimizedSkinQuality2(a_Vertices, a_Normals, a_Tangents, a_UVs, a_UV2s, a_BoneWeights, a_Triangles, a_BoneIndexOffset, a_BindPoses, a_ReversedProjectionNormal, a_CullingDotProduct, a_WorldToDecalsMatrix, a_MeshToDecalsMatrix, a_MeshToDecalsMatrixInvertedTransposed);
 				return;
@@ -446,7 +446,7 @@ namespace Edelweiss.DecalSystem
 			switch (a_SkinQuality)
 			{
 			case SkinQuality.Auto:
-				if (QualitySettings.blendWeights != BlendWeights.FourBones)
+				if (QualitySettings.skinWeights != SkinWeights.FourBones)
 				{
 					break;
 				}

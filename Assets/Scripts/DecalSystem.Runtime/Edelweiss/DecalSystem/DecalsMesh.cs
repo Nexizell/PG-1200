@@ -539,8 +539,8 @@ namespace Edelweiss.DecalSystem
 			int count2 = base.Triangles.Count;
 			if (num < num3 && num2 < num4)
 			{
-				float num5 = 1f / (float)(terrainData.heightmapWidth - 1);
-				float num6 = 1f / (float)(terrainData.heightmapHeight - 1);
+				float num5 = 1f / (float)(terrainData.heightmapResolution - 1);
+				float num6 = 1f / (float)(terrainData.heightmapResolution - 1);
 				for (int i = num; i <= num3; i++)
 				{
 					float x2 = (float)i * heightmapScale.x;

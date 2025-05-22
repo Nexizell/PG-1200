@@ -2329,8 +2329,8 @@ public class ConnectScene : MonoBehaviour
 		component.normalSprite = "yell_btn";
 		component.hoverSprite = "yell_btn";
 		component.pressedSprite = "green_btn_n";
-		butToogle.transform.FindChild("LockedSprite").gameObject.SetActive(false);
-		butToogle.transform.FindChild("Checkmark").GetComponent<UISprite>().spriteName = "green_btn";
+		butToogle.transform.Find("LockedSprite").gameObject.SetActive(false);
+		butToogle.transform.Find("Checkmark").GetComponent<UISprite>().spriteName = "green_btn";
 	}
 
 	public void SetRegimDeathmatch(object sender, EventArgs e)

@@ -773,7 +773,7 @@ public sealed class SkinName : MonoBehaviour
 	}
 
 	[PunRPC]
-	[RPC]
+	
 	public void SetAnim(int _typeAnim, bool stealth)
 	{
 		string animation = "Idle";
@@ -894,7 +894,7 @@ public sealed class SkinName : MonoBehaviour
 		}
 	}
 
-	[RPC]
+	
 	[PunRPC]
 	private void SetAnim(int _typeAnim)
 	{
@@ -916,7 +916,7 @@ public sealed class SkinName : MonoBehaviour
 		}
 	}
 
-	[RPC]
+	
 	private void setCapeCustomRPCLocal(string str)
 	{
 		byte[] data = Convert.FromBase64String(str);
@@ -970,7 +970,7 @@ public sealed class SkinName : MonoBehaviour
 	}
 
 	[PunRPC]
-	[RPC]
+	
 	private void setCapeRPC(string _currentCape)
 	{
 		SetCapeModel(_currentCape, null, _currentIsWearInvisible);
@@ -995,7 +995,7 @@ public sealed class SkinName : MonoBehaviour
 	}
 
 	[PunRPC]
-	[RPC]
+	
 	private void SetArmorVisInvisibleRPC(string _currentArmor, bool _isInviseble)
 	{
 		if (armorPoint.transform.childCount > 0)
@@ -1065,7 +1065,7 @@ public sealed class SkinName : MonoBehaviour
 	}
 
 	[PunRPC]
-	[RPC]
+	
 	private void setBootsRPC(string _currentBoots)
 	{
 		SetBoots(_currentBoots, _currentIsWearInvisible);
@@ -1117,7 +1117,7 @@ public sealed class SkinName : MonoBehaviour
 		}
 	}
 
-	[RPC]
+	
 	[PunRPC]
 	private void SetMaskRPC(string _currentMask)
 	{
@@ -1167,7 +1167,7 @@ public sealed class SkinName : MonoBehaviour
 		}
 	}
 
-	[RPC]
+	
 	[PunRPC]
 	private void SetHatWithInvisebleRPC(string _currentHat, bool _isHatInviseble)
 	{
@@ -1439,7 +1439,7 @@ public sealed class SkinName : MonoBehaviour
 		}
 	}
 
-	[RPC]
+	
 	[PunRPC]
 	private void SetWearIsInvisibleRPC(bool isInvisible)
 	{
@@ -1450,7 +1450,7 @@ public sealed class SkinName : MonoBehaviour
 		SetHat(currentHat, _currentIsWearInvisible);
 	}
 
-	[RPC]
+	
 	[PunRPC]
 	private void SetPetRPC(string _currentPet)
 	{
@@ -1493,7 +1493,7 @@ public sealed class SkinName : MonoBehaviour
 		}
 	}
 
-	[RPC]
+	
 	[PunRPC]
 	private void SetGadgetesRPC(string _currentGadgetSupport, string _currentGadgetTrowing, string _currentGadgetTools)
 	{

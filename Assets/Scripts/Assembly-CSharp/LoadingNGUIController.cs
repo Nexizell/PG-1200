@@ -158,6 +158,6 @@ public sealed class LoadingNGUIController : MonoBehaviour
 
 	private void OnDestroy()
 	{
-		loadingNGUITexture = null;
+		loadingNGUITexture= null;
 	}
 }

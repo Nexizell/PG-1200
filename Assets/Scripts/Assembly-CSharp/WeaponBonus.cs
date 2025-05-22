@@ -109,7 +109,7 @@ public class WeaponBonus : Photon.MonoBehaviour
 	}
 
 	[PunRPC]
-	[RPC]
+	
 	public void DestroyRPC()
 	{
 		if (PhotonNetwork.isMasterClient)

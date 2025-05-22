@@ -1937,7 +1937,7 @@ public sealed class Player_move_c : MonoBehaviour
 
 	public void WalkAnimation()
 	{
-		if (_singleOrMultiMine() || GameConnect.isDeathEscape || (GameConnect.isDaterRegim && isBearActive))
+		/*if (_singleOrMultiMine() || GameConnect.isDeathEscape || (GameConnect.isDaterRegim && isBearActive))
 		{
 			if (!GameConnect.isDaterRegim && isMechActive && !mechGunAnimation.IsPlaying("Shoot") && !mechGunAnimation.IsPlaying("Shoot1") && !mechGunAnimation.IsPlaying("Shoot2"))
 			{
@@ -1947,7 +1947,7 @@ public sealed class Player_move_c : MonoBehaviour
 			{
 				_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().CrossFade("Walk");
 			}
-		}
+		}*/
 	}
 
 	public void IdleAnimation()
@@ -2713,9 +2713,9 @@ public sealed class Player_move_c : MonoBehaviour
 					}
 				}
 			}
-			if (this.transform.FindChild("BulletSpawnPoint") != null)
+			if (this.transform.Find("BulletSpawnPoint") != null)
 			{
-				_bulletSpawnPoint = this.transform.FindChild("BulletSpawnPoint").gameObject;
+				_bulletSpawnPoint = this.transform.Find("BulletSpawnPoint").gameObject;
 			}
 			this.transform.localPosition = new Vector3(0f, 0.4f, 0f);
 			gameObject.transform.localPosition = new Vector3(0f, -1.4f, 0f);
@@ -3237,26 +3237,32 @@ public sealed class Player_move_c : MonoBehaviour
 				allAvailablePlayerWeapon.currentAmmoInBackpack = allAvailablePlayerWeapon.weaponPrefab.GetComponent<WeaponSounds>().InitialAmmoWithEffectsApplied;
 			}
 		}
-		if (!isMulti || isMine)
+		try
 		{
-			GameObject original2 = Resources.Load("Damage") as GameObject;
-			damage = UnityEngine.Object.Instantiate(original2);
-			Color color = damage.GetComponent<GUITexture>().color;
-			color.a = 0f;
-			damage.GetComponent<GUITexture>().color = color;
-		}
-		if (!isMulti || isMine)
-		{
-			GameObject gameObject3 = GameObject.FindGameObjectWithTag("GameController");
-			if (gameObject3 != null)
+			if (!isMulti || isMine)
 			{
-				_pauser = gameObject3.GetComponent<Pauser>();
-			}
-			if (_pauser == null)
-			{
-				UnityEngine.Debug.LogWarning("Start(): _pauser is null.");
+				GameObject original2 = Resources.Load("Damage") as GameObject;
+				damage = UnityEngine.Object.Instantiate(original2);
+				Color color = damage.GetComponent<UnityEngine.UI.RawImage>().color;
+				color.a = 0f;
+				damage.GetComponent<UnityEngine.UI.RawImage>().color = color;
 			}
 		}
+		catch
+		{
+		}
+		if (!isMulti || isMine)
+			{
+				GameObject gameObject3 = GameObject.FindGameObjectWithTag("GameController");
+				if (gameObject3 != null)
+				{
+					_pauser = gameObject3.GetComponent<Pauser>();
+				}
+				if (_pauser == null)
+				{
+					UnityEngine.Debug.LogWarning("Start(): _pauser is null.");
+				}
+			}
 		if (_singleOrMultiMine())
 		{
 			numberOfGrenadesOnStart.Value = ((!GameConnect.isHunger) ? ((TrainingController.TrainingCompleted || TrainingController.CompletedTrainingStage != 0) ? Storager.getInt(GameConnect.isDaterRegim ? "LikeID" : "GrenadeID") : 0) : 0);
@@ -4244,7 +4250,7 @@ public sealed class Player_move_c : MonoBehaviour
 			UnityEngine.Debug.LogWarningFormat("{0}: currentObject == null", GetType().Name);
 			yield break;
 		}
-		GUITexture texture = currentObject.GetComponent<GUITexture>();
+		UnityEngine.UI.RawImage texture = currentObject.GetComponent<UnityEngine.UI.RawImage>();
 		for (float i = 0f; i < 1f; i += Time.deltaTime / length)
 		{
 			if (texture == null)
@@ -7977,9 +7983,9 @@ public sealed class Player_move_c : MonoBehaviour
 	private IEnumerator FlashWhenHit()
 	{
 		damageShown = true;
-		Color color = damage.GetComponent<GUITexture>().color;
+		Color color = damage.GetComponent<UnityEngine.UI.RawImage>().color;
 		color.a = 0f;
-		damage.GetComponent<GUITexture>().color = color;
+		damage.GetComponent<UnityEngine.UI.RawImage>().color = color;
 		float danageTime = 0.15f;
 		yield return StartCoroutine(Fade(0f, 1f, danageTime, damage));
 		yield return new WaitForSeconds(0.01f);
@@ -7990,9 +7996,9 @@ public sealed class Player_move_c : MonoBehaviour
 	private IEnumerator FlashWhenDead()
 	{
 		damageShown = true;
-		Color color = damage.GetComponent<GUITexture>().color;
+		Color color = damage.GetComponent<UnityEngine.UI.RawImage>().color;
 		color.a = 0f;
-		damage.GetComponent<GUITexture>().color = color;
+		damage.GetComponent<UnityEngine.UI.RawImage>().color = color;
 		float danageTime = 0.15f;
 		yield return StartCoroutine(Fade(0f, 1f, danageTime, damage));
 		while (isDeadFrame)

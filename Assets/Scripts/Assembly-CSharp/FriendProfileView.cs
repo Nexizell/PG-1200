@@ -315,7 +315,7 @@ public sealed class FriendProfileView : MonoBehaviour
 
 	private float idleTimerLastTime;
 
-	private readonly Lazy<Rect> _touchZone = new Lazy<Rect>(() => new Rect(0f, 0.1f * (float)Screen.height, 0.5f * (float)Screen.width, 0.8f * (float)Screen.height));
+	private readonly Rilisoft.Lazy<Rect> _touchZone = new Rilisoft.Lazy<Rect>(() => new Rect(0f, 0.1f * (float)Screen.height, 0.5f * (float)Screen.width, 0.8f * (float)Screen.height));
 
 	private static Vector3 initialRot = new Vector3(0f, -180f, 0f);
 

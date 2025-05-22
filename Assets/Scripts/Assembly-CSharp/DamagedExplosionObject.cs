@@ -93,7 +93,7 @@ public class DamagedExplosionObject : BaseExplosionObject, IDamageable
 		}
 	}
 
-	[RPC]
+	
 	[PunRPC]
 	private void SetVisibleFireEffectRpc(bool visible)
 	{

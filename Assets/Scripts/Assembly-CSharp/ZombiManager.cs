@@ -79,7 +79,7 @@ public sealed class ZombiManager : MonoBehaviour
 		}
 	}
 
-	[RPC]
+	
 	[PunRPC]
 	private void synchTime(float _time)
 	{

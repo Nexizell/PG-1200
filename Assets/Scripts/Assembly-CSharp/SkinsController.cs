@@ -331,9 +331,10 @@ public sealed class SkinsController : MonoBehaviour
 	}
 
 	public static string StringFromTexture(Texture2D _texture)
-	{
-		return Convert.ToBase64String(_texture.EncodeToPNG());
-	}
+    {
+        byte[] inArray = _texture.EncodeToPNG();
+        return Convert.ToBase64String(inArray);
+    }
 
 	public IEnumerable<float> LoadSkinsInTexture()
 	{

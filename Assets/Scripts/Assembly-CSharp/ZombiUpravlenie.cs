@@ -329,20 +329,20 @@ public sealed class ZombiUpravlenie : MonoBehaviour
 	}
 
 	[PunRPC]
-	[RPC]
+	
 	private void setHealthRPC(float _health)
 	{
 		health = _health;
 	}
 
-	[RPC]
+	
 	[PunRPC]
 	private void flashRPC()
 	{
 		StartCoroutine(Flash());
 	}
 
-	[RPC]
+	
 	[PunRPC]
 	public void SlowdownRPC(float coef)
 	{
@@ -424,7 +424,7 @@ public sealed class ZombiUpravlenie : MonoBehaviour
 		photonView.RPC("setIdRPC", PhotonTargets.All, _id);
 	}
 
-	[RPC]
+	
 	[PunRPC]
 	public void setIdRPC(int _id)
 	{
@@ -558,7 +558,7 @@ public sealed class ZombiUpravlenie : MonoBehaviour
 	}
 
 	[PunRPC]
-	[RPC]
+	
 	private void Death()
 	{
 		if (!GameConnect.isCOOP)
@@ -648,7 +648,7 @@ public sealed class ZombiUpravlenie : MonoBehaviour
 		tekAnim = 2;
 	}
 
-	[RPC]
+	
 	[PunRPC]
 	public void PlayZombieRunRPC()
 	{
@@ -659,7 +659,7 @@ public sealed class ZombiUpravlenie : MonoBehaviour
 		tekAnim = 1;
 	}
 
-	[RPC]
+	
 	[PunRPC]
 	public void PlayZombieAttackRPC()
 	{

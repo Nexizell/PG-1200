@@ -261,15 +261,15 @@ public sealed class LeaderboardScript : MonoBehaviour
 					{
 						if (_003C_003E4__this.LeaderboardView.InTournamentTop)
 						{
-							_003C_003E4__this.FooterTableTournament.transform.FindChild("LabelPlace").Map((Transform t) => t.gameObject.GetComponent<UILabel>()).Do(delegate(UILabel n)
+							_003C_003E4__this.FooterTableTournament.transform.Find("LabelPlace").Map((Transform t) => t.gameObject.GetComponent<UILabel>()).Do(delegate(UILabel n)
 							{
 								n.text = LocalizationStore.Get("Key_0053");
 							});
-							_003C_003E4__this.FooterTableTournament.transform.FindChild("LabelNick").Map((Transform t) => t.gameObject.GetComponent<UILabel>()).Do(delegate(UILabel n)
+							_003C_003E4__this.FooterTableTournament.transform.Find("LabelNick").Map((Transform t) => t.gameObject.GetComponent<UILabel>()).Do(delegate(UILabel n)
 							{
 								n.text = _003C_003E8__2.me.Nickname;
 							});
-							_003C_003E4__this.FooterTableTournament.transform.FindChild("LabelWins").Map((Transform t) => t.gameObject.GetComponent<UILabel>()).Do(delegate(UILabel n)
+							_003C_003E4__this.FooterTableTournament.transform.Find("LabelWins").Map((Transform t) => t.gameObject.GetComponent<UILabel>()).Do(delegate(UILabel n)
 							{
 								n.text = RatingSystem.instance.currentRating.ToString();
 							});
@@ -301,19 +301,19 @@ public sealed class LeaderboardScript : MonoBehaviour
 						{
 							LeaderboardItemViewModel leaderboardItemViewModel4 = list7.FirstOrDefault((LeaderboardItemViewModel c) => c.Id == CS_0024_003C_003E8__locals0.clanId);
 							_003C_003E4__this.LeaderboardView.CanShowClanTableFooter = leaderboardItemViewModel4 == null;
-							_003C_003E4__this.ClansTableFooter.transform.FindChild("LabelPlace").Map((Transform t) => t.gameObject.GetComponent<UILabel>()).Do(delegate(UILabel n)
+							_003C_003E4__this.ClansTableFooter.transform.Find("LabelPlace").Map((Transform t) => t.gameObject.GetComponent<UILabel>()).Do(delegate(UILabel n)
 							{
 								n.text = LocalizationStore.Get("Key_0053");
 							});
-							_003C_003E4__this.ClansTableFooter.transform.FindChild("LabelMembers").Map((Transform t) => t.gameObject.GetComponent<UILabel>()).Do(delegate(UILabel n)
+							_003C_003E4__this.ClansTableFooter.transform.Find("LabelMembers").Map((Transform t) => t.gameObject.GetComponent<UILabel>()).Do(delegate(UILabel n)
 							{
 								n.text = string.Empty;
 							});
-							_003C_003E4__this.ClansTableFooter.transform.FindChild("LabelWins").Map((Transform t) => t.gameObject.GetComponent<UILabel>()).Do(delegate(UILabel w)
+							_003C_003E4__this.ClansTableFooter.transform.Find("LabelWins").Map((Transform t) => t.gameObject.GetComponent<UILabel>()).Do(delegate(UILabel w)
 							{
 								w.text = string.Empty;
 							});
-							UILabel o = _003C_003E4__this.ClansTableFooter.transform.FindChild("LabelNick").Map((Transform t) => t.gameObject.GetComponent<UILabel>());
+							UILabel o = _003C_003E4__this.ClansTableFooter.transform.Find("LabelNick").Map((Transform t) => t.gameObject.GetComponent<UILabel>());
 							o.Do(delegate(UILabel cl)
 							{
 								cl.text = FriendsController.sharedController.Map((FriendsController s) => s.clanName, string.Empty);
@@ -1883,7 +1883,7 @@ public sealed class LeaderboardScript : MonoBehaviour
 
 	private bool _isInit;
 
-	private Lazy<MainMenuController> _mainMenuController;
+	private Rilisoft.Lazy<MainMenuController> _mainMenuController;
 
 	private TaskCompletionSource<bool> _returnPromise = new TaskCompletionSource<bool>();
 
@@ -2153,7 +2153,7 @@ public sealed class LeaderboardScript : MonoBehaviour
 	{
 		if (ClansTableFooter != null)
 		{
-			ClansTableFooter.transform.FindChild("LabelPlace").Map((Transform t) => t.gameObject.GetComponent<UILabel>()).Do(delegate(UILabel n)
+			ClansTableFooter.transform.Find("LabelPlace").Map((Transform t) => t.gameObject.GetComponent<UILabel>()).Do(delegate(UILabel n)
 			{
 				n.text = LocalizationStore.Get("Key_0053");
 			});
@@ -2327,15 +2327,15 @@ public sealed class LeaderboardScript : MonoBehaviour
 			{
 				if (LeaderboardView.InTournamentTop)
 				{
-					FooterTableTournament.transform.FindChild("LabelPlace").Map((Transform t) => t.gameObject.GetComponent<UILabel>()).Do(delegate(UILabel n)
+					FooterTableTournament.transform.Find("LabelPlace").Map((Transform t) => t.gameObject.GetComponent<UILabel>()).Do(delegate(UILabel n)
 					{
 						n.text = LocalizationStore.Get("Key_0053");
 					});
-					FooterTableTournament.transform.FindChild("LabelNick").Map((Transform t) => t.gameObject.GetComponent<UILabel>()).Do(delegate(UILabel n)
+					FooterTableTournament.transform.Find("LabelNick").Map((Transform t) => t.gameObject.GetComponent<UILabel>()).Do(delegate(UILabel n)
 					{
 						n.text = me.Nickname;
 					});
-					FooterTableTournament.transform.FindChild("LabelWins").Map((Transform t) => t.gameObject.GetComponent<UILabel>()).Do(delegate(UILabel n)
+					FooterTableTournament.transform.Find("LabelWins").Map((Transform t) => t.gameObject.GetComponent<UILabel>()).Do(delegate(UILabel n)
 					{
 						n.text = RatingSystem.instance.currentRating.ToString();
 					});
@@ -2364,19 +2364,19 @@ public sealed class LeaderboardScript : MonoBehaviour
 				{
 					LeaderboardItemViewModel leaderboardItemViewModel5 = list9.FirstOrDefault((LeaderboardItemViewModel c) => c.Id == clanId);
 					LeaderboardView.CanShowClanTableFooter = leaderboardItemViewModel5 == null;
-					ClansTableFooter.transform.FindChild("LabelPlace").Map((Transform t) => t.gameObject.GetComponent<UILabel>()).Do(delegate(UILabel n)
+					ClansTableFooter.transform.Find("LabelPlace").Map((Transform t) => t.gameObject.GetComponent<UILabel>()).Do(delegate(UILabel n)
 					{
 						n.text = LocalizationStore.Get("Key_0053");
 					});
-					ClansTableFooter.transform.FindChild("LabelMembers").Map((Transform t) => t.gameObject.GetComponent<UILabel>()).Do(delegate(UILabel n)
+					ClansTableFooter.transform.Find("LabelMembers").Map((Transform t) => t.gameObject.GetComponent<UILabel>()).Do(delegate(UILabel n)
 					{
 						n.text = string.Empty;
 					});
-					ClansTableFooter.transform.FindChild("LabelWins").Map((Transform t) => t.gameObject.GetComponent<UILabel>()).Do(delegate(UILabel w)
+					ClansTableFooter.transform.Find("LabelWins").Map((Transform t) => t.gameObject.GetComponent<UILabel>()).Do(delegate(UILabel w)
 					{
 						w.text = string.Empty;
 					});
-					UILabel o = ClansTableFooter.transform.FindChild("LabelNick").Map((Transform t) => t.gameObject.GetComponent<UILabel>());
+					UILabel o = ClansTableFooter.transform.Find("LabelNick").Map((Transform t) => t.gameObject.GetComponent<UILabel>());
 					o.Do(delegate(UILabel cl)
 					{
 						cl.text = FriendsController.sharedController.Map((FriendsController s) => s.clanName, string.Empty);
@@ -2905,7 +2905,7 @@ public sealed class LeaderboardScript : MonoBehaviour
 			int num2 = p2 + 1;
 			p2 = num2;
 		}
-		newItem.transform.FindChild("LabelsPlace").Map((Transform t) => t.gameObject.GetComponent<UILabel>()).Do(delegate(UILabel p)
+		newItem.transform.Find("LabelsPlace").Map((Transform t) => t.gameObject.GetComponent<UILabel>()).Do(delegate(UILabel p)
 		{
 			p.text = ((item.Place > 3) ? item.Place.ToString(CultureInfo.InvariantCulture) : string.Empty);
 		});
@@ -2941,7 +2941,7 @@ public sealed class LeaderboardScript : MonoBehaviour
 			int num = p2 + 1;
 			p2 = num;
 		}
-		newItem.transform.FindChild("LabelsPlace").Map((Transform t) => t.gameObject.GetComponent<UILabel>()).Do(delegate(UILabel p)
+		newItem.transform.Find("LabelsPlace").Map((Transform t) => t.gameObject.GetComponent<UILabel>()).Do(delegate(UILabel p)
 		{
 			p.text = ((item.Place > 3) ? item.Place.ToString(CultureInfo.InvariantCulture) : string.Empty);
 		});
@@ -3088,7 +3088,7 @@ public sealed class LeaderboardScript : MonoBehaviour
 	{
 		Instance = this;
 		_view = new LazyObject<LeaderboardsView>(_viewPrefab.ResourcePath, _viewHandler);
-		_mainMenuController = new Lazy<MainMenuController>(() => MainMenuController.sharedController);
+		_mainMenuController = new Rilisoft.Lazy<MainMenuController>(() => MainMenuController.sharedController);
 	}
 
 	private void OnDestroy()

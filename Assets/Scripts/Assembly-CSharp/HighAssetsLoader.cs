@@ -70,7 +70,7 @@ public sealed class HighAssetsLoader : MonoBehaviour
 		{
 			new LightmapData
 			{
-				lightmapLight = lightmap
+				lightmapColor = lightmap
 			}
 		};
 	}

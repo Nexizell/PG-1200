@@ -44,7 +44,7 @@ internal sealed class MobileAdManager
 
 	internal const string DefaultVideoInterstitialUnitId = "ca-app-pub-5590536419057381/2096360557";
 
-	private static readonly Lazy<MobileAdManager> _instance = new Lazy<MobileAdManager>(() => new MobileAdManager());
+	private static readonly Rilisoft.Lazy<MobileAdManager> _instance = new Rilisoft.Lazy<MobileAdManager>(() => new MobileAdManager());
 
 	public static MobileAdManager Instance
 	{

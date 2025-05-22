@@ -51,7 +51,7 @@ public sealed class FriendPreview : MonoBehaviour
 
 	private float timeLastCheck;
 
-	private readonly Lazy<ClansGUIController> _clansGuiController;
+	private readonly Rilisoft.Lazy<ClansGUIController> _clansGuiController;
 
 	private float inactivityStartTm;
 
@@ -67,7 +67,7 @@ public sealed class FriendPreview : MonoBehaviour
 
 	public FriendPreview()
 	{
-		_clansGuiController = new Lazy<ClansGUIController>(base.GetComponentInParent<ClansGUIController>);
+		_clansGuiController = new Rilisoft.Lazy<ClansGUIController>(base.GetComponentInParent<ClansGUIController>);
 	}
 
 	private void Start()

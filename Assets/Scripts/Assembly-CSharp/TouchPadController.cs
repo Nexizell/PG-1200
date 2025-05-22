@@ -1158,7 +1158,6 @@ public class TouchPadController : MonoBehaviour
 	{
 		if (_touchControlScheme != null)
 		{
-			UnityEngine.Debug.LogError("applying delta");
 			_touchControlScheme.ApplyDeltaTo(deltaPosition, yawTransform, pitchTransform, sensitivity, invert);
 		}
 	}

@@ -282,7 +282,7 @@ namespace Rilisoft
 			}
 		}
 
-		[RPC]
+		
 		[PunRPC]
 		private void IsVisible_RPC(byte stateByte, byte showHideEffectByte)
 		{

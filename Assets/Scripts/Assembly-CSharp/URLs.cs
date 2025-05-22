@@ -11,11 +11,11 @@ internal sealed class URLs
 
 	public static string BanURL = "https://secure.pixelgunserver.com/pixelgun3d-config/getBanList.php";
 
-	private static readonly Lazy<string> _trafficForwardingConfigUrl = new Lazy<string>(InitializeTrafficForwardingConfigUrl);
+	private static readonly Rilisoft.Lazy<string> _trafficForwardingConfigUrl = new Rilisoft.Lazy<string>(InitializeTrafficForwardingConfigUrl);
 
-	private static readonly Lazy<string> _newPerelivConfigUrl = new Lazy<string>(GetNewPerelivConfigUrl);
+	private static readonly Rilisoft.Lazy<string> _newPerelivConfigUrl = new Rilisoft.Lazy<string>(GetNewPerelivConfigUrl);
 
-	private static readonly Lazy<string> _miniGameRatingUrl = new Lazy<string>(GetMiniGameRatingUrl);
+	private static readonly Rilisoft.Lazy<string> _miniGameRatingUrl = new Rilisoft.Lazy<string>(GetMiniGameRatingUrl);
 
 	public static string Friends = "https://pixelgunserver.com/~rilisoft/action.php";
 

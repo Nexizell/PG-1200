@@ -45,14 +45,14 @@ public class SpleefBlockItemsController : Photon.MonoBehaviour
 		base.photonView.RPC("GetDamageRPC", PhotonTargets.Others, index, damage);
 	}
 
-	[RPC]
+	
 	[PunRPC]
 	public void GetDamageRPC(short index, float _minus)
 	{
 		items[index].GetDamageRPC(_minus);
 	}
 
-	[RPC]
+	
 	[PunRPC]
 	public void SynchLivesItems(short[] _index, byte[] _lives)
 	{

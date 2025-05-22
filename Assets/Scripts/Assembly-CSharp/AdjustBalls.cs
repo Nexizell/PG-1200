@@ -28,7 +28,7 @@ public class AdjustBalls : MonoBehaviour
 	{
 		GameObject obj = GameObject.Find(container.name);
 		obj.GetComponent<Renderer>().sharedMaterial.color = container.color;
-		obj.GetComponent<Rigidbody>().drag = container.drag;
+		obj.GetComponent<Rigidbody>().linearDamping = container.drag;
 	}
 
 	private Color GetColor(string color)

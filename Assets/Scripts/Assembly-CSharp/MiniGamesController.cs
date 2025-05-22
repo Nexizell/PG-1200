@@ -370,14 +370,14 @@ public class MiniGamesController : MonoBehaviour
 		}
 	}
 
-	[RPC]
+	
 	[PunRPC]
 	public void StartTimer(bool _isStartTimer)
 	{
 		isStartTimer = _isStartTimer;
 	}
 
-	[RPC]
+	
 	[PunRPC]
 	public void SynchStartTimer(float _startTimer)
 	{
@@ -385,27 +385,27 @@ public class MiniGamesController : MonoBehaviour
 	}
 
 	[PunRPC]
-	[RPC]
+	
 	public void SynchTimerGo(float _goTimer)
 	{
 		goTimer = _goTimer;
 	}
 
 	[PunRPC]
-	[RPC]
+	
 	public void SynchGameTimer(float _gameTimer)
 	{
 		gameTimer = _gameTimer;
 	}
 
-	[RPC]
+	
 	[PunRPC]
 	public void StartGame()
 	{
 		isStartGame = true;
 	}
 
-	[RPC]
+	
 	[PunRPC]
 	public void Go()
 	{

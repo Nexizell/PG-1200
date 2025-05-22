@@ -139,7 +139,7 @@ public sealed class BankController : MonoBehaviour
 
 	private static BankController _instance;
 
-	private readonly Lazy<bool> _timeTamperingDetected = new Lazy<bool>(delegate
+	private readonly Rilisoft.Lazy<bool> _timeTamperingDetected = new Rilisoft.Lazy<bool>(delegate
 	{
 		bool num = FreeAwardController.Instance.TimeTamperingDetected();
 		if (num && Defs.IsDeveloperBuild)

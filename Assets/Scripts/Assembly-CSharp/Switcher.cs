@@ -553,7 +553,9 @@ public sealed class Switcher : MonoBehaviour
 
 	private IEnumerator Start()
 	{
-		MemoryCheatHook.Initialize();
+		Storager.setInt("currentLevel2", 1);
+		Storager.setInt("currentLevel3", 1);
+		//MemoryCheatHook.Initialize();
 		oldProgress = 0f;
 		UnityEngine.Debug.LogFormat("> Switcher.Start(): {0:f3}, {1}", Time.realtimeSinceStartup, Time.frameCount);
 		yield return StartCoroutine(ParseConfigsCoroutine());

@@ -1850,7 +1850,7 @@ public sealed class MainMenuController : ControlsSettingsBase
 
 	private float _eventX3RemainTimeLastUpdateTime;
 
-	private readonly Lazy<UISprite> _newClanIncomingInvitesSprite;
+	private readonly Rilisoft.Lazy<UISprite> _newClanIncomingInvitesSprite;
 
 	private AdvertisementController _advertisementController;
 
@@ -1890,7 +1890,7 @@ public sealed class MainMenuController : ControlsSettingsBase
 
 	private string lastPrintedDismissReason = string.Empty;
 
-	private readonly Lazy<bool> _timeTamperingDetected = new Lazy<bool>(() => FreeAwardController.Instance.TimeTamperingDetected());
+	private readonly Rilisoft.Lazy<bool> _timeTamperingDetected = new Rilisoft.Lazy<bool>(() => FreeAwardController.Instance.TimeTamperingDetected());
 
 	private IDisposable _backSubscription;
 
@@ -1920,13 +1920,13 @@ public sealed class MainMenuController : ControlsSettingsBase
 
 	private bool _leaderboardsIsOpening;
 
-	private readonly Lazy<UIButton[]> _leaderboardsButtons;
+	private readonly Rilisoft.Lazy<UIButton[]> _leaderboardsButtons;
 
-	private readonly Lazy<UIButton[]> _friendsButtons;
+	private readonly Rilisoft.Lazy<UIButton[]> _friendsButtons;
 
-	private readonly Lazy<UIButton[]> _clansButtons;
+	private readonly Rilisoft.Lazy<UIButton[]> _clansButtons;
 
-	private readonly Lazy<LeaderboardScript> _leaderboardScript;
+	private readonly Rilisoft.Lazy<LeaderboardScript> _leaderboardScript;
 
 	private static bool m_firstEnterToLobby = true;
 
@@ -2136,11 +2136,11 @@ public sealed class MainMenuController : ControlsSettingsBase
 
 	public MainMenuController()
 	{
-		_newClanIncomingInvitesSprite = new Lazy<UISprite>(() => clansButton.Map((GameObject c) => c.GetComponentsInChildren<UISprite>(true).FirstOrDefault((UISprite s) => "NewMessages".Equals(s.name))));
-		_leaderboardsButtons = new Lazy<UIButton[]>(() => leadersButton.GetComponentsInChildren<UIButton>(true));
-		_friendsButtons = new Lazy<UIButton[]>(() => friendsButton.GetComponentsInChildren<UIButton>(true));
-		_clansButtons = new Lazy<UIButton[]>(() => clansButton.GetComponentsInChildren<UIButton>(true));
-		_leaderboardScript = new Lazy<LeaderboardScript>(UnityEngine.Object.FindObjectOfType<LeaderboardScript>);
+		_newClanIncomingInvitesSprite = new Rilisoft.Lazy<UISprite>(() => clansButton.Map((GameObject c) => c.GetComponentsInChildren<UISprite>(true).FirstOrDefault((UISprite s) => "NewMessages".Equals(s.name))));
+		_leaderboardsButtons = new Rilisoft.Lazy<UIButton[]>(() => leadersButton.GetComponentsInChildren<UIButton>(true));
+		_friendsButtons = new Rilisoft.Lazy<UIButton[]>(() => friendsButton.GetComponentsInChildren<UIButton>(true));
+		_clansButtons = new Rilisoft.Lazy<UIButton[]>(() => clansButton.GetComponentsInChildren<UIButton>(true));
+		_leaderboardScript = new Rilisoft.Lazy<LeaderboardScript>(UnityEngine.Object.FindObjectOfType<LeaderboardScript>);
 	}
 
 	public static bool IsLevelUpOrBannerShown()

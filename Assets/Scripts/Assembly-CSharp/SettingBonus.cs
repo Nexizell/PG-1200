@@ -18,7 +18,7 @@ public class SettingBonus : Photon.MonoBehaviour
 	}
 
 	[PunRPC]
-	[RPC]
+	
 	public void SynchNamberSpawnZoneRPC(int _number)
 	{
 		numberSpawnZone = _number;

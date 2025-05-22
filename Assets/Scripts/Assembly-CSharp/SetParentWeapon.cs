@@ -67,9 +67,9 @@ public sealed class SetParentWeapon : MonoBehaviour
 				item2.position += -Vector3.up * 1000f;
 			}
 			base.transform.parent = playerGameObject.transform;
-			if (base.transform.FindChild("BulletSpawnPoint") != null)
+			if (base.transform.Find("BulletSpawnPoint") != null)
 			{
-				player._bulletSpawnPoint = base.transform.FindChild("BulletSpawnPoint").gameObject;
+				player._bulletSpawnPoint = base.transform.Find("BulletSpawnPoint").gameObject;
 			}
 			base.transform.localPosition = new Vector3(0f, -1.7f, 0f);
 			base.transform.rotation = playerGameObject.transform.rotation;

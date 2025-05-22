@@ -3,7 +3,7 @@ using Rilisoft;
 
 internal sealed class TrafficForwardingInfo : EventArgs
 {
-	private static readonly Lazy<TrafficForwardingInfo> _disabledInstance = new Lazy<TrafficForwardingInfo>(() => new TrafficForwardingInfo(null, 0, 36));
+	private static readonly Rilisoft.Lazy<TrafficForwardingInfo> _disabledInstance = new Rilisoft.Lazy<TrafficForwardingInfo>(() => new TrafficForwardingInfo(null, 0, 36));
 
 	private readonly int _minLevel;
 

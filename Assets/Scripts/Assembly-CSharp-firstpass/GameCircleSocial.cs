@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SocialPlatforms;
 
-public class GameCircleSocial : ISocialPlatform
+public class GameCircleSocial
 {
 	private AGSSocialLocalUser gameCircleLocalUser = new AGSSocialLocalUser();
 
@@ -107,11 +107,6 @@ public class GameCircleSocial : ISocialPlatform
 	{
 		loadScoresCallbacks.Add(requestID, callback);
 		AGSLeaderboardsClient.RequestLeaderboards(requestID++);
-	}
-
-	public ILeaderboard CreateLeaderboard()
-	{
-		return new AGSSocialLeaderboard();
 	}
 
 	public void ShowAchievementsUI()

@@ -1210,7 +1210,7 @@ public sealed class NetworkStartTableNGUIController : MonoBehaviour
 
 	public RuntimeAnimatorController DuelAnimController;
 
-	private readonly Lazy<string> _versionString = new Lazy<string>(() => "12.0.0");
+	private readonly Rilisoft.Lazy<string> _versionString = new Rilisoft.Lazy<string>(() => "12.0.0");
 
 	private IDisposable _backSubscription;
 

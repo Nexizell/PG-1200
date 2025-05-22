@@ -1160,14 +1160,14 @@ namespace Rilisoft
 		}
 
 		[PunRPC]
-		[RPC]
+		
 		public void ApplyDamageRPC(float damage, int idKiller)
 		{
 			ApplyDamageFrom(damage, idKiller);
 		}
 
 		[PunRPC]
-		[RPC]
+		
 		public void KilledByRPC(int idKiller)
 		{
 			if (WeaponManager.sharedManager.myPlayerMoveC != null && WeaponManager.sharedManager.myPlayerMoveC.skinNamePixelView.viewID == idKiller)
@@ -1712,7 +1712,7 @@ namespace Rilisoft
 		}
 
 		[PunRPC]
-		[RPC]
+		
 		public void ShowExplosion()
 		{
 			string b = (string.IsNullOrEmpty(Info.explosionPrefabName) ? "Explosion1" : Info.explosionPrefabName);
@@ -1825,7 +1825,7 @@ namespace Rilisoft
 			}
 		}
 
-		[RPC]
+		
 		[PunRPC]
 		public void SynhCurrentHealthRPC(float _health)
 		{
@@ -1842,7 +1842,7 @@ namespace Rilisoft
 		}
 
 		[PunRPC]
-		[RPC]
+		
 		public void SynhNameRPC(string _petName)
 		{
 			PetName = _petName;

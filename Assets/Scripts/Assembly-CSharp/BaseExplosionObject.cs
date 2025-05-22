@@ -193,7 +193,7 @@ public class BaseExplosionObject : MonoBehaviour
 	}
 
 	[PunRPC]
-	[RPC]
+	
 	public void DestroyObjectByNetworkRpc()
 	{
 		if (PhotonNetwork.isMasterClient)
@@ -206,7 +206,7 @@ public class BaseExplosionObject : MonoBehaviour
 		}
 	}
 
-	[RPC]
+	
 	[PunRPC]
 	public void StartNewRespanObjectRpc()
 	{
@@ -216,7 +216,7 @@ public class BaseExplosionObject : MonoBehaviour
 		}
 	}
 
-	[RPC]
+	
 	[PunRPC]
 	public void PlayDestroyEffectRpc()
 	{

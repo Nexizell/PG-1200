@@ -43,11 +43,11 @@ public class RubbleCreater : MonoBehaviour
 			float z = UnityEngine.Random.Range(0f - vel, vel);
 			if (useUp)
 			{
-				rigidbody.GetComponent<Rigidbody>().velocity = transform.TransformDirection(x, UnityEngine.Random.Range(up / 2f, up), z);
+				rigidbody.GetComponent<Rigidbody>().linearVelocity = transform.TransformDirection(x, UnityEngine.Random.Range(up / 2f, up), z);
 			}
 			else
 			{
-				rigidbody.GetComponent<Rigidbody>().velocity = transform.TransformDirection(x, UnityEngine.Random.Range(0f - up, up), z);
+				rigidbody.GetComponent<Rigidbody>().linearVelocity = transform.TransformDirection(x, UnityEngine.Random.Range(0f - up, up), z);
 			}
 		}
 	}

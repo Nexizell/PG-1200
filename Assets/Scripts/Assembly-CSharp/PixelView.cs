@@ -37,7 +37,7 @@ public sealed class PixelView : MonoBehaviour
 		}
 	}
 
-	[RPC]
+	
 	private void SendViewID(int id)
 	{
 		if (localViewID != -1)

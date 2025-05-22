@@ -142,7 +142,6 @@ namespace RilisoftBot
 		}
 
 		[PunRPC]
-		[RPC]
 		private void FireBulletRPC(Vector3 pointFire, Vector3 positionToFire)
 		{
 			FireBullet(pointFire, positionToFire, false);

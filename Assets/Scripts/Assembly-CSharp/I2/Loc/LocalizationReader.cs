@@ -67,7 +67,7 @@ namespace I2.Loc
 		public static string ReadCSVfile(string Path)
 		{
 			string empty = string.Empty;
-			byte[] array = File.ReadAllBytes(Path);
+			byte[] array = System.IO.File.ReadAllBytes(Path);
 			return Encoding.UTF8.GetString(array, 0, array.Length).Replace("\r\n", "\n");
 		}
 

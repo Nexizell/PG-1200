@@ -570,9 +570,9 @@ public sealed class ClansGUIController : MonoBehaviour, IFriendsGUIController
 
 	private float timeOfLastSort;
 
-	private readonly Lazy<UISprite[]> _newMessagesOverlays;
+	private readonly Rilisoft.Lazy<UISprite[]> _newMessagesOverlays;
 
-	private readonly Lazy<ClanIncomingInvitesController> _clanIncomingInvitesController;
+	private readonly Rilisoft.Lazy<ClanIncomingInvitesController> _clanIncomingInvitesController;
 
 	private FriendProfileController _friendProfileController;
 
@@ -590,8 +590,8 @@ public sealed class ClansGUIController : MonoBehaviour, IFriendsGUIController
 
 	public ClansGUIController()
 	{
-		_clanIncomingInvitesController = new Lazy<ClanIncomingInvitesController>(() => base.gameObject.GetComponent<ClanIncomingInvitesController>());
-		_newMessagesOverlays = new Lazy<UISprite[]>(delegate
+		_clanIncomingInvitesController = new Rilisoft.Lazy<ClanIncomingInvitesController>(() => base.gameObject.GetComponent<ClanIncomingInvitesController>());
+		_newMessagesOverlays = new Rilisoft.Lazy<UISprite[]>(delegate
 		{
 			UISprite[] first = clanPanel.Map((GameObject c) => c.GetComponentsInChildren<UISprite>(true), new UISprite[0]);
 			UISprite[] second = NoClanPanel.Map((GameObject c) => c.GetComponentsInChildren<UISprite>(true), new UISprite[0]);
