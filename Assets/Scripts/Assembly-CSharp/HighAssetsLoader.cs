@@ -18,7 +18,7 @@ public sealed class HighAssetsLoader : MonoBehaviour
 
 	private void OnLevelWasLoaded(int lev)
 	{
-		if (Device.isWeakDevice || (BuildSettings.BuildTargetPlatform == RuntimePlatform.MetroPlayerX64 && !Application.isEditor))
+		/*if (Device.isWeakDevice || (BuildSettings.BuildTargetPlatform == RuntimePlatform.MetroPlayerX64 && !Application.isEditor))
 		{
 			return;
 		}
@@ -51,27 +51,27 @@ public sealed class HighAssetsLoader : MonoBehaviour
 		for (int j = 0; j < Mathf.Min(list.Count, list2.Count); j++)
 		{
 			list[j].mainTexture = list2[j];
-		}
+		}*/
 	}
 
 	public static void LoadHighLightmap()
 	{
-		List<Texture2D> list = (Resources.LoadAll<Texture2D>(ResPath.Combine(ResPath.Combine(LightmapsFolder, HighFolder), Application.loadedLevelName)) ?? new Texture2D[0]).ToList();
+		/*List<Texture2D> list = (Resources.LoadAll<Texture2D>(ResPath.Combine(ResPath.Combine(LightmapsFolder, HighFolder), Application.loadedLevelName)) ?? new Texture2D[0]).ToList();
 		list.Sort((Texture2D lightmap1, Texture2D lightmap2) => lightmap1.name.CompareTo(lightmap2.name));
 		if (list.Count > 0)
 		{
 			SetCurrentLightmap(list[0]);
-		}
+		}*/
 	}
 
 	public static void SetCurrentLightmap(Texture2D lightmap)
 	{
-		LightmapSettings.lightmaps = new LightmapData[1]
+		/*LightmapSettings.lightmaps = new LightmapData[1]
 		{
 			new LightmapData
 			{
 				lightmapColor = lightmap
 			}
-		};
+		};*/
 	}
 }
