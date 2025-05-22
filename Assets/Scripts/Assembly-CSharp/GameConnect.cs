@@ -615,9 +615,9 @@ public class GameConnect : MonoBehaviour
 		if (mapIndex == -1)
 		{
 			int[] array = (from m in SceneInfoController.instance.GetListScenesForMode(gameMode).avaliableScenes
-				select m.indexMap into m
-				where m != 1010
-				select m).ToArray();
+						   select m.indexMap into m
+						   where m != 1010
+						   select m).ToArray();
 			text += "( ";
 			for (int i = 0; i < array.Length; i++)
 			{
@@ -643,12 +643,12 @@ public class GameConnect : MonoBehaviour
 		}
 		switch (joinToNewRound)
 		{
-		case 0:
-			text = text + " AND " + endingProperty + " = 0";
-			break;
-		case 1:
-			text = text + " AND " + endingProperty + " = 2";
-			break;
+			case 0:
+				text = text + " AND " + endingProperty + " = 0";
+				break;
+			case 1:
+				text = text + " AND " + endingProperty + " = 2";
+				break;
 		}
 		if (ExpController.Instance != null && GetTierForRoom() == 0)
 		{
@@ -701,24 +701,24 @@ public class GameConnect : MonoBehaviour
 		int result = 10;
 		switch (mode)
 		{
-		case GameMode.TimeBattle:
-			result = 4;
-			break;
-		case GameMode.TeamFight:
-			result = 10;
-			break;
-		case GameMode.DeadlyGames:
-			result = 6;
-			break;
-		case GameMode.Duel:
-			result = 2;
-			break;
-		case GameMode.Spleef:
-			result = 4;
-			break;
-		case GameMode.DeathEscape:
-			result = 4;
-			break;
+			case GameMode.TimeBattle:
+				result = 4;
+				break;
+			case GameMode.TeamFight:
+				result = 10;
+				break;
+			case GameMode.DeadlyGames:
+				result = 6;
+				break;
+			case GameMode.Duel:
+				result = 2;
+				break;
+			case GameMode.Spleef:
+				result = 4;
+				break;
+			case GameMode.DeathEscape:
+				result = 4;
+				break;
 		}
 		return result;
 	}
@@ -728,15 +728,15 @@ public class GameConnect : MonoBehaviour
 		int result = 4;
 		switch (mode)
 		{
-		case GameMode.DeadlyGames:
-			result = 10;
-			break;
-		case GameMode.Dater:
-			result = 10;
-			break;
-		case GameMode.DeathEscape:
-			result = 10;
-			break;
+			case GameMode.DeadlyGames:
+				result = 10;
+				break;
+			case GameMode.Dater:
+				result = 10;
+				break;
+			case GameMode.DeathEscape:
+				result = 10;
+				break;
 		}
 		return result;
 	}
@@ -816,5 +816,16 @@ public class GameConnect : MonoBehaviour
 			return mode == GameMode.Spleef;
 		}
 		return true;
+	}
+	
+	public static bool GadgetModes(GameMode mode)
+	{
+		return mode == GameMode.TeamFight ||
+			   mode == GameMode.Deathmatch ||
+			   mode == GameMode.FlagCapture ||
+			   mode == GameMode.CapturePoints ||
+			   mode == GameMode.Duel ||
+			   mode == GameMode.Campaign ||
+			   mode == GameMode.Arena;
 	}
 }

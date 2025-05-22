@@ -10,238 +10,6 @@ using UnityEngine;
 
 public class TouchPadController : MonoBehaviour
 {
-	[CompilerGenerated]
-	internal sealed class _003CStart_003Ed__56 : IEnumerator<object>, IEnumerator, IDisposable
-	{
-		private int _003C_003E1__state;
-
-		private object _003C_003E2__current;
-
-		public TouchPadController _003C_003E4__this;
-
-		object IEnumerator<object>.Current
-		{
-			[DebuggerHidden]
-			get
-			{
-				return _003C_003E2__current;
-			}
-		}
-
-		object IEnumerator.Current
-		{
-			[DebuggerHidden]
-			get
-			{
-				return _003C_003E2__current;
-			}
-		}
-
-		[DebuggerHidden]
-		public _003CStart_003Ed__56(int _003C_003E1__state)
-		{
-			this._003C_003E1__state = _003C_003E1__state;
-		}
-
-		[DebuggerHidden]
-		void IDisposable.Dispose()
-		{
-		}
-
-		private bool MoveNext()
-		{
-			switch (_003C_003E1__state)
-			{
-			default:
-				return false;
-			case 0:
-				_003C_003E1__state = -1;
-				_003C_003E4__this.SetSide();
-				PauseNGUIController.PlayerHandUpdated += _003C_003E4__this.SetSideAndCalcRects;
-				ControlsSettingsBase.ControlsChanged += _003C_003E4__this.SetShouldRecalcRects;
-				_003C_003E4__this.SetSpritesState();
-				_003C_003E2__current = null;
-				_003C_003E1__state = 1;
-				return true;
-			case 1:
-				_003C_003E1__state = -1;
-				_003C_003E4__this.CalcRects();
-				_003C_003E4__this.Reset();
-				return false;
-			}
-		}
-
-		bool IEnumerator.MoveNext()
-		{
-			//ILSpy generated this explicit interface implementation from .override directive in MoveNext
-			return this.MoveNext();
-		}
-
-		[DebuggerHidden]
-		void IEnumerator.Reset()
-		{
-			throw new NotSupportedException();
-		}
-	}
-
-	[CompilerGenerated]
-	internal sealed class _003C_SetIsFirstFrame_003Ed__68 : IEnumerator<object>, IEnumerator, IDisposable
-	{
-		private int _003C_003E1__state;
-
-		private object _003C_003E2__current;
-
-		private float _003Ctm_003E5__1;
-
-		public TouchPadController _003C_003E4__this;
-
-		object IEnumerator<object>.Current
-		{
-			[DebuggerHidden]
-			get
-			{
-				return _003C_003E2__current;
-			}
-		}
-
-		object IEnumerator.Current
-		{
-			[DebuggerHidden]
-			get
-			{
-				return _003C_003E2__current;
-			}
-		}
-
-		[DebuggerHidden]
-		public _003C_SetIsFirstFrame_003Ed__68(int _003C_003E1__state)
-		{
-			this._003C_003E1__state = _003C_003E1__state;
-		}
-
-		[DebuggerHidden]
-		void IDisposable.Dispose()
-		{
-		}
-
-		private bool MoveNext()
-		{
-			int num = _003C_003E1__state;
-			if (num != 0)
-			{
-				if (num != 1)
-				{
-					return false;
-				}
-				_003C_003E1__state = -1;
-				if (!(Time.realtimeSinceStartup - _003Ctm_003E5__1 < 0.1f))
-				{
-					_003C_003E4__this._isFirstFrame = false;
-					return false;
-				}
-			}
-			else
-			{
-				_003C_003E1__state = -1;
-				_003Ctm_003E5__1 = Time.realtimeSinceStartup;
-			}
-			_003C_003E2__current = null;
-			_003C_003E1__state = 1;
-			return true;
-		}
-
-		bool IEnumerator.MoveNext()
-		{
-			//ILSpy generated this explicit interface implementation from .override directive in MoveNext
-			return this.MoveNext();
-		}
-
-		[DebuggerHidden]
-		void IEnumerator.Reset()
-		{
-			throw new NotSupportedException();
-		}
-	}
-
-	[CompilerGenerated]
-	internal sealed class _003CBlinkReload_003Ed__84 : IEnumerator<object>, IEnumerator, IDisposable
-	{
-		private int _003C_003E1__state;
-
-		private object _003C_003E2__current;
-
-		public TouchPadController _003C_003E4__this;
-
-		object IEnumerator<object>.Current
-		{
-			[DebuggerHidden]
-			get
-			{
-				return _003C_003E2__current;
-			}
-		}
-
-		object IEnumerator.Current
-		{
-			[DebuggerHidden]
-			get
-			{
-				return _003C_003E2__current;
-			}
-		}
-
-		[DebuggerHidden]
-		public _003CBlinkReload_003Ed__84(int _003C_003E1__state)
-		{
-			this._003C_003E1__state = _003C_003E1__state;
-		}
-
-		[DebuggerHidden]
-		void IDisposable.Dispose()
-		{
-		}
-
-		private bool MoveNext()
-		{
-			switch (_003C_003E1__state)
-			{
-			default:
-				return false;
-			case 0:
-				_003C_003E1__state = -1;
-				goto IL_0022;
-			case 1:
-				_003C_003E1__state = -1;
-				_003C_003E4__this.reloadUISprite.spriteName = "Reload_0";
-				_003C_003E2__current = new WaitForSeconds(0.5f);
-				_003C_003E1__state = 2;
-				return true;
-			case 2:
-				{
-					_003C_003E1__state = -1;
-					_003C_003E4__this.reloadUISprite.spriteName = "Reload_1";
-					goto IL_0022;
-				}
-				IL_0022:
-				_003C_003E2__current = new WaitForSeconds(0.5f);
-				_003C_003E1__state = 1;
-				return true;
-			}
-		}
-
-		bool IEnumerator.MoveNext()
-		{
-			//ILSpy generated this explicit interface implementation from .override directive in MoveNext
-			return this.MoveNext();
-		}
-
-		[DebuggerHidden]
-		void IEnumerator.Reset()
-		{
-			throw new NotSupportedException();
-		}
-	}
-
 	public static int thresholdGadgetPanel = 70;
 
 	public static float timeGadgetPanel = 0.5f;
@@ -279,6 +47,12 @@ public class TouchPadController : MonoBehaviour
 	private Rect availableGadget2Rect;
 
 	private bool isInvokeGrenadePress;
+
+	private Rect throwingRect = default(Rect);
+
+    private Rect toolRect = default(Rect);
+
+	private Rect supportRect = default(Rect);
 
 	private bool chooseGadgetPanelShown;
 
@@ -342,11 +116,23 @@ public class TouchPadController : MonoBehaviour
 
 	private int MoveTouchID = -1;
 
-	private int gadgetsTouchID = -1;
+    private int FireTouchID = -1;
+
+    private int GrenadeTouchID = -1;
+
+    private int ToolTouchID = -1;
+
+	private int SupportTouchID = -1;
 
 	private bool firstDeltaSkip;
 
 	private Vector2 pastPos = Vector2.zero;
+
+	public GameObject throwingGadget;
+
+    public GameObject toolGadget;
+
+	public GameObject supportGadget;
 
 	private Vector2 pastDelta = Vector2.zero;
 
@@ -492,9 +278,33 @@ public class TouchPadController : MonoBehaviour
 		}
 	}
 
+	private List<Touch> currentTouches = new List<Touch>();
+
+    private void UpdateCurrentTouches()
+    {
+        currentTouches.Clear();
+        foreach (Touch touch in MobileRelay.touches)
+        {
+            currentTouches.Add(touch);
+        }
+    }
+
+	public (bool, Touch) RectContainsAnyTouch(Rect rect)
+    {
+        if (!_joyActive) return (false, default);
+        foreach (Touch touch in currentTouches)
+        {
+            if (rect.Contains(touch.position))
+            {
+                return (true, touch);
+            }
+        }
+        return (false, default);
+    }
+
 	private void SetGrenadeUISpriteState()
 	{
-		if (!GameConnect.isDaterRegim)
+		/*if (!GameConnect.isDaterRegim)
 		{
 			return;
 		}
@@ -529,7 +339,7 @@ public class TouchPadController : MonoBehaviour
 			grenadeButton.countLabel.gameObject.SetActiveSafeSelf(true);
 			grenadeButton.countLabel.text = grenadeCount.ToString();
 			grenadeButton.fullLabel.gameObject.SetActiveSafeSelf(false);
-		}
+		}*/
 	}
 
 	private void SetSide()
@@ -539,11 +349,11 @@ public class TouchPadController : MonoBehaviour
 		Vector3 center = GetComponent<BoxCollider>().center;
 		center.x *= (flag ? 1f : (-1f));
 		GetComponent<BoxCollider>().center = center;
-		chooseGadgetPanel.transform.localScale = new Vector3(GlobalGameController.LeftHanded ? 1 : (-1), 1f, 1f);
+		/*chooseGadgetPanel.transform.localScale = new Vector3(GlobalGameController.LeftHanded ? 1 : (-1), 1f, 1f);
 		for (int i = 0; i < chooseGadgetPanel.objectsNoFilpXScale.Count; i++)
 		{
 			chooseGadgetPanel.objectsNoFilpXScale[i].localScale = new Vector3(GlobalGameController.LeftHanded ? 1 : (-1), chooseGadgetPanel.objectsNoFilpXScale[i].localScale.y, chooseGadgetPanel.objectsNoFilpXScale[i].localScale.z);
-		}
+		}*/
 	}
 
 	private void SetSideAndCalcRects()
@@ -559,7 +369,7 @@ public class TouchPadController : MonoBehaviour
 
 	private void ReCalcRects()
 	{
-		CalcRects(true);
+		CalcRects();
 	}
 
 	private IEnumerator Start()
@@ -589,7 +399,7 @@ public class TouchPadController : MonoBehaviour
 			zoomAlpha = 1f;
 			return;
 		}
-		Transform relativeTo = NGUITools.GetRoot(base.gameObject).transform.GetChild(0).GetChild(0).GetComponent<Camera>()
+		/*Transform relativeTo = NGUITools.GetRoot(base.gameObject).transform.GetChild(0).GetChild(0).GetComponent<Camera>()
 			.transform;
 		float num = 768f;
 		float num2 = num * ((float)Screen.width / (float)Screen.height);
@@ -599,7 +409,7 @@ public class TouchPadController : MonoBehaviour
 		fireAlpha = ((!rect.Overlaps(fireRect)) ? 1 : 0);
 		jumpAlpha = ((!rect.Overlaps(jumpRect)) ? 1 : 0);
 		reloadAlpha = ((!rect.Overlaps(reloadRect)) ? 1 : 0);
-		zoomAlpha = ((!rect.Overlaps(zoomRect)) ? 1 : 0);
+		zoomAlpha = ((!rect.Overlaps(zoomRect)) ? 1 : 0);*/
 	}
 
 	private void AlphaUpdate()
@@ -622,81 +432,75 @@ public class TouchPadController : MonoBehaviour
 		}
 	}
 
-	private void CalcRects(bool forceRecalculation = false)
-	{
-		if (forceRecalculation)
-		{
-			rectsCalculated = false;
-		}
-		if (!rectsCalculated)
-		{
-			Transform relativeTo = NGUITools.GetRoot(base.gameObject).transform.GetChild(0).GetChild(0).GetComponent<Camera>()
-				.transform;
-			float num = 768f;
-			float num2 = num * ((float)Screen.width / (float)Screen.height);
-			List<object> list = Json.Deserialize(PlayerPrefs.GetString("Controls.Size", "[]")) as List<object>;
-			if (list == null)
-			{
-				list = new List<object>();
-				UnityEngine.Debug.LogWarning(list.GetType().FullName);
-			}
-			int[] array = list.Select(Convert.ToInt32).ToArray();
-			if (array.Length == 0)
-			{
-				array = Defs.controlButtonSizes;
-			}
-			Bounds bounds = NGUIMath.CalculateRelativeWidgetBounds(relativeTo, fireSprite, true);
-			float num3 = 62f;
-			if (array.Length > 3)
-			{
-				num3 = (float)array[3] * 0.5f;
-			}
-			bounds.center += new Vector3(num2 * 0.5f, num * 0.5f, 0f);
-			fireRect = new Rect((bounds.center.x - num3) * Defs.Coef, (bounds.center.y - num3) * Defs.Coef, 2f * num3 * Defs.Coef, 2f * num3 * Defs.Coef);
-			Bounds bounds2 = NGUIMath.CalculateRelativeWidgetBounds(relativeTo, jumpSprite, true);
-			bounds2.center += new Vector3(num2 * 0.5f, num * 0.5f, 0f);
-			float num4 = 62f;
-			if (array.Length > 2)
-			{
-				num4 = (float)array[2] * 0.5f;
-			}
-			jumpRect = new Rect((bounds2.center.x - num4 * 0.7f) * Defs.Coef, (bounds2.center.y - num4) * Defs.Coef, 2f * num4 * Defs.Coef, 2f * num4 * Defs.Coef);
-			Bounds bounds3 = NGUIMath.CalculateRelativeWidgetBounds(relativeTo, reloadSpirte, true);
-			float num5 = 55f;
-			if (array.Length > 1)
-			{
-				num5 = (float)array[1] * 0.5f;
-			}
-			bounds3.center += new Vector3(num2 * 0.5f, num * 0.5f, 0f);
-			reloadRect = new Rect((bounds3.center.x - num5) * Defs.Coef, (bounds3.center.y - num5) * Defs.Coef, 2f * num5 * Defs.Coef, 2f * num5 * Defs.Coef);
-			float num6 = 55f;
-			if (array.Length != 0)
-			{
-				num6 = (float)array[0] * 0.5f;
-			}
-			Bounds bounds4 = NGUIMath.CalculateRelativeWidgetBounds(relativeTo, zoomSprite, true);
-			bounds4.center += new Vector3(num2 * 0.5f, num * 0.5f, 0f);
-			zoomRect = new Rect((bounds4.center.x - num6) * Defs.Coef, (bounds4.center.y - num6) * Defs.Coef, 2f * num6 * Defs.Coef, 2f * num6 * Defs.Coef);
-			float num7 = 45f;
-			if (array.Length > 5)
-			{
-				num7 = (float)array[5] * 0.5f;
-			}
-			float num8 = num7 * 2f / 90f;
-			Bounds bounds5 = NGUIMath.CalculateRelativeWidgetBounds(relativeTo, chooseGadgetPanel.gadgetButtonScript.gadgetIcon.transform, true);
-			bounds5.center += new Vector3(num2 * 0.5f, num * 0.5f, 0f);
-			grenadeRect = new Rect((bounds5.center.x - num7) * Defs.Coef, (bounds5.center.y - num7) * Defs.Coef, 2f * num7 * Defs.Coef, 2f * num7 * Defs.Coef);
-			availableGadget1Rect.Set(grenadeRect.x - chooseGadgetPanel.transform.localScale.x * (grenadeRect.width + 20f * num8 * Defs.Coef), grenadeRect.y, grenadeRect.width, grenadeRect.height);
-			availableGadget2Rect.Set(grenadeRect.x - chooseGadgetPanel.transform.localScale.x * (grenadeRect.width + 20f * num8 * Defs.Coef) * 2f, grenadeRect.y, grenadeRect.width, grenadeRect.height);
-			CalculateMoveRect();
-			float num9 = num7 * 0.6f;
-			Bounds bounds6 = NGUIMath.CalculateRelativeWidgetBounds(relativeTo, chooseGadgetPanel.gadgetButtonScript.yazichok.transform, true);
-			bounds6.center += new Vector3(num2 * 0.5f, num * 0.5f, 0f);
-			gadgetSelectRect = new Rect(grenadeRect.x + (GlobalGameController.LeftHanded ? (0f - 2f * num9 * Defs.Coef) : grenadeRect.width), (bounds6.center.y - num9) * Defs.Coef, 2f * num9 * Defs.Coef, 2f * num9 * Defs.Coef);
-			rectsCalculated = !fireRect.width.Equals(0f) && Screen.width > Screen.height;
-			UnityEngine.Debug.Log("Control rects calculated. Success == " + rectsCalculated);
-		}
-	}
+	private void CalcRects()
+    {
+        Transform transform = NGUITools.GetRoot(base.gameObject).transform;
+        Camera component = transform.GetChild(0).GetChild(0).GetComponent<Camera>();
+        Transform relativeTo = component.transform;
+        float num = 768f;
+        float num2 = num * ((float)Screen.width / (float)Screen.height);
+        List<object> list = Json.Deserialize(PlayerPrefs.GetString("Controls.Size", "[]")) as List<object>;
+        if (list == null)
+        {
+            list = new List<object>();
+        }
+        int[] array = list.Select(Convert.ToInt32).ToArray();
+        Bounds bounds = NGUIMath.CalculateRelativeWidgetBounds(relativeTo, fireSprite, true);
+        float num3 = 62f;
+        if (array.Length > 3)
+        {
+            num3 = (float)array[3] * 0.5f;
+        }
+        bounds.center += new Vector3(num2 * 0.5f, num * 0.5f, 0f);
+        fireRect = new Rect((bounds.center.x - num3) * Defs.Coef, (bounds.center.y - num3) * Defs.Coef, 2f * num3 * Defs.Coef, 2f * num3 * Defs.Coef);
+        Bounds bounds2 = NGUIMath.CalculateRelativeWidgetBounds(relativeTo, jumpSprite, true);
+        bounds2.center += new Vector3(num2 * 0.5f, num * 0.5f, 0f);
+        float num4 = 62f;
+        if (array.Length > 2)
+        {
+            num4 = (float)array[2] * 0.5f;
+        }
+        jumpRect = new Rect((bounds2.center.x - num4 * 0.7f) * Defs.Coef, (bounds2.center.y - num4) * Defs.Coef, 2f * num4 * Defs.Coef, 2f * num4 * Defs.Coef);
+        Bounds bounds3 = NGUIMath.CalculateRelativeWidgetBounds(relativeTo, reloadSpirte, true);
+        float num5 = 55f;
+        if (array.Length > 1)
+        {
+            num5 = (float)array[1] * 0.5f;
+        }
+        bounds3.center += new Vector3(num2 * 0.5f, num * 0.5f, 0f);
+        reloadRect = new Rect((bounds3.center.x - num5) * Defs.Coef, (bounds3.center.y - num5) * Defs.Coef, 2f * num5 * Defs.Coef, 2f * num5 * Defs.Coef);
+        float num6 = 55f;
+        if (array.Length > 0)
+        {
+            num6 = (float)array[0] * 0.5f;
+        }
+        Bounds bounds4 = NGUIMath.CalculateRelativeWidgetBounds(relativeTo, zoomSprite, true);
+        bounds4.center += new Vector3(num2 * 0.5f, num * 0.5f, 0f);
+        zoomRect = new Rect((bounds4.center.x - num6) * Defs.Coef, (bounds4.center.y - num6) * Defs.Coef, 2f * num6 * Defs.Coef, 2f * num6 * Defs.Coef);
+        float num7 = 55f;
+        if (array.Length > 5)
+        {
+            num7 = (float)array[5] * 0.5f;
+        }
+        Bounds bounds5 = NGUIMath.CalculateRelativeWidgetBounds(relativeTo, throwingGadget.transform, true);
+        bounds5.center += new Vector3(num2 * 0.5f, num * 0.5f, 0f);
+        throwingRect = new Rect((bounds5.center.x - num7) * Defs.Coef, (bounds5.center.y - num7) * Defs.Coef, 2f * num7 * Defs.Coef, 2f * num7 * Defs.Coef);
+        Bounds bounds6 = NGUIMath.CalculateRelativeWidgetBounds(relativeTo, toolGadget.transform, true);
+        bounds6.center += new Vector3(num2 * 0.5f, num * 0.5f, 0f);
+        toolRect = new Rect((bounds6.center.x - num7) * Defs.Coef, (bounds6.center.y - num7) * Defs.Coef, 2f * num7 * Defs.Coef, 2f * num7 * Defs.Coef);
+		Bounds bounds7 = NGUIMath.CalculateRelativeWidgetBounds(relativeTo, toolGadget.transform, true);
+        bounds7.center += new Vector3(num2 * 0.5f, num * 0.5f, 0f);
+        supportRect = new Rect((bounds7.center.x - num7) * Defs.Coef, (bounds7.center.y - num7) * Defs.Coef, 2f * num7 * Defs.Coef, 2f * num7 * Defs.Coef);
+        float num8 = (float)Screen.height * 0.81f;
+        if (!GlobalGameController.LeftHanded)
+        {
+            moveRect = new Rect(0f, 0f, num8, (float)Screen.height * 0.65f);
+        }
+        else
+        {
+            moveRect = new Rect((float)Screen.width - num8, 0f, num8, (float)Screen.height * 0.65f);
+        }
+    }
 
 	public void CalculateMoveRect()
 	{
@@ -724,16 +528,16 @@ public class TouchPadController : MonoBehaviour
 
 	private void AdjustGadgetPanelVisibility()
 	{
-		bool flag = WeaponManager.sharedManager.myPlayerMoveC != null && WeaponManager.sharedManager.myPlayerMoveC.showGadgetsPanel;
+		/*bool flag = WeaponManager.sharedManager.myPlayerMoveC != null && WeaponManager.sharedManager.myPlayerMoveC.showGadgetsPanel;
 		if (flag != chooseGadgetPanel.gameObject.activeSelf)
 		{
 			chooseGadgetPanel.gameObject.SetActiveSafeSelf(flag);
-		}
+		}*/
 	}
 
 	private void Update()
 	{
-		HideButtonsOnGadgetPanel();
+		/*HideButtonsOnGadgetPanel();
 		if (m_shouldHideGadgetPanel && Time.realtimeSinceStartup - 5f >= m_hideGadgetsPanelSettedTime)
 		{
 			HideGadgetsPanel();
@@ -746,7 +550,27 @@ public class TouchPadController : MonoBehaviour
 			chooseGadgetPanel.hoverBackground1.SetActiveSafeSelf(grenadeRect.Contains(UICamera.lastTouchPosition));
 			chooseGadgetPanel.hoverBackground2.SetActiveSafeSelf(availableGadget1Rect.Contains(UICamera.lastTouchPosition));
 			chooseGadgetPanel.hoverBackground3.SetActiveSafeSelf(availableGadget2Rect.Contains(UICamera.lastTouchPosition));
-		}
+		}*/
+
+		if (GlobalControls.DoMobile)
+        {
+            UpdateCurrentTouches();
+        }
+
+		if (GameConnect.isDaterRegim)
+        {
+            if (Input.GetKeyDown(Controls.Grenade))
+            {
+                if (IsBuyGrenadeActive())
+                {
+                    InGameGUI.sharedInGameGUI.HandleBuyGrenadeClicked(null, EventArgs.Empty);
+                }
+                else if (IsUseGrenadeActive())
+                {
+                    GrenadePressInvoke();
+                }
+            }
+        }
 		framesCount++;
 		CalcRects();
 		SetSpritesState();
@@ -759,123 +583,188 @@ public class TouchPadController : MonoBehaviour
 			_touchControlScheme.Reset();
 			return;
 		}
-		int touchCount = Input.touchCount;
-		for (int i = 0; i < touchCount; i++)
+		_touchControlScheme.OnUpdate();
+		if (isShooting)
+        {
+            if (!move && !Defs.isMulti)
+            {
+                move = GameObject.FindGameObjectWithTag("Player").GetComponent<SkinName>().playerMoveC;
+            }
+            if (!move)
+            {
+                return;
+            }
+            if ((TrainingController.TrainingCompleted || TrainingController.CompletedTrainingStage > TrainingController.NewTrainingCompletedStage.None || TrainingController.FireButtonEnabled) && (!GameConnect.isMiniGame || MiniGamesController.Instance.isGo) && hasAmmo && !WeaponManager.sharedManager.currentWeaponSounds.isGrenadeWeapon && (!GameConnect.isSpleef || MiniGamesController.Instance.isGo))
+            {
+                move.ShotPressed();
+            }
+        }
+		bool isDown = false;
+		if (Input.GetKeyDown(Controls.Grenade))
 		{
-			Touch touch = Input.GetTouch(i);
-			if (gadgetsTouchID == -1)
+			WeaponManager.sharedManager.myPlayerMoveC.CurrentGadgetPreUse(GadgetInfo.GadgetCategory.Throwing);
+		}
+		if (Input.GetKeyUp(Controls.Grenade))
+		{
+			if (GameConnect.isDaterRegim)
 			{
-				if (touch.phase == TouchPhase.Began && grenadeRect.Contains(touch.position))
-				{
-					gadgetsTouchID = touch.fingerId;
-					OnGadgetPanelClick(true, touch.position);
-				}
+				ThrowLike();
 			}
-			else if (touch.fingerId == gadgetsTouchID)
+			else
 			{
-				if (!GameConnect.isDaterRegim && isInvokeGrenadePress && chooseGadgetPanel.CanExtend() && (touch.position - _initialGrenadePressPosition).sqrMagnitude > (float)(thresholdGadgetPanel * thresholdGadgetPanel) * Defs.Coef)
-				{
-					isInvokeGrenadePress = false;
-					CancelInvoke("GrenadePressInvoke");
-					chooseGadgetPanelShown = true;
-					chooseGadgetPanel.Show();
-				}
-				if (touch.phase == TouchPhase.Ended)
-				{
-					gadgetsTouchID = -1;
-					OnGadgetPanelClick(false);
-				}
-			}
-			if (touch.phase == TouchPhase.Began && chooseGadgetPanelShown && ProcessPressOnGadgetsPanel(touch.position))
-			{
-				m_shouldHideGadgetPanel = false;
-			}
-			if (touch.phase == TouchPhase.Ended && chooseGadgetPanelShown)
-			{
-				ProcessPressOnGadgetsPanel(touch.position);
-				if (chooseGadgetPanelShown && !m_shouldHideGadgetPanel)
-				{
-					m_shouldHideGadgetPanel = true;
-					m_hideGadgetsPanelSettedTime = Time.realtimeSinceStartup;
-				}
+				WeaponManager.sharedManager.myPlayerMoveC.CurrentGadgetUse(GadgetInfo.GadgetCategory.Throwing);
 			}
 		}
-		_touchControlScheme.OnUpdate();
-		touchCount = Input.touchCount;
-		if (touchCount > 0)
+		Gadget value2 = null;
+		if (InGameGadgetSet.CurrentSet.TryGetValue(GadgetInfo.GadgetCategory.Tools, out value2) && value2 != null)
 		{
+			if (Input.GetKeyDown(Controls.Tool))
+			{
+				WeaponManager.sharedManager.myPlayerMoveC.CurrentGadgetPreUse(GadgetInfo.GadgetCategory.Tools);
+			}
+			if (Input.GetKeyUp(Controls.Tool))
+			{
+				WeaponManager.sharedManager.myPlayerMoveC.CurrentGadgetUse(GadgetInfo.GadgetCategory.Tools);
+			}
+		}
+		Gadget value3 = null;
+		if (InGameGadgetSet.CurrentSet.TryGetValue(GadgetInfo.GadgetCategory.Support, out value3) && value3 != null)
+		{
+			if (Input.GetKeyDown(Controls.Support))
+			{
+				WeaponManager.sharedManager.myPlayerMoveC.CurrentGadgetPreUse(GadgetInfo.GadgetCategory.Support);
+			}
+			if (Input.GetKeyUp(Controls.Support))
+			{
+				WeaponManager.sharedManager.myPlayerMoveC.CurrentGadgetUse(GadgetInfo.GadgetCategory.Support);
+			}
+		}
+		/*if (choosePanelSelectPressed && chooseGadgetPanelShown)
+		{
+			choosePanelSelectPressed = false;
+		}*/
+		if (MobileRelay.touchCount > 0 && GlobalControls.DoMobile)
+		{
+			isDown = true;
+			(bool, Touch) fireTouch = RectContainsAnyTouch(fireRect);
+			(bool, Touch) jumpTouch = RectContainsAnyTouch(jumpRect);
+			(bool, Touch) throwingTouch = RectContainsAnyTouch(throwingRect);
+			(bool, Touch) toolTouch = RectContainsAnyTouch(toolRect);
+			(bool, Touch) supportTouch = RectContainsAnyTouch(supportRect);
+			(bool, Touch) reloadTouch = RectContainsAnyTouch(reloadRect);
+			(bool, Touch) zoomTouch = RectContainsAnyTouch(zoomRect);
+			(bool, Touch) moveTouch = RectContainsAnyTouch(!GameConnect.isSpeedrun ? moveRect : new Rect(0f, 0f, Screen.width, Screen.height));
+
+			if (!jumpPressed && jumpTouch.Item1 && jumpTouch.Item2.phase == TouchPhase.Began)
+			{
+				jumpPressed = true;
+			}
+			if (jumpTouch.Item1 && jumpTouch.Item2.phase == TouchPhase.Ended)
+			{
+				jumpPressed = false;
+			}
+
+			if (!GameConnect.isDeathEscape && !GameConnect.isSpeedrun && reloadTouch.Item1 && reloadTouch.Item2.phase == TouchPhase.Began && !move.myCurrentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying("Loading"))
+			{
+				move.ReloadPressed();
+			}
+			if (!GameConnect.isDeathEscape && !GameConnect.isSpeedrun)
+			{
+				bool flag = zoomSprite != null && zoomSprite.gameObject.activeInHierarchy;
+				if (zoomTouch.Item1 && zoomTouch.Item2.phase == TouchPhase.Began && ((InGameGUI.sharedInGameGUI.playerMoveC != null && !InGameGUI.sharedInGameGUI.playerMoveC.isMechActive) || InGameGUI.sharedInGameGUI.playerMoveC == null) && flag && (bool)move && WeaponManager.sharedManager != null && WeaponManager.sharedManager.currentWeaponSounds != null && WeaponManager.sharedManager.currentWeaponSounds.isZooming)
+				{
+					move.ZoomPress();
+				}
+			}
+
 			if (MoveTouchID == -1)
 			{
-				for (int j = 0; j < touchCount; j++)
+				for (int i = 0; i < MobileRelay.touches.Length; i++)
 				{
-					Touch touch2 = Input.GetTouch(j);
-					if (touch2.phase == TouchPhase.Began && moveRect.Contains(touch2.position))
+					if (moveTouch.Item1 && moveTouch.Item2.phase == TouchPhase.Began)
 					{
-						MoveTouchID = touch2.fingerId;
+						MoveTouchID = moveTouch.Item2.fingerId;
 					}
 				}
 			}
-			if (!gadgetsPanelPress && (!GameConnect.isSpeedrun || SpeedrunTrackController.instance.runStarted))
+			UpdateMoveTouch();
+			if (FireTouchID == -1)
 			{
-				UpdateMoveTouch();
+				for (int i = 0; i < MobileRelay.touches.Length; i++)
+				{
+					if (fireTouch.Item1 && fireTouch.Item2.phase == TouchPhase.Began)
+					{
+						FireTouchID = fireTouch.Item2.fingerId;
+					}
+				}
 			}
-		}
+			UpdateFireTouch();
+			if (GrenadeTouchID == -1)
+			{
+				for (int i = 0; i < MobileRelay.touches.Length; i++)
+				{
+					if (throwingTouch.Item1 && throwingTouch.Item2.phase == TouchPhase.Began)
+					{
+						GrenadeTouchID = throwingTouch.Item2.fingerId;
+					}
+				}
+			}
+			UpdateGrenadeTouch();
+			if (ToolTouchID == -1)
+			{
+				for (int i = 0; i < MobileRelay.touches.Length; i++)
+				{
+					if (toolTouch.Item1 && toolTouch.Item2.phase == TouchPhase.Began)
+					{
+						ToolTouchID = toolTouch.Item2.fingerId;
+					}
+				}
+			}
+			UpdateToolTouch();
+			if (SupportTouchID == -1)
+            {
+                for (int i = 0; i < MobileRelay.touches.Length; i++)
+                {
+                    if (supportTouch.Item1 && supportTouch.Item2.phase == TouchPhase.Began)
+                    {
+                        SupportTouchID = supportTouch.Item2.fingerId;
+                    }
+                }
+            }
+            UpdateSupportTouch();
+        }
 		else
 		{
 			MoveTouchID = -1;
 			pastPos = Vector2.zero;
-			pastDelta = Vector2.zero;
 		}
-		if (choosePanelSelectPressed && chooseGadgetPanelShown)
-		{
-			choosePanelSelectPressed = false;
-		}
-	}
+        if (!isDown && GlobalControls.DoMobile)
+        {
+            jumpPressed = false;
+        }
+    }
 
 	private void UpdateMoveTouch()
-	{
-		int touchCount = Input.touchCount;
-		for (int i = 0; i < touchCount; i++)
-		{
-			Touch touch = Input.GetTouch(i);
-			if (touch.fingerId == MoveTouchID)
-			{
-				if (touch.phase == TouchPhase.Ended)
-				{
-					MoveTouchID = -1;
-					pastPos = Vector2.zero;
-					pastDelta = Vector2.zero;
-					firstDeltaSkip = false;
-					break;
-				}
-				if (pastPos == Vector2.zero)
-				{
-					pastPos = touch.position;
-				}
-				Vector2 vector = touch.position - pastPos;
-				if (vector == Vector2.zero && pastDelta != Vector2.zero && IsDifferendDirections(pastDelta, JoystickController.leftJoystick.value) && pastDelta.sqrMagnitude > 15f)
-				{
-					vector = pastDelta / 2f;
-					compDeltas += vector;
-				}
-				else
-				{
-					vector -= compDeltas;
-					compDeltas = Vector2.zero;
-				}
-				if (firstDeltaSkip)
-				{
-					OnDragTouch(vector);
-				}
-				else if (vector.sqrMagnitude > float.Epsilon)
-				{
-					firstDeltaSkip = true;
-				}
-				pastPos = touch.position;
-				pastDelta = vector;
-			}
-		}
-	}
+    {
+        for (int i = 0; i < MobileRelay.touches.Length; i++)
+        {
+            if (MobileRelay.touches[i].fingerId == MoveTouchID)
+            {
+                Touch touch = MobileRelay.touches[i];
+                if (pastPos == Vector2.zero)
+                {
+                    pastPos = touch.position;
+                }
+                OnDragTouch(touch.position - pastPos);
+                pastPos = touch.position;
+                if (touch.phase == TouchPhase.Ended)
+                {
+                    MoveTouchID = -1;
+                    pastPos = Vector2.zero;
+                }
+            }
+        }
+    }
 
 	private void OnGadgetPanelClick(bool pressed, Vector3 clickPos = default(Vector3))
 	{
@@ -940,6 +829,114 @@ public class TouchPadController : MonoBehaviour
 		}
 		return false;
 	}
+	
+	private void UpdateFireTouch()
+    {
+        for (int i = 0; i < MobileRelay.touches.Length; i++)
+        {
+            if (MobileRelay.touches[i].fingerId == FireTouchID)
+            {
+                Touch touch = MobileRelay.touches[i];
+                if (touch.phase == TouchPhase.Began)
+                {
+                    if (!GameConnect.isDeathEscape && !GameConnect.isSpeedrun)
+                    {
+                        isShooting = true;
+                    }
+                }
+                if (touch.phase == TouchPhase.Ended)
+                {
+                    isShooting = false;
+                    FireTouchID = -1;
+                }
+            }
+        }
+    }
+    
+    private void UpdateGrenadeTouch()
+    {
+        for (int i = 0; i < MobileRelay.touches.Length; i++)
+        {
+            if (MobileRelay.touches[i].fingerId == GrenadeTouchID)
+            {
+                Touch touch = MobileRelay.touches[i];
+                if (touch.phase == TouchPhase.Began)
+                {
+                    if (IsBuyGrenadeActive())
+                    {
+                        InGameGUI.sharedInGameGUI.HandleBuyGrenadeClicked(null, EventArgs.Empty);
+                    }
+                    else if (IsUseGrenadeActive())
+                    {
+                        GrenadePressInvoke();
+                    }
+                    if (!GameConnect.isDaterRegim)
+                    {
+                        WeaponManager.sharedManager.myPlayerMoveC.CurrentGadgetPreUse(GadgetInfo.GadgetCategory.Throwing);
+                    }
+                }
+                if (touch.phase == TouchPhase.Ended)
+                {
+                    if (GameConnect.isDaterRegim)
+                    {
+                        ThrowLike();
+                    }
+                    else
+                    {
+                        WeaponManager.sharedManager.myPlayerMoveC.CurrentGadgetUse(GadgetInfo.GadgetCategory.Throwing);
+                    }
+                    GrenadeTouchID = -1;
+                }
+            }
+        }
+    }
+    
+    private void UpdateToolTouch()
+    {
+        for (int i = 0; i < MobileRelay.touches.Length; i++)
+        {
+            if (MobileRelay.touches[i].fingerId == ToolTouchID)
+            {
+                Touch touch = MobileRelay.touches[i];
+                if (touch.phase == TouchPhase.Began)
+                {
+                    WeaponManager.sharedManager.myPlayerMoveC.CurrentGadgetPreUse(GadgetInfo.GadgetCategory.Tools);
+                }
+				if (touch.phase == TouchPhase.Ended)
+				{
+					WeaponManager.sharedManager.myPlayerMoveC.CurrentGadgetUse(GadgetInfo.GadgetCategory.Tools);
+					ToolTouchID = -1;
+                }
+            }
+        }
+    }
+
+	private void UpdateSupportTouch()
+    {
+        for (int i = 0; i < MobileRelay.touches.Length; i++)
+        {
+            if (MobileRelay.touches[i].fingerId == SupportTouchID)
+            {
+                Touch touch = MobileRelay.touches[i];
+				if (touch.phase == TouchPhase.Ended)
+				{
+					WeaponManager.sharedManager.myPlayerMoveC.CurrentGadgetPreUse(GadgetInfo.GadgetCategory.Support);
+					WeaponManager.sharedManager.myPlayerMoveC.CurrentGadgetUse(GadgetInfo.GadgetCategory.Support);
+					SupportTouchID = -1;
+                }
+            }
+        }
+    }
+
+	private void GrenadePressInvokeDater()
+	{
+		Gadget value = WeaponManager.sharedManager.myPlayerMoveC.daterLikeGadget;
+		if (value != null)
+		{
+			isInvokeGrenadePress = false;
+			value.PreUse();
+		}
+	}
 
 	public void HasAmmo()
 	{
@@ -962,7 +959,7 @@ public class TouchPadController : MonoBehaviour
 		}
 	}
 
-	private bool ProcessPressOnGadgetsPanel(Vector2 pos)
+	/*private bool ProcessPressOnGadgetsPanel(Vector2 pos)
 	{
 		if (choosePanelSelectPressed)
 		{
@@ -987,15 +984,15 @@ public class TouchPadController : MonoBehaviour
 			return true;
 		}
 		return false;
-	}
+	}*/
 
 	private void HideGadgetsPanel()
 	{
-		chooseGadgetPanel.Hide();
+		/*chooseGadgetPanel.Hide();
 		chooseGadgetPanelShown = false;
 		chooseGadgetPanel.hoverBackground1.SetActiveSafeSelf(false);
 		chooseGadgetPanel.hoverBackground2.SetActiveSafeSelf(false);
-		chooseGadgetPanel.hoverBackground3.SetActiveSafeSelf(false);
+		chooseGadgetPanel.hoverBackground3.SetActiveSafeSelf(false);*/
 	}
 
 	private void OnPress(bool isDown)
@@ -1037,10 +1034,10 @@ public class TouchPadController : MonoBehaviour
 				move.ZoomPress();
 			}
 		}
-		if (isDown && WeaponManager.sharedManager.myPlayerMoveC.showGadgetsPanel && gadgetSelectRect.Contains(UICamera.lastTouchPosition) && !gadgetsPanelPress && !chooseGadgetPanelShown && chooseGadgetPanel.gadgetButtonScript.yazichok.activeSelf)
+		/*if (isDown && WeaponManager.sharedManager.myPlayerMoveC.showGadgetsPanel && gadgetSelectRect.Contains(UICamera.lastTouchPosition) && !gadgetsPanelPress && !chooseGadgetPanelShown && chooseGadgetPanel.gadgetButtonScript.yazichok.activeSelf)
 		{
 			choosePanelSelectPressed = true;
-		}
+		}*/
 		if (isDown)
 		{
 			return;
@@ -1068,37 +1065,30 @@ public class TouchPadController : MonoBehaviour
 		}
 		isShooting = false;
 		jumpPressed = false;
-		isShootingPressure = false;
+		/*isShootingPressure = false;
 		if (choosePanelSelectPressed && gadgetSelectRect.Contains(UICamera.lastTouchPosition) && !gadgetsPanelPress && !chooseGadgetPanelShown && chooseGadgetPanel.gadgetButtonScript.yazichok.activeSelf)
 		{
 			chooseGadgetPanelShown = true;
 			chooseGadgetPanel.Show();
-		}
+		}*/
 	}
 
 	private void GrenadePressInvoke()
 	{
-		gadgetsPanelPress = false;
-		Gadget value = null;
-		bool flag = false;
 		if (GameConnect.isDaterRegim)
-		{
-			grenadeButton.grenadeSprite.spriteName = "grenade_like_btn_n";
-			value = WeaponManager.sharedManager.myPlayerMoveC.daterLikeGadget;
-			flag = true;
-		}
-		else
-		{
-			InGameGadgetSet.CurrentSet.TryGetValue(GadgetsInfo.DefaultGadget, out value);
-			flag = WeaponManager.sharedManager.myPlayerMoveC.canUseGadgets && value.CanUse;
-		}
-		if (value != null && flag)
-		{
-			isInvokeGrenadePress = false;
-			grenadePressed = true;
-			value.PreUse();
-		}
+        {
+            GrenadePressInvokeDater();
+        }
 	}
+
+	private void ThrowLike()
+    {
+        Gadget value = WeaponManager.sharedManager.myPlayerMoveC.daterLikeGadget;
+		if (value != null)
+		{
+			value.Use();
+		}
+    }
 
 	private void BuyGrenadePressInvoke()
 	{
@@ -1168,7 +1158,6 @@ public class TouchPadController : MonoBehaviour
 		isShooting = false;
 		isShootingPressure = false;
 		MoveTouchID = -1;
-		gadgetsTouchID = -1;
 		ChooseGadgetPanel_OnDisablePanel();
 	}
 }

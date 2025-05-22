@@ -5873,12 +5873,12 @@ public sealed class Player_move_c : MonoBehaviour
 		return null;
 	}
 
-	public void CurrentGadgetPreUse()
+	public void CurrentGadgetPreUse(GadgetInfo.GadgetCategory cat)
 	{
 		if (canUseGadgets)
 		{
 			Gadget value = null;
-			if (InGameGadgetSet.CurrentSet.TryGetValue(GadgetsInfo.DefaultGadget, out value) && value.CanUse)
+			if (InGameGadgetSet.CurrentSet.TryGetValue(cat, out value) && value.CanUse)
 			{
 				value.PreUse();
 				gadgetWasPreused = true;
@@ -5886,13 +5886,13 @@ public sealed class Player_move_c : MonoBehaviour
 		}
 	}
 
-	public void CurrentGadgetUse()
+	public void CurrentGadgetUse(GadgetInfo.GadgetCategory cat)
 	{
 		if (canUseGadgets && gadgetWasPreused)
 		{
 			gadgetWasPreused = false;
 			Gadget value = null;
-			if (InGameGadgetSet.CurrentSet.TryGetValue(GadgetsInfo.DefaultGadget, out value) && value.CanUse)
+			if (InGameGadgetSet.CurrentSet.TryGetValue(cat, out value) && value.CanUse)
 			{
 				value.Use();
 			}

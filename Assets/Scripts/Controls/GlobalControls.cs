@@ -18,36 +18,72 @@ public class GlobalControls : MonoBehaviour
         }
     }
 
+    public static bool IsOnPC
+    {
+        get
+        {
+            return !Application.isMobilePlatform && !Application.isConsolePlatform;
+        }
+    }
+
+    public static bool DoMobile
+    {
+        get => IsOnPC;
+    }
+
     private static Vector2 _movementVector;
 
     public static Vector2 MovementVector
     {
         get
         {
-            int y = 0;
-            int x = 0;
-            if (Input.GetKey(KeyCode.W))
+            if (!DoMobile)
             {
-                y = 1;
+                int y = 0;
+                int x = 0;
+                if (Input.GetKey(KeyCode.W))
+                {
+                    y = 1;
+                }
+                if (Input.GetKey(KeyCode.S))
+                {
+                    y = -1;
+                }
+                if (Input.GetKey(KeyCode.A))
+                {
+                    x = -1;
+                }
+                if (Input.GetKey(KeyCode.D))
+                {
+                    x = 1;
+                }
+                _movementVector = new Vector2(x, y);
+                return _movementVector;
             }
-            if (Input.GetKey(KeyCode.S))
-            {
-                y = -1;
-            }
-            if (Input.GetKey(KeyCode.A))
-            {
-                x = -1;
-            }
-            if (Input.GetKey(KeyCode.D))
-            {
-                x = 1;
-            }
-            _movementVector = new Vector2(x, y);
             return _movementVector;
         }
         set
         {
             _movementVector = value;
+        }
+    }
+
+    private static Vector2 _lookDelta;
+    public static Vector2 LookDelta
+    {
+        get
+        {
+            if (!DoMobile)
+            {
+                if (!MouseLocked) return Vector2.zero;
+                float mult = 8.36f;
+                _lookDelta = new Vector2(Input.GetAxisRaw("Mouse X") * mult, Input.GetAxisRaw("Mouse Y") * mult);
+            }
+            return _lookDelta;
+        }
+        set
+        {
+            _lookDelta = value;
         }
     }
 
