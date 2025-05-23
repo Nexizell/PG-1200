@@ -28,7 +28,7 @@ public class GlobalControls : MonoBehaviour
 
     public static bool DoMobile
     {
-        get => IsOnPC;
+        get => !IsOnPC;
     }
 
     private static Vector2 _movementVector;
