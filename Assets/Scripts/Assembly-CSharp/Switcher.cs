@@ -696,7 +696,7 @@ public sealed class Switcher : MonoBehaviour
 					num
 				}));
 			}
-			PlayerPrefs.SetInt(Defs.SwitchingWeaponsSwipeRegimSN, value);
+			PlayerPrefs.SetInt(Defs.SwitchingWeaponsSwipeRegimSN, 0);
 		}
 		GlobalGameController.switchingWeaponSwipe = PlayerPrefs.GetInt(Defs.SwitchingWeaponsSwipeRegimSN, 0) == 1;
 		string text2 = Load.LoadString("keyOldVersion");

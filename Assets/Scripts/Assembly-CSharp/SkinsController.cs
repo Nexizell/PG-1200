@@ -400,8 +400,8 @@ public sealed class SkinsController : MonoBehaviour
 			{
 			}
 			string path = Path.Combine(SkinsManager._PathBase, Defs.CustomTextureName);
-			Texture2D _skin2dCape = ((!File.Exists(path)) ? Resources.Load<Texture2D>("cape_CustomTexture") : SkinsManager.TextureForName(Defs.CustomTextureName, Defs.CustomCapeTextureWidth, Defs.CustomCapeTextureHeight, true));
-			if (_skin2dCape != null)
+			Texture2D _skin2dCape = ((!File.Exists(path)) ? (Resources.Load("cape_CustomTexture") as Texture2D) : SkinsManager.TextureForName(Defs.CustomTextureName, Defs.CustomCapeTextureWidth, Defs.CustomCapeTextureHeight, true));
+            if (_skin2dCape != null)
 			{
 				_skin2dCape.filterMode = FilterMode.Point;
 				_skin2dCape.Apply();

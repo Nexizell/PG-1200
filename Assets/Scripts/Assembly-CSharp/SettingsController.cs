@@ -286,7 +286,7 @@ public sealed class SettingsController : MonoBehaviour
 
 	public static void ChangeSwitchingWeaponHanded(bool isChecked, Action handler = null)
 	{
-		if (Application.isEditor)
+		/*if (Application.isEditor)
 		{
 			UnityEngine.Debug.Log("[Switching Weapon button clicked: " + isChecked);
 		}
@@ -299,7 +299,7 @@ public sealed class SettingsController : MonoBehaviour
 			{
 				handler();
 			}
-		}
+		}*/
 	}
 
 	private void SetSyncLabelText()

@@ -333,17 +333,7 @@ public sealed class ExperienceController : MonoBehaviour
 
 	public static int GetCurrentLevel()
 	{
-		int result = 1;
-		for (int i = 1; i <= 36; i++)
-		{
-			string currentLevelKey = GetCurrentLevelKey(i);
-			if (Storager.getInt(currentLevelKey) == 1)
-			{
-				result = i;
-				Storager.setInt(currentLevelKey, 1);
-			}
-		}
-		return result;
+		return Storager.getInt("currentLevel", false, 1);
 	}
 
 	public void Refresh()
@@ -431,7 +421,7 @@ public sealed class ExperienceController : MonoBehaviour
 			{
 				currentExperience = 0;
 				currentLevel++;
-				Storager.setInt(GetCurrentLevelKey(currentLevel), 1);
+				Storager.setInt("currentLevel", currentLevel);
 				Storager.setInt("currentExperience", currentExperience.Value);
 				BankController.GiveInitialNumOfCoins();
 				AddCurrenciesForLevelUP();
@@ -582,7 +572,7 @@ public sealed class ExperienceController : MonoBehaviour
 				}
 			}
 			idOfGivenPreviousTierBestArmor = GiveArmorOnTierUp();
-			Storager.setInt(GetCurrentLevelKey(currentLevel), 1);
+			Storager.setInt("currentLevel", currentLevel);
 			Storager.setInt("currentExperience", currentExperience.Value);
 			BankController.GiveInitialNumOfCoins();
 			AddCurrenciesForLevelUP();
@@ -649,14 +639,5 @@ public sealed class ExperienceController : MonoBehaviour
 		{
 			sharedController.isShowRanks = enable;
 		}
-	}
-
-	private static string GetCurrentLevelKey(int levelIndex)
-	{
-		_sharedStringBuilder.Length = 0;
-		_sharedStringBuilder.Append("currentLevel").Append(levelIndex);
-		string result = _sharedStringBuilder.ToString();
-		_sharedStringBuilder.Length = 0;
-		return result;
 	}
 }

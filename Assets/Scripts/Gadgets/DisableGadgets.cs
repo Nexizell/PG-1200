@@ -26,29 +26,20 @@ public class DisableGadgets : MonoBehaviour
             
         }
         Gadget value = null;
-        if (InGameGadgetSet.CurrentSet.TryGetValue(GadgetInfo.GadgetCategory.Throwing, out value))
+        if (!InGameGadgetSet.CurrentSet.TryGetValue(GadgetInfo.GadgetCategory.Throwing, out value) || !TrainingController.TrainingCompleted)
         {
-            if (value == null)
-            {
-                throwingGadget.SetActive(false);
-                throwingGadget.GetComponent<GadgetTouchButton>().enabled = false;
-            }
+            throwingGadget.SetActive(false);
+            throwingGadget.GetComponent<GadgetTouchButton>().enabled = false;
         }
-        if (InGameGadgetSet.CurrentSet.TryGetValue(GadgetInfo.GadgetCategory.Tools, out value))
+        if (!InGameGadgetSet.CurrentSet.TryGetValue(GadgetInfo.GadgetCategory.Tools, out value))
         {
-            if (value == null)
-            {
-                toolGadget.SetActive(false);
-                toolGadget.GetComponent<GadgetTouchButton>().enabled = false;
-            }
+            toolGadget.SetActive(false);
+            toolGadget.GetComponent<GadgetTouchButton>().enabled = false;
         }
-        if (InGameGadgetSet.CurrentSet.TryGetValue(GadgetInfo.GadgetCategory.Support, out value))
+        if (!InGameGadgetSet.CurrentSet.TryGetValue(GadgetInfo.GadgetCategory.Support, out value))
         {
-            if (value == null)
-            {
-                supportGadget.SetActive(false);
-                supportGadget.GetComponent<GadgetTouchButton>().enabled = false;
-            }
+            supportGadget.SetActive(false);
+            supportGadget.GetComponent<GadgetTouchButton>().enabled = false;
         }
         if (GameConnect.isDaterRegim)
         {

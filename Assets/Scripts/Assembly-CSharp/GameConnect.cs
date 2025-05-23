@@ -351,7 +351,6 @@ public class GameConnect : MonoBehaviour
 	private static string GetConnectGameVersion()
 	{
 		string text = "";
-		text = ((!Defs.useRatingLobbySystem) ? gameTier.ToString() : ("l" + gameTier));
 		return Initializer.Separator + (isDaterRegim ? "Deathmatch" : gameMode.ToString()) + (isHunger ? "0" : ((isMiniGame || isDaterRegim) ? "M" : text)) + "v" + GlobalGameController.MultiplayerProtocolVersion;
 	}
 
