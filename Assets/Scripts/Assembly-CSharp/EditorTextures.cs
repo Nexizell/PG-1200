@@ -118,8 +118,8 @@ public sealed class EditorTextures : MonoBehaviour
 				nextHistoryUIButton.isEnabled = currentHistoryIndex < arrHistory.Count - 1;
 			}
 		}
-		int touchCount = Input.touchCount;
-		Touch touch = ((touchCount > 0) ? Input.GetTouch(0) : default(Touch));
+		int touchCount = MobileRelay.touchCount;
+		Touch touch = ((touchCount > 0) ? MobileRelay.GetTouch(0) : default(Touch));
 		if (isMouseDown && ((touchCount > 0 && (touch.phase == TouchPhase.Ended || touch.phase == TouchPhase.Canceled)) || Input.GetMouseButtonUp(0)))
 		{
 			Vector2 pos = ((touchCount > 0) ? new Vector2(touch.position.x, touch.position.y) : new Vector2(Input.mousePosition.x, Input.mousePosition.y));
