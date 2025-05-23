@@ -14,6 +14,11 @@ public class HDRPMaterialConverter : EditorWindow
     private bool convertAllMaterials = true;
     private bool createBackup = true;
     private Vector2 scrollPosition;
+    
+    [Header("Default Material Properties")]
+    private float defaultMetallic = 0.0f;
+    private float defaultSmoothness = 0.2f;
+    private bool useSmartDefaults = true;
 
     void OnGUI()
     {
@@ -25,12 +30,30 @@ public class HDRPMaterialConverter : EditorWindow
 
         convertAllMaterials = EditorGUILayout.Toggle("Convert All Materials in Project", convertAllMaterials);
         createBackup = EditorGUILayout.Toggle("Create Backup of Original Materials", createBackup);
+        
+        GUILayout.Space(10);
+        EditorGUILayout.LabelField("Material Properties", EditorStyles.boldLabel);
+        useSmartDefaults = EditorGUILayout.Toggle("Use Smart Material Detection", useSmartDefaults);
+        EditorGUILayout.HelpBox("Smart detection automatically sets appropriate metallic/smoothness values based on material names.", MessageType.Info);
+        
+        if (!useSmartDefaults)
+        {
+            defaultMetallic = EditorGUILayout.Slider("Default Metallic", defaultMetallic, 0f, 1f);
+            defaultSmoothness = EditorGUILayout.Slider("Default Smoothness", defaultSmoothness, 0f, 1f);
+        }
 
         GUILayout.Space(20);
 
         if (GUILayout.Button("Convert Materials", GUILayout.Height(30)))
         {
             ConvertMaterials();
+        }
+
+        GUILayout.Space(10);
+
+        if (GUILayout.Button("Fix Overly Glossy Materials", GUILayout.Height(25)))
+        {
+            FixGlossyMaterials();
         }
 
         GUILayout.Space(10);
@@ -46,10 +69,13 @@ public class HDRPMaterialConverter : EditorWindow
         string[] materialGuids = AssetDatabase.FindAssets("t:Material");
         List<Material> materialsToConvert = new List<Material>();
 
-        // Find materials using Mobile/Diffuse shader
-        foreach (string guid in materialGuids)
+        EditorUtility.DisplayProgressBar("Finding Materials", "Scanning project for materials...", 0f);
+
+        for (int i = 0; i < materialGuids.Length; i++)
         {
-            string path = AssetDatabase.GUIDToAssetPath(guid);
+            EditorUtility.DisplayProgressBar("Finding Materials", $"Scanning materials... {i + 1}/{materialGuids.Length}", (float)i / materialGuids.Length);
+            
+            string path = AssetDatabase.GUIDToAssetPath(materialGuids[i]);
             Material material = AssetDatabase.LoadAssetAtPath<Material>(path);
 
             if (material != null && (material.shader.name.Contains("Mobile/Diffuse") || 
@@ -60,11 +86,19 @@ public class HDRPMaterialConverter : EditorWindow
             }
         }
 
+        EditorUtility.ClearProgressBar();
+
         if (materialsToConvert.Count == 0)
         {
             EditorUtility.DisplayDialog("No Materials Found", "No materials using Mobile/Diffuse or Standard shaders were found.", "OK");
             return;
         }
+
+        bool proceed = EditorUtility.DisplayDialog("Materials Found", 
+            $"Found {materialsToConvert.Count} materials to convert.\n\nThis may take several minutes for large projects.\n\nProceed?", 
+            "Yes", "Cancel");
+
+        if (!proceed) return;
 
         int convertedCount = 0;
         Shader hdrpLitShader = Shader.Find("HDRP/Lit");
@@ -75,11 +109,24 @@ public class HDRPMaterialConverter : EditorWindow
             return;
         }
 
-        foreach (Material material in materialsToConvert)
+        HashSet<Texture2D> processedTextures = new HashSet<Texture2D>();
+        const int batchSize = 50;
+
+        for (int i = 0; i < materialsToConvert.Count; i++)
         {
+            Material material = materialsToConvert[i];
+            
+            if (EditorUtility.DisplayCancelableProgressBar("Converting Materials", 
+                $"Converting {material.name}... ({i + 1}/{materialsToConvert.Count})", 
+                (float)i / materialsToConvert.Count))
+            {
+                EditorUtility.ClearProgressBar();
+                EditorUtility.DisplayDialog("Conversion Cancelled", $"Converted {convertedCount} materials before cancellation.", "OK");
+                return;
+            }
+
             try
             {
-                // Create backup if requested
                 if (createBackup)
                 {
                     string materialPath = AssetDatabase.GetAssetPath(material);
@@ -87,34 +134,37 @@ public class HDRPMaterialConverter : EditorWindow
                     AssetDatabase.CopyAsset(materialPath, backupPath);
                 }
 
-                // Store old texture references
                 Texture2D mainTexture = material.GetTexture("_MainTex") as Texture2D;
                 Color mainColor = material.HasProperty("_Color") ? material.color : Color.white;
 
-                // Convert to HDRP Lit shader
                 material.shader = hdrpLitShader;
 
-                // Map properties from old shader to HDRP Lit
                 if (mainTexture != null)
                 {
                     material.SetTexture("_BaseColorMap", mainTexture);
-                    UpdateTextureForHDRP(mainTexture);
+                    
+                    if (!processedTextures.Contains(mainTexture))
+                    {
+                        UpdateTextureForHDRP(mainTexture);
+                        processedTextures.Add(mainTexture);
+                    }
                 }
 
                 material.SetColor("_BaseColor", mainColor);
+                SetMaterialProperties(material);
 
-                // Set common HDRP properties
-                material.SetFloat("_Metallic", 0.0f);
-                material.SetFloat("_Smoothness", 0.5f);
-
-                // Enable surface options for HDRP
-                material.SetFloat("_SurfaceType", 0); // Opaque
-                material.SetFloat("_BlendMode", 0);   // Alpha
-                material.SetFloat("_CullMode", 2);    // Back
-                material.SetFloat("_ZWrite", 1);      // On
+                material.SetFloat("_SurfaceType", 0);
+                material.SetFloat("_BlendMode", 0);
+                material.SetFloat("_CullMode", 2);
+                material.SetFloat("_ZWrite", 1);
 
                 EditorUtility.SetDirty(material);
                 convertedCount++;
+
+                if (i % batchSize == 0)
+                {
+                    AssetDatabase.SaveAssets();
+                }
             }
             catch (System.Exception e)
             {
@@ -122,28 +172,137 @@ public class HDRPMaterialConverter : EditorWindow
             }
         }
 
+        EditorUtility.ClearProgressBar();
         AssetDatabase.SaveAssets();
         AssetDatabase.Refresh();
 
         EditorUtility.DisplayDialog("Conversion Complete", 
-            $"Successfully converted {convertedCount} materials to HDRP Lit shader.", "OK");
+            $"Successfully converted {convertedCount} materials to HDRP Lit shader.\nProcessed {processedTextures.Count} unique textures.", "OK");
+    }
+
+    void FixGlossyMaterials()
+    {
+        string[] materialGuids = AssetDatabase.FindAssets("t:Material");
+        List<Material> hdrpMaterials = new List<Material>();
+
+        foreach (string guid in materialGuids)
+        {
+            string path = AssetDatabase.GUIDToAssetPath(guid);
+            Material material = AssetDatabase.LoadAssetAtPath<Material>(path);
+
+            if (material != null && material.shader.name == "HDRP/Lit")
+            {
+                hdrpMaterials.Add(material);
+            }
+        }
+
+        if (hdrpMaterials.Count == 0)
+        {
+            EditorUtility.DisplayDialog("No HDRP Materials Found", "No HDRP/Lit materials found to fix.", "OK");
+            return;
+        }
+
+        int fixedCount = 0;
+
+        for (int i = 0; i < hdrpMaterials.Count; i++)
+        {
+            Material material = hdrpMaterials[i];
+            
+            EditorUtility.DisplayProgressBar("Fixing Materials", 
+                $"Fixing {material.name}... ({i + 1}/{hdrpMaterials.Count})", 
+                (float)i / hdrpMaterials.Count);
+
+            if (material.GetFloat("_Smoothness") > 0.4f || material.GetFloat("_Metallic") > 0.1f)
+            {
+                SetMaterialProperties(material);
+                EditorUtility.SetDirty(material);
+                fixedCount++;
+            }
+        }
+
+        EditorUtility.ClearProgressBar();
+        AssetDatabase.SaveAssets();
+        
+        EditorUtility.DisplayDialog("Fix Complete", 
+            $"Fixed {fixedCount} overly glossy materials.", "OK");
+    }
+
+    void SetMaterialProperties(Material material)
+    {
+        if (useSmartDefaults)
+        {
+            string materialName = material.name.ToLower();
+            
+            if (materialName.Contains("metal") || materialName.Contains("steel") || 
+                materialName.Contains("iron") || materialName.Contains("aluminum") ||
+                materialName.Contains("chrome") || materialName.Contains("gold") ||
+                materialName.Contains("silver") || materialName.Contains("copper"))
+            {
+                material.SetFloat("_Metallic", 1.0f);
+                material.SetFloat("_Smoothness", 0.8f);
+            }
+            else if (materialName.Contains("glass") || materialName.Contains("mirror") ||
+                     materialName.Contains("water") || materialName.Contains("ice"))
+            {
+                material.SetFloat("_Metallic", 0.0f);
+                material.SetFloat("_Smoothness", 0.95f);
+            }
+            else if (materialName.Contains("plastic") || materialName.Contains("vinyl"))
+            {
+                material.SetFloat("_Metallic", 0.0f);
+                material.SetFloat("_Smoothness", 0.6f);
+            }
+            else if (materialName.Contains("wood") || materialName.Contains("stone") ||
+                     materialName.Contains("concrete") || materialName.Contains("brick") ||
+                     materialName.Contains("dirt") || materialName.Contains("sand") ||
+                     materialName.Contains("fabric") || materialName.Contains("cloth") ||
+                     materialName.Contains("leather") || materialName.Contains("paper"))
+            {
+                material.SetFloat("_Metallic", 0.0f);
+                material.SetFloat("_Smoothness", 0.1f);
+            }
+            else if (materialName.Contains("paint") || materialName.Contains("wall"))
+            {
+                material.SetFloat("_Metallic", 0.0f);
+                material.SetFloat("_Smoothness", 0.3f);
+            }
+            else
+            {
+                material.SetFloat("_Metallic", 0.0f);
+                material.SetFloat("_Smoothness", 0.2f);
+            }
+        }
+        else
+        {
+            material.SetFloat("_Metallic", defaultMetallic);
+            material.SetFloat("_Smoothness", defaultSmoothness);
+        }
     }
 
     void UpdateTextureImportSettings()
     {
         string[] textureGuids = AssetDatabase.FindAssets("t:Texture2D");
         int updatedCount = 0;
+        const int batchSize = 100;
 
-        foreach (string guid in textureGuids)
+        for (int i = 0; i < textureGuids.Length; i++)
         {
-            string path = AssetDatabase.GUIDToAssetPath(guid);
+            if (EditorUtility.DisplayCancelableProgressBar("Updating Textures", 
+                $"Processing textures... ({i + 1}/{textureGuids.Length})", 
+                (float)i / textureGuids.Length))
+            {
+                EditorUtility.ClearProgressBar();
+                EditorUtility.DisplayDialog("Update Cancelled", $"Updated {updatedCount} textures before cancellation.", "OK");
+                return;
+            }
+
+            string path = AssetDatabase.GUIDToAssetPath(textureGuids[i]);
             TextureImporter importer = AssetImporter.GetAtPath(path) as TextureImporter;
 
             if (importer != null)
             {
                 bool needsUpdate = false;
 
-                // Update texture import settings for HDRP
                 if (importer.textureType != TextureImporterType.Default)
                 {
                     importer.textureType = TextureImporterType.Default;
@@ -162,7 +321,6 @@ public class HDRPMaterialConverter : EditorWindow
                     needsUpdate = true;
                 }
 
-                // Set appropriate texture format for different platforms
                 TextureImporterPlatformSettings pcSettings = importer.GetPlatformTextureSettings("Standalone");
                 if (pcSettings.format != TextureImporterFormat.DXT5 && pcSettings.format != TextureImporterFormat.BC7)
                 {
@@ -177,8 +335,14 @@ public class HDRPMaterialConverter : EditorWindow
                     updatedCount++;
                 }
             }
+
+            if (i % batchSize == 0)
+            {
+                System.GC.Collect();
+            }
         }
 
+        EditorUtility.ClearProgressBar();
         EditorUtility.DisplayDialog("Texture Update Complete", 
             $"Updated import settings for {updatedCount} textures.", "OK");
     }
@@ -192,12 +356,10 @@ public class HDRPMaterialConverter : EditorWindow
 
         if (importer != null)
         {
-            // Ensure proper settings for HDRP
             importer.textureType = TextureImporterType.Default;
-            importer.sRGBTexture = true; // Most diffuse textures should be sRGB
+            importer.sRGBTexture = true;
             importer.mipmapEnabled = true;
 
-            // Set compression format
             TextureImporterPlatformSettings settings = importer.GetPlatformTextureSettings("Standalone");
             settings.format = TextureImporterFormat.BC7;
             importer.SetPlatformTextureSettings(settings);
@@ -213,11 +375,7 @@ public class HDRPMaterialConverter : EditorWindow
                !fileName.Contains("bump") && !fileName.Contains("metallic") && 
                !fileName.Contains("roughness") && !fileName.Contains("ao");
     }
-}
 
-// Additional utility class for batch operations
-public class HDRPBatchProcessor
-{
     [MenuItem("Assets/Convert Selected Materials to HDRP Lit", false, 1000)]
     static void ConvertSelectedMaterials()
     {
@@ -259,7 +417,7 @@ public class HDRPBatchProcessor
 
             material.SetColor("_BaseColor", mainColor);
             material.SetFloat("_Metallic", 0.0f);
-            material.SetFloat("_Smoothness", 0.5f);
+            material.SetFloat("_Smoothness", 0.2f);
 
             EditorUtility.SetDirty(material);
         }
