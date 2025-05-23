@@ -251,23 +251,6 @@ public static class Storager
     {
     }
 
-#if EXPERIMENTAL_NATIVE_LIB_AC_SAVES
-	[DllImport("ImmEndpointWarpJ")]
-	private static extern void native_setInt(string key, int value);
-
-	[DllImport("ImmEndpointWarpJ")]
-	private static extern int native_getInt(string key);
-
-	[DllImport("ImmEndpointWarpJ")]
-	private static extern void native_setString(string key, string value);
-
-	[DllImport("ImmEndpointWarpJ")]
-	private static extern string native_getString(string key);
-
-	[DllImport("ImmEndpointWarpJ")]
-	private static extern bool native_hasKey(string key);
-#endif
-
     private static string enc(object v)
     {
         string oldstring = Convert.ToString(v);
@@ -281,179 +264,49 @@ public static class Storager
 
     public static bool hasKey(string key)
     {
-#if EXPERIMENTAL_NATIVE_LIB_AC_SAVES
-		return native_hasKey(key);
-#else
         return PlayerPrefs.HasKey(enc(key));
         //return CryptoPlayerPrefsFacade.HasKey(key);
-#endif
     }
 
     public static void setInt(string key, int val, bool useICloud = false)
     {
-#if EXPERIMENTAL_NATIVE_LIB_AC_SAVES
-		Debug.Log("stop fucking spamming setint please :3");
-		native_setInt(key, val);
-#else
-        //if (Application.isEditor)
-        //{
         PlayerPrefs.SetString(enc(key), enc(val));
-        //}
-        //else
-        //{
-        //	CryptoPlayerPrefsFacade.SetInt(key, val);
-        //	_protectedIntCache[key] = new SaltedInt(_prng.Next(), val);
-        //}
-        //if (key.Equals("Coins") || key.Equals("GemsCurrency"))
-        //{
-        //	DigestStorager.Instance.Set(key, val);
-        //}
-        //if (_expendableKeys.Contains(key))
-        //{
-        //	RefreshExpendablesDigest();
-        //}
-        //if (WeaponManager.PurchasableWeaponSetContains(key))
-        //{
-        //	_weaponDigestIsDirty = true;
-        //}
-        //InvokeSubscribers(key);
-#endif
     }
 
-    public static int getInt(string key, bool useICloud = false)
-    {//
-#if EXPERIMENTAL_NATIVE_LIB_AC_SAVES
-		return native_getInt(key);
-#else
-        //if (Application.isEditor)
-        //{
-        return Convert.ToInt32(enc(PlayerPrefs.GetString(enc(key), enc(0))));
-        //}
-        //SaltedInt value;
-        //if (_protectedIntCache.TryGetValue(key, out value))
-        //{
-        //	return value.Value;
-        //}
-        //if (CryptoPlayerPrefsFacade.HasKey(key))
-        //{
-        //	int @int = CryptoPlayerPrefsFacade.GetInt(key);
-        //	_protectedIntCache.Add(key, new SaltedInt(_prng.Next(), @int));
-        //	return @int;
-        //}
-        //return 0;
-#endif
+    public static int getInt(string key, bool useICloud = false, int defaultValue = 0)
+    {
+        return Convert.ToInt32(enc(PlayerPrefs.GetString(enc(key), enc(defaultValue))));
     }
-	
-	public static void setString(string key, string val)
-	{
-		setString(key, val, false);
-	}
 
-    public static void setString(string key, string val, bool useICloud)
+    public static void setString(string key, string val)
 	{
-#if EXPERIMENTAL_NATIVE_LIB_AC_SAVES
-		native_setString(key, val);
-#else
 		_keychainStringCache[key] = val;
-		//if (Application.isEditor)
-		//{
 		PlayerPrefs.SetString(enc(key), enc(val));
 		InvokeSubscribers(enc(key));
-		//}
-		//else
-		//{
-		//	CryptoPlayerPrefsFacade.SetString(key, val);
-		//	InvokeSubscribers(key);
-		//}
-#endif
 	}
 
-	public static string getString(string key)
+    public static string getString(string key)
 	{
-		return getString(key, false);
-	}
-
-    public static string getString(string key, bool useICloud)
-	{
-#if EXPERIMENTAL_NATIVE_LIB_AC_SAVES
-		string a = native_getString(key);
-		Debug.Log(a);
-		return a;
-#else
-		//string value;
-		//if (_keychainStringCache.TryGetValue(key, out value))
-		//{
-		//	return value;
-		//}
-		//if (BuildSettings.BuildTargetPlatform == RuntimePlatform.IPhonePlayer)
-		//{
 		return enc(PlayerPrefs.GetString(enc(key)));
-		//}
-		//if (CryptoPlayerPrefsFacade.HasKey(key))
-		//{
-		//	string @string = CryptoPlayerPrefsFacade.GetString(key);
-		//	_keychainStringCache.Add(key, @string);
-		//	return @string;
-		//}
-		//return string.Empty;
-#endif
 	}
 
     public static void setFloat(string key, float val)
     {
         string f2s = Convert.ToString(val);
-#if EXPERIMENTAL_NATIVE_LIB_AC_SAVES
-		native_setString(key, f2s);
-#else
         _keychainStringCache[key] = f2s;
-        //if (Application.isEditor)
-        //{
         PlayerPrefs.SetString(enc(key), enc(f2s));
         InvokeSubscribers(enc(key));
-        //}
-        //else
-        //{
-        //	CryptoPlayerPrefsFacade.SetString(key, val);
-        //	InvokeSubscribers(key);
-        //}
-#endif
     }
 
     public static float getFloat(string key)
     {
         string a = enc(PlayerPrefs.GetString(enc(key), enc(0f)));
-#if EXPERIMENTAL_NATIVE_LIB_AC_SAVES
-		a = native_getString(key);
-#endif
-        //string value;
-        //if (_keychainStringCache.TryGetValue(key, out value))
-        //{
-        //	return value;
-        //}
-        //if (BuildSettings.BuildTargetPlatform == RuntimePlatform.IPhonePlayer)
-        //{
         return Convert.ToSingle(a);
-        //}
-        //if (CryptoPlayerPrefsFacade.HasKey(key))
-        //{
-        //	string @string = CryptoPlayerPrefsFacade.GetString(key);
-        //	_keychainStringCache.Add(key, @string);
-        //	return @string;
-        //}
-        //return string.Empty;
     }
 
     public static bool IsInitialized(string flagName)
     {
-#if EXPERIMENTAL_NATIVE_LIB_AC_SAVES
-		return native_hasKey(flagName);
-#else
-        //if (Application.isEditor)
-        //{
         return PlayerPrefs.HasKey(enc(flagName));
-        //}
-        //return hasKey(flagName);
-#endif
     }
 
     public static void SetInitialized(string flagName)
@@ -476,17 +329,7 @@ public static class Storager
     {
         if (_weaponDigestIsDirty)
         {
-#if UNITY_EDITOR
-            {
-                Debug.LogFormat("[Rilisoft] > RefreshWeaponsDigest: {0:F3}", Time.realtimeSinceStartup);
-            }
-#endif
             RefreshWeaponsDigest();
-#if UNITY_EDITOR
-            {
-                Debug.LogFormat("[Rilisoft] < RefreshWeaponsDigest: {0:F3}", Time.realtimeSinceStartup);
-            }
-#endif
         }
     }
 

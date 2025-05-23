@@ -98,17 +98,5 @@ public class GlobalControls : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.F1)) MouseLocked = !MouseLocked;
         }
-        if (Input.GetKeyDown(KeyCode.K))
-        {
-            BankController.AddCoins(50);
-        }
-        if (Input.GetKeyDown(KeyCode.O))
-        {
-            BankController.AddGems(50);
-        }
-        if (Input.GetKeyDown(KeyCode.I))
-        {
-            ExperienceController.sharedController.AddExperience(10);
-        }
     }
 }

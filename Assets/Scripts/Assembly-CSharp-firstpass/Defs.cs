@@ -2980,7 +2980,7 @@ public sealed class Defs
 			{ "HitmanBoots_Up2", "HitmanBoots" },
 			{ "boots_tabi", "boots_tabi" }
 		};
-		useRatingLobbySystem = true;
+		useRatingLobbySystem = false;
 		_premiumMaps.Add("Ants", 15);
 		_premiumMaps.Add("Matrix", 15);
 		_premiumMaps.Add("Underwater", 15);
