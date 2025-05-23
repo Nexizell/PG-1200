@@ -36,7 +36,7 @@ public static class EffectsController
 			num += (Storager.getString("MaskEquippedSN").Equals("mask_demolition_up2") ? 0.15f : 0f);
 			num += (Storager.getString(Defs.HatEquppedSN).Equals("league3_hat_afro") ? 0.08f : 0f);
 			num += (Storager.getString(Defs.HatEquppedSN).Equals("league6_hat_tiara") ? 0.08f : 0f);
-			return num * SlowdownCoeff;
+			return num;
 		}
 	}
 
