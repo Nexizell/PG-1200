@@ -124,20 +124,6 @@ public sealed class Switcher : MonoBehaviour
 	internal static IEnumerable<float> InitializeStorager()
 	{
 		float progress = 0f;
-		if (Application.isEditor)
-		{
-			if (!PlayerPrefs.HasKey(Defs.initValsInKeychain15))
-			{
-				Storager.setString(Defs.CapeEquppedSN, Defs.CapeNoneEqupped);
-				Storager.setString(Defs.HatEquppedSN, Defs.HatNoneEqupped);
-				yield return progress;
-			}
-			if (!PlayerPrefs.HasKey(Defs.initValsInKeychain46))
-			{
-				Storager.setString("MaskEquippedSN", "MaskNoneEquipped");
-				yield return progress;
-			}
-		}
 		if (!Storager.hasKey(Defs.countryKey))
 		{
 			Storager.setString(Defs.countryKey, "");
@@ -920,25 +906,12 @@ public sealed class Switcher : MonoBehaviour
 		logBounds();
 		_progress = bounds.LowerBound;
 		yield return _progress;
-		if (!TrainingController.TrainingCompleted && TrainingController.CompletedTrainingStage == TrainingController.NewTrainingCompletedStage.None)
-		{
-			AnalyticsStuff.Tutorial(AnalyticsConstants.TutorialState.Started);
-			AnalyticsStuff.TrySendOnceToAppsFlyer("first_launch");
-			AnalyticsStuff.TrySendOnceToFacebook("app_launch_first", null, null);
-		}
 		bounds.SetBounds(0.4f, 0.49f);
 		logBounds();
 		_progress = bounds.LowerBound;
 		yield return _progress;
-		CountMoneyForRemovedGear();
 		_progress = bounds.Clamp(_progress + 0.001f);
 		yield return _progress;
-		CountMoneyForArmorHats();
-		if (Storager.hasKey(Defs.HatEquppedSN) && Storager.getString(Defs.HatEquppedSN) == "hat_ManiacMask")
-		{
-			Storager.setString(Defs.HatEquppedSN, ShopNGUIController.NoneEquippedForWearCategory(ShopNGUIController.CategoryNames.HatsCategory));
-			Storager.setString("MaskEquippedSN", "hat_ManiacMask");
-		}
 		_progress = bounds.Clamp(_progress + 0.001f);
 		yield return _progress;
 		WeaponManager.ActualizeWeaponsForCampaignProgress();
@@ -997,14 +970,6 @@ public sealed class Switcher : MonoBehaviour
 		}
 		yield return _progress;
 		_progress = bounds.Clamp(_progress + 0.01f);
-		if (Defs.IsDeveloperBuild)
-		{
-			UnityEngine.Debug.LogFormat("Loading {0:P1} > Instantiate TwitterController.", _progress);
-		}
-		if (TwitterController.Instance == null && twitterControllerPrefab != null)
-		{
-			UnityEngine.Object.Instantiate(twitterControllerPrefab);
-		}
 		yield return _progress;
 		_progress = bounds.Clamp(_progress + 0.01f);
 		WeaponManager wm = null;
@@ -1248,188 +1213,6 @@ public sealed class Switcher : MonoBehaviour
 			return Storager.getInt(value2) > 0;
 		}
 		return false;
-	}
-
-	private static void CountMoneyForRemovedGear()
-	{
-		Storager.hasKey(Defs.GemsGivenRemovedGear);
-		if (Storager.getInt(Defs.GemsGivenRemovedGear) != 0)
-		{
-			return;
-		}
-		int num = 0;
-		Dictionary<string, int> dictionary = new Dictionary<string, int>
-		{
-			{
-				GearManager.Turret,
-				5
-			},
-			{
-				GearManager.Mech,
-				7
-			},
-			{
-				GearManager.InvisibilityPotion,
-				3
-			},
-			{
-				GearManager.Jetpack,
-				4
-			}
-		};
-		foreach (string key in dictionary.Keys)
-		{
-			num += Storager.getInt(key) * dictionary[key];
-		}
-		Storager.setInt(Defs.GemsGivenRemovedGear, 1);
-		foreach (string key2 in dictionary.Keys)
-		{
-			Storager.setInt(key2, 0);
-		}
-	}
-
-	private static void CountMoneyForGunsFrom831To901()
-	{
-		Storager.hasKey(Defs.Weapons831to901);
-		if (Storager.getInt(Defs.Weapons831to901) != 0)
-		{
-			return;
-		}
-		bool num = Storager.getInt(Defs.MoneyGiven831to901) == 0;
-		int num2 = 0;
-		int num3 = 0;
-		if (num)
-		{
-			foreach (KeyValuePair<string, int> item in new Dictionary<string, int>
-			{
-				{
-					WeaponTags.CrossbowTag,
-					120
-				},
-				{
-					WeaponTags.CrystalCrossbowTag,
-					155
-				},
-				{
-					WeaponTags.SteelCrossbowTag,
-					120
-				},
-				{
-					WeaponTags.Bow_3_Tag,
-					185
-				},
-				{
-					WeaponTags.WoodenBowTag,
-					100
-				},
-				{
-					WeaponTags.Staff2Tag,
-					200
-				},
-				{
-					WeaponTags.Staff_3_Tag,
-					235
-				}
-			})
-			{
-				string key = item.Key;
-				int value = item.Value;
-				if (IsWeaponBought(key))
-				{
-					num2 += value;
-				}
-			}
-			foreach (KeyValuePair<string, int> item2 in new Dictionary<string, int>
-			{
-				{
-					WeaponTags.AutoShotgun_Tag,
-					255
-				},
-				{
-					WeaponTags.TwoRevolvers_Tag,
-					267
-				},
-				{
-					WeaponTags.TwoBolters_Tag,
-					249
-				},
-				{
-					WeaponTags.SnowballGun_Tag,
-					281
-				}
-			})
-			{
-				string key2 = item2.Key;
-				int value2 = item2.Value;
-				if (IsWeaponBought(key2))
-				{
-					num3 += value2;
-				}
-			}
-			foreach (KeyValuePair<string, int> item3 in new Dictionary<string, int>
-			{
-				{ "cape_EliteCrafter", 50 },
-				{ "cape_Archimage", 65 },
-				{ "cape_BloodyDemon", 50 },
-				{ "cape_SkeletonLord", 75 },
-				{ "cape_RoyalKnight", 65 }
-			})
-			{
-				string key3 = item3.Key;
-				int value3 = item3.Value;
-				if (Storager.hasKey(key3) && Storager.getInt(key3) != 0)
-				{
-					num2 += value3;
-				}
-			}
-			foreach (KeyValuePair<string, int> item4 in new Dictionary<string, int>
-			{
-				{ "boots_gray", 50 },
-				{ "boots_red", 50 },
-				{ "boots_black", 100 },
-				{ "boots_blue", 50 },
-				{ "boots_green", 75 }
-			})
-			{
-				string key4 = item4.Key;
-				int value4 = item4.Value;
-				if (Storager.hasKey(key4) && Storager.getInt(key4) != 0)
-				{
-					num2 += value4;
-				}
-			}
-		}
-		Storager.setInt(Defs.Weapons831to901, 1);
-		Storager.setInt(Defs.MoneyGiven831to901, 1);
-	}
-
-	private static void CountMoneyForArmorHats()
-	{
-		Storager.hasKey("RemovedArmorHatMethodExecuted");
-		if (Storager.getInt("RemovedArmorHatMethodExecuted") != 0)
-		{
-			return;
-		}
-		bool num = Storager.getInt("MoneyGivenRemovedArmorHat") == 0;
-		int num2 = 0;
-		if (num)
-		{
-			foreach (string item2 in Wear.wear[ShopNGUIController.CategoryNames.HatsCategory][0])
-			{
-				if (Storager.getInt(item2) > 0)
-				{
-					num2 += VirtualCurrencyHelper.Price(item2).Price;
-				}
-			}
-		}
-		Storager.hasKey(Defs.HatEquppedSN);
-		string item = Storager.getString(Defs.HatEquppedSN) ?? "";
-		if (Wear.wear[ShopNGUIController.CategoryNames.HatsCategory][0].Contains(item))
-		{
-			Storager.setString(Defs.HatEquppedSN, ShopNGUIController.NoneEquippedForWearCategory(ShopNGUIController.CategoryNames.HatsCategory));
-		}
-		Storager.setInt("RemovedArmorHatMethodExecuted", 1);
-		Storager.setInt("MoneyGivenRemovedArmorHat", 1);
 	}
 
 	public static float SecondsFrom1970()
