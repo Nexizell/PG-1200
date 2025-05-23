@@ -47,7 +47,7 @@ PlayerSettings:
   defaultScreenWidthWeb: 960
   defaultScreenHeightWeb: 600
   m_StereoRenderingPath: 0
-  m_ActiveColorSpace: 0
+  m_ActiveColorSpace: 1
   unsupportedMSAAFallback: 0
   m_SpriteBatchMaxVertexCount: 65535
   m_SpriteBatchVertexThreshold: 300
@@ -381,7 +381,10 @@ PlayerSettings:
       m_Height: 36
       m_Kind: 0
       m_SubKind: 
-  m_BuildTargetBatching: []
+  m_BuildTargetBatching:
+  - m_BuildTarget: Standalone
+    m_StaticBatching: 0
+    m_DynamicBatching: 1
   m_BuildTargetShaderSettings: []
   m_BuildTargetGraphicsJobs:
   - m_BuildTarget: WindowsStandaloneSupport
@@ -434,6 +437,12 @@ PlayerSettings:
   - m_BuildTarget: AndroidPlayer
     m_APIs: 0b000000
     m_Automatic: 0
+  - m_BuildTarget: WindowsStandaloneSupport
+    m_APIs: 12000000
+    m_Automatic: 0
+  - m_BuildTarget: MacStandaloneSupport
+    m_APIs: 10000000
+    m_Automatic: 1
   m_BuildTargetVRSettings: []
   m_DefaultShaderChunkSizeInMB: 16
   m_DefaultShaderChunkCount: 0
@@ -448,13 +457,25 @@ PlayerSettings:
   m_BuildTargetGroupLightmapEncodingQuality:
   - serializedVersion: 2
     m_BuildTarget: Standalone
-    m_EncodingQuality: 1
+    m_EncodingQuality: 2
   - serializedVersion: 2
     m_BuildTarget: XboxOne
     m_EncodingQuality: 1
   - serializedVersion: 2
     m_BuildTarget: PS4
     m_EncodingQuality: 1
+  - serializedVersion: 2
+    m_BuildTarget: Android
+    m_EncodingQuality: 2
+  - serializedVersion: 2
+    m_BuildTarget: iOS
+    m_EncodingQuality: 2
+  - serializedVersion: 2
+    m_BuildTarget: Switch
+    m_EncodingQuality: 2
+  - serializedVersion: 2
+    m_BuildTarget: WindowsStoreApps
+    m_EncodingQuality: 2
   m_BuildTargetGroupLightmapSettings: []
   m_BuildTargetGroupLoadStoreDebugModeSettings: []
   m_BuildTargetNormalMapEncoding: []
