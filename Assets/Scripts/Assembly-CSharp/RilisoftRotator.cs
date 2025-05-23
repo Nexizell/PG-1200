@@ -20,22 +20,13 @@ public class RilisoftRotator : MonoBehaviour
 	{
 		if (canProcess == null || canProcess())
 		{
-			if (Input.touchCount > 0)
+			if (MobileRelay.touchCount > 0)
 			{
-				Touch touch = Input.GetTouch(0);
+				Touch touch = MobileRelay.GetTouch(0);
 				if (touch.phase == TouchPhase.Moved && touchZone.Contains(touch.position))
 				{
 					idleTimerStartedTime = Time.realtimeSinceStartup;
 					character.Rotate(Vector3.up, touch.deltaPosition.x * rotationRate * 0.5f * (Time.realtimeSinceStartup - lastTimeRotated));
-				}
-			}
-			if (Application.isEditor)
-			{
-				float num = Input.GetAxis("Mouse ScrollWheel") * 10f * rotationRate * (Time.realtimeSinceStartup - lastTimeRotated);
-				if (num != 0f)
-				{
-					idleTimerStartedTime = Time.realtimeSinceStartup;
-					character.Rotate(Vector3.up, num);
 				}
 			}
 		}
