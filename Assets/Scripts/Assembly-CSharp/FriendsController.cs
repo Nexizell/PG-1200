@@ -517,6 +517,7 @@ public sealed class FriendsController : MonoBehaviour
 	{
 		get
 		{
+			return Tools.CurrentUnixTime; // REMOVE LINE WHEN DOING BACKEND!
 			if (isUpdateServerTimeAfterRun)
 			{
 				return localServerTime;
