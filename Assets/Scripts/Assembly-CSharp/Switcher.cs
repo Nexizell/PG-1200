@@ -1100,18 +1100,7 @@ public sealed class Switcher : MonoBehaviour
 			return;
 		}
 		int @int = Storager.getInt(currencyKey);
-		if (DigestStorager.Instance.ContainsKey(currencyKey))
-		{
-			if (!DigestStorager.Instance.Verify(currencyKey, @int))
-			{
-				AppendAbuseMethod(abuseMethod);
-				UnityEngine.Debug.LogError("Currency tampering detected: " + AbuseMethod);
-			}
-		}
-		else
-		{
-			DigestStorager.Instance.Set(currencyKey, @int);
-		}
+		DigestStorager.Instance.Set(currencyKey, @int);
 	}
 
 	[Obsolete("Because of issues with CryptoPlayerPrefs")]
@@ -1257,7 +1246,8 @@ public sealed class Switcher : MonoBehaviour
 
 	internal static void AppendAbuseMethod(AbuseMetod f)
 	{
-		_abuseMethod = AbuseMethod | f;
-		Storager.setInt("AbuseMethod", (int)_abuseMethod.Value);
+		return;
+		// _abuseMethod = AbuseMethod | f;
+		// Storager.setInt("AbuseMethod", (int)_abuseMethod.Value);
 	}
 }
