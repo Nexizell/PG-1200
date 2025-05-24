@@ -7983,9 +7983,13 @@ public sealed class Player_move_c : MonoBehaviour
 	private IEnumerator FlashWhenHit()
 	{
 		damageShown = true;
-		Color color = damage.GetComponent<UnityEngine.UI.RawImage>().color;
-		color.a = 0f;
-		damage.GetComponent<UnityEngine.UI.RawImage>().color = color;
+		try {
+			Color color = damage.GetComponent<UnityEngine.UI.RawImage>().color;
+			color.a = 0f;
+			damage.GetComponent<UnityEngine.UI.RawImage>().color = color;
+		} catch {
+
+		}
 		float danageTime = 0.15f;
 		yield return StartCoroutine(Fade(0f, 1f, danageTime, damage));
 		yield return new WaitForSeconds(0.01f);
@@ -7996,9 +8000,13 @@ public sealed class Player_move_c : MonoBehaviour
 	private IEnumerator FlashWhenDead()
 	{
 		damageShown = true;
-		Color color = damage.GetComponent<UnityEngine.UI.RawImage>().color;
-		color.a = 0f;
-		damage.GetComponent<UnityEngine.UI.RawImage>().color = color;
+		try {
+			Color color = damage.GetComponent<UnityEngine.UI.RawImage>().color;
+			color.a = 0f;
+			damage.GetComponent<UnityEngine.UI.RawImage>().color = color;
+		} catch {
+
+		}
 		float danageTime = 0.15f;
 		yield return StartCoroutine(Fade(0f, 1f, danageTime, damage));
 		while (isDeadFrame)
