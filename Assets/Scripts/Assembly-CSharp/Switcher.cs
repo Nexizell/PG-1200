@@ -180,10 +180,6 @@ public sealed class Switcher : MonoBehaviour
 			float value = SecondsFrom1970();
 			PlayerPrefs.SetFloat(Defs.TimeFromWhichShowEnder_SN, value);
 		}
-		if (Application.isEditor && !PlayerPrefs.HasKey(Defs.initValsInKeychain27))
-		{
-			Storager.setString(Defs.BootsEquppedSN, Defs.BootsNoneEqupped);
-		}
 		if (!Storager.hasKey(Defs.initValsInKeychain27))
 		{
 			Storager.setInt(Defs.initValsInKeychain27, 0);
