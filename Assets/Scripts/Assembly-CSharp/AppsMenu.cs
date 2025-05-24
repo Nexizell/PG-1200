@@ -215,76 +215,76 @@ public sealed class AppsMenu : MonoBehaviour
 		{
 			yield break;
 		}
-		if (Application.platform == RuntimePlatform.Android && Defs.AndroidEdition == Defs.RuntimeAndroidEdition.GoogleLite)
-		{
-			Action<string> action = delegate(string sceneName)
-			{
-				if (Application.platform == RuntimePlatform.Android && Defs.AndroidEdition == Defs.RuntimeAndroidEdition.GoogleLite)
-				{
-					string abuseKey_21493d = GetAbuseKey_21493d18(558447896u);
-					long num = DateTime.UtcNow.Ticks >> 1;
-					long result = num;
-					if (!Storager.hasKey(abuseKey_21493d))
-					{
-						Storager.setString(abuseKey_21493d, num.ToString());
-					}
-					else if (long.TryParse(Storager.getString(abuseKey_21493d), out result))
-					{
-						Storager.setString(abuseKey_21493d, Math.Min(num, result).ToString());
-					}
-					else
-					{
-						Storager.setString(abuseKey_21493d, num.ToString());
-					}
-					CoroutineRunner.Instance.StartCoroutine(MeetTheCoroutine(sceneName, result << 1, num << 1));
-				}
-			};
-			LicenseVerificationController.PackageInfo value = default(LicenseVerificationController.PackageInfo);
-			try
-			{
-				value = LicenseVerificationController.GetPackageInfo();
-				Launcher.PackageInfo = value;
-			}
-			catch (Exception ex)
-			{
-				UnityEngine.Debug.Log("LicenseVerificationController.GetPackageInfo() failed:    " + ex);
-				action(GetTerminalSceneName_4de1(19937u));
-			}
-			finally
-			{
-				if (value.SignatureHash == null)
-				{
-					UnityEngine.Debug.Log("actualPackageInfo.SignatureHash == null");
-					action(GetTerminalSceneName_4de1(19937u));
-				}
-			}
-			string packageName = value.PackageName;
-			if (string.Compare(packageName, Defs.GetIntendedAndroidPackageName(), StringComparison.Ordinal) != 0)
-			{
-				UnityEngine.Debug.LogWarning("Verification FakeBundleDetected:    " + packageName);
-				action(GetTerminalSceneName_4de1(19937u));
-			}
-			else
-			{
-				UnityEngine.Debug.Log("Package check passed.");
-			}
-			if (string.IsNullOrEmpty(intendedSignatureHash))
-			{
-				UnityEngine.Debug.LogWarning("String.IsNullOrEmpty(intendedSignatureHash)");
-				action(GetTerminalSceneName_4de1(19937u));
-			}
-			string signatureHash = value.SignatureHash;
-			if (string.Compare(signatureHash, intendedSignatureHash, StringComparison.Ordinal) != 0)
-			{
-				UnityEngine.Debug.LogWarning("Verification FakeSignatureDetected:    " + signatureHash);
-				Switcher.AppendAbuseMethod(AbuseMetod.AndroidPackageSignature);
-				action(GetTerminalSceneName_4de1(19937u));
-			}
-			else
-			{
-				UnityEngine.Debug.Log("Signature check passed.");
-			}
-		}
+		// if (Application.platform == RuntimePlatform.Android && Defs.AndroidEdition == Defs.RuntimeAndroidEdition.GoogleLite)
+		// {
+		// 	Action<string> action = delegate(string sceneName)
+		// 	{
+		// 		if (Application.platform == RuntimePlatform.Android && Defs.AndroidEdition == Defs.RuntimeAndroidEdition.GoogleLite)
+		// 		{
+		// 			string abuseKey_21493d = GetAbuseKey_21493d18(558447896u);
+		// 			long num = DateTime.UtcNow.Ticks >> 1;
+		// 			long result = num;
+		// 			if (!Storager.hasKey(abuseKey_21493d))
+		// 			{
+		// 				Storager.setString(abuseKey_21493d, num.ToString());
+		// 			}
+		// 			else if (long.TryParse(Storager.getString(abuseKey_21493d), out result))
+		// 			{
+		// 				Storager.setString(abuseKey_21493d, Math.Min(num, result).ToString());
+		// 			}
+		// 			else
+		// 			{
+		// 				Storager.setString(abuseKey_21493d, num.ToString());
+		// 			}
+		// 			CoroutineRunner.Instance.StartCoroutine(MeetTheCoroutine(sceneName, result << 1, num << 1));
+		// 		}
+		// 	};
+		// 	LicenseVerificationController.PackageInfo value = default(LicenseVerificationController.PackageInfo);
+		// 	try
+		// 	{
+		// 		value = LicenseVerificationController.GetPackageInfo();
+		// 		Launcher.PackageInfo = value;
+		// 	}
+		// 	catch (Exception ex)
+		// 	{
+		// 		UnityEngine.Debug.Log("LicenseVerificationController.GetPackageInfo() failed:    " + ex);
+		// 		action(GetTerminalSceneName_4de1(19937u));
+		// 	}
+		// 	finally
+		// 	{
+		// 		if (value.SignatureHash == null)
+		// 		{
+		// 			UnityEngine.Debug.Log("actualPackageInfo.SignatureHash == null");
+		// 			action(GetTerminalSceneName_4de1(19937u));
+		// 		}
+		// 	}
+		// 	string packageName = value.PackageName;
+		// 	if (string.Compare(packageName, Defs.GetIntendedAndroidPackageName(), StringComparison.Ordinal) != 0)
+		// 	{
+		// 		UnityEngine.Debug.LogWarning("Verification FakeBundleDetected:    " + packageName);
+		// 		action(GetTerminalSceneName_4de1(19937u));
+		// 	}
+		// 	else
+		// 	{
+		// 		UnityEngine.Debug.Log("Package check passed.");
+		// 	}
+		// 	if (string.IsNullOrEmpty(intendedSignatureHash))
+		// 	{
+		// 		UnityEngine.Debug.LogWarning("String.IsNullOrEmpty(intendedSignatureHash)");
+		// 		action(GetTerminalSceneName_4de1(19937u));
+		// 	}
+		// 	string signatureHash = value.SignatureHash;
+		// 	if (string.Compare(signatureHash, intendedSignatureHash, StringComparison.Ordinal) != 0)
+		// 	{
+		// 		UnityEngine.Debug.LogWarning("Verification FakeSignatureDetected:    " + signatureHash);
+		// 		Switcher.AppendAbuseMethod(AbuseMetod.AndroidPackageSignature);
+		// 		action(GetTerminalSceneName_4de1(19937u));
+		// 	}
+		// 	else
+		// 	{
+		// 		UnityEngine.Debug.Log("Signature check passed.");
+		// 	}
+		// }
 		yield return StartCoroutine(WaitForObbResolved());
 		yield return null;
 		StartCoroutine(Fade(1f, 1f));

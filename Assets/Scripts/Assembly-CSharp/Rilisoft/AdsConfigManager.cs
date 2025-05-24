@@ -384,26 +384,26 @@ namespace Rilisoft
 
 		internal static CheatingMethods GetCheatingMethods(AdsConfigMemento config)
 		{
-			if (config == null)
-			{
-				throw new ArgumentNullException("config");
-			}
-			if (config.Exception != null)
-			{
-				return CheatingMethods.None;
-			}
-			if (config.CheaterConfig.CheckSignatureTampering && (Switcher.AbuseMethod & AbuseMetod.AndroidPackageSignature) != 0)
-			{
-				return CheatingMethods.SignatureTampering;
-			}
-			if (Storager.getInt("Coins") >= config.CheaterConfig.CoinThreshold)
-			{
-				return CheatingMethods.CoinThreshold;
-			}
-			if (Storager.getInt("GemsCurrency") >= config.CheaterConfig.GemThreshold)
-			{
-				return CheatingMethods.GemThreshold;
-			}
+			// if (config == null)
+			// {
+			// 	throw new ArgumentNullException("config");
+			// }
+			// if (config.Exception != null)
+			// {
+			// 	return CheatingMethods.None;
+			// }
+			// if (config.CheaterConfig.CheckSignatureTampering && (Switcher.AbuseMethod & AbuseMetod.AndroidPackageSignature) != 0)
+			// {
+			// 	return CheatingMethods.SignatureTampering;
+			// }
+			// if (Storager.getInt("Coins") >= config.CheaterConfig.CoinThreshold)
+			// {
+			// 	return CheatingMethods.CoinThreshold;
+			// }
+			// if (Storager.getInt("GemsCurrency") >= config.CheaterConfig.GemThreshold)
+			// {
+			// 	return CheatingMethods.GemThreshold;
+			// }
 			return CheatingMethods.None;
 		}
 
@@ -417,10 +417,10 @@ namespace Rilisoft
 			{
 				return string.Empty;
 			}
-			if (GetCheatingMethods(config) != 0)
-			{
-				return "cheater";
-			}
+			// if (GetCheatingMethods(config) != 0)
+			// {
+			// 	return "cheater";
+			// }
 			bool flag = StoreKitEventListener.IsPayingUser();
 			int @int = PlayerPrefs.GetInt(Defs.SessionDayNumberKey, 1);
 			int num = Mathf.FloorToInt(((NotificationController.instance != null) ? NotificationController.instance.currentPlayTime : Time.realtimeSinceStartup) / 60f);
