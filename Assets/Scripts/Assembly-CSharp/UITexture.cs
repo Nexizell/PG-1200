@@ -27,6 +27,8 @@ public class UITexture : UIBasicSprite
 	/// <summary>
 	/// Texture used by the UITexture. You can set it directly, without the need to specify a material.
 	/// </summary>
+	
+	private float _cachedAlpha = -1.0f;
 
 	public override Texture mainTexture
 	{
@@ -40,6 +42,18 @@ public class UITexture : UIBasicSprite
 		{
 			if (mTexture != value)
 			{
+				if (value == null)
+				{
+					_cachedAlpha = alpha;
+					alpha = 0f;
+				}
+				else
+				{
+					if (_cachedAlpha != -1.0f)
+					{
+						alpha = _cachedAlpha;
+					}
+				}
 				if (drawCall != null && drawCall.widgetCount == 1 && mMat == null)
 				{
 					mTexture = value;
