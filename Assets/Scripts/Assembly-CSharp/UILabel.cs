@@ -856,7 +856,7 @@ public class UILabel : UIWidget
 		get
 		{
 			if (mEffectStyle == Effect.Shadow) return 2;
-			else if (mEffectStyle == Effect.Outline) return 5;
+			else if (mEffectStyle == Effect.Outline) return 9;
 			else if (mEffectStyle == Effect.Outline8) return 9;
 			return 1;
 		}

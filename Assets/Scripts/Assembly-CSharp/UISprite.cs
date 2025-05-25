@@ -62,7 +62,7 @@ public class UISprite : UIBasicSprite
 	/// <summary>
 	/// Atlas used by this widget.
 	/// </summary>
- 
+
 	public UIAtlas atlas
 	{
 		get
@@ -104,7 +104,7 @@ public class UISprite : UIBasicSprite
 	/// <summary>
 	/// Sprite within the atlas used to draw this widget.
 	/// </summary>
- 
+
 	public string spriteName
 	{
 		get
@@ -386,7 +386,7 @@ public class UISprite : UIBasicSprite
 	/// Retrieve the atlas sprite referenced by the spriteName field.
 	/// </summary>
 
-	public UISpriteData GetAtlasSprite ()
+	public UISpriteData GetAtlasSprite()
 	{
 		if (!mSpriteSet) mSprite = null;
 
@@ -420,7 +420,7 @@ public class UISprite : UIBasicSprite
 	/// Set the atlas sprite directly.
 	/// </summary>
 
-	protected void SetAtlasSprite (UISpriteData sp)
+	protected void SetAtlasSprite(UISpriteData sp)
 	{
 		mChanged = true;
 		mSpriteSet = true;
@@ -441,7 +441,7 @@ public class UISprite : UIBasicSprite
 	/// Adjust the scale of the widget to make it pixel-perfect.
 	/// </summary>
 
-	public override void MakePixelPerfect ()
+	public override void MakePixelPerfect()
 	{
 		if (!isValid) return;
 		base.MakePixelPerfect();
@@ -459,7 +459,7 @@ public class UISprite : UIBasicSprite
 			{
 				int x = Mathf.RoundToInt(pixelSize * (sp.width + sp.paddingLeft + sp.paddingRight));
 				int y = Mathf.RoundToInt(pixelSize * (sp.height + sp.paddingTop + sp.paddingBottom));
-				
+
 				if ((x & 1) == 1) ++x;
 				if ((y & 1) == 1) ++y;
 
@@ -473,8 +473,12 @@ public class UISprite : UIBasicSprite
 	/// Auto-upgrade.
 	/// </summary>
 
-	protected override void OnInit ()
+	protected override void OnInit()
 	{
+		if (spriteName.Contains("Rank_"))
+		{
+			atlas = FontChanger.Instance.CurrentAtlas;
+		}
 		if (!mFillCenter)
 		{
 			mFillCenter = true;
@@ -490,7 +494,7 @@ public class UISprite : UIBasicSprite
 	/// Update the UV coordinates.
 	/// </summary>
 
-	protected override void OnUpdate ()
+	protected override void OnUpdate()
 	{
 		base.OnUpdate();
 
@@ -506,7 +510,7 @@ public class UISprite : UIBasicSprite
 	/// Virtual function called by the UIPanel that fills the buffers.
 	/// </summary>
 
-	public override void OnFill (List<Vector3> verts, List<Vector2> uvs, List<Color> cols)
+	public override void OnFill(List<Vector3> verts, List<Vector2> uvs, List<Color> cols)
 	{
 		Texture tex = mainTexture;
 		if (tex == null) return;
