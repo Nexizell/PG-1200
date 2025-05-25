@@ -72,6 +72,16 @@ class FastTools : EditorWindow
         {
             Storager.setInt(Defs.TrainingCompleted_4_4_Sett, 0);
         }
+
+        GUILayout.Space(25);
+        GUILayout.Label("Training");
+        if (GUILayout.Button("Set Unity Font to false"))
+        {
+            foreach (UILabel label in FindObjectsByType<UILabel>(FindObjectsInactive.Include, FindObjectsSortMode.None))
+            {
+                label.useUnityFont = false;
+            }
+        }
         
         GUILayout.Space(60);
         GUILayout.Label("DANGEROUS");

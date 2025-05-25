@@ -55,12 +55,16 @@ public class UILabel : UIWidget
 #if !UNITY_3_5
 	[MultilineAttribute(6)]
 #endif
+
 	[HideInInspector][SerializeField] string mText = "";
 	[HideInInspector][SerializeField] int mFontSize = 16;
 	[HideInInspector][SerializeField] FontStyle mFontStyle = FontStyle.Normal;
 	[HideInInspector][SerializeField] Alignment mAlignment = Alignment.Automatic;
 	[HideInInspector][SerializeField] bool mEncoding = true;
 	[HideInInspector][SerializeField] int mMaxLineCount = 0; // 0 denotes unlimited
+
+	[HideInInspector] public bool useUnityFont = false;
+	[HideInInspector] public bool dontUseUpper = false;
 	[HideInInspector][SerializeField] Effect mEffectStyle = Effect.None;
 	[HideInInspector][SerializeField] Color mEffectColor = Color.black;
 	[HideInInspector][SerializeField] NGUIText.SymbolStyle mSymbols = NGUIText.SymbolStyle.Normal;
@@ -208,7 +212,14 @@ public class UILabel : UIWidget
 			if (mFont != value)
 			{
 				RemoveFromPanel();
-				mFont = value;
+				if (Application.isPlaying)
+				{
+					mFont = FontChanger.Instance.CurrentFont;
+				}
+				else
+				{
+					mFont = value;
+				}
 				mTrueTypeFont = null;
 				MarkAsChanged();
 			}
@@ -699,7 +710,7 @@ public class UILabel : UIWidget
 	/// <summary>
 	/// Whether the label supports multiple lines.
 	/// </summary>
-	
+
 	public bool multiLine
 	{
 		get
@@ -839,7 +850,7 @@ public class UILabel : UIWidget
 	/// <summary>
 	/// How many quads there are per printed character.
 	/// </summary>
-	
+
 	public int quadsPerCharacter
 	{
 		get
@@ -929,7 +940,7 @@ public class UILabel : UIWidget
 	/// </summary>
 
 	public ModifierFunc customModifier;
-	public delegate string ModifierFunc (string s);
+	public delegate string ModifierFunc(string s);
 
 	/// <summary>
 	/// Text modifier can transform the text that's actually printed, without altering the label's text value.
@@ -959,7 +970,7 @@ public class UILabel : UIWidget
 	/// Register the font texture change listener.
 	/// </summary>
 
-	protected override void OnInit ()
+	protected override void OnInit()
 	{
 		base.OnInit();
 		mList.Add(this);
@@ -970,7 +981,7 @@ public class UILabel : UIWidget
 	/// Remove the font texture change listener.
 	/// </summary>
 
-	protected override void OnDisable ()
+	protected override void OnDisable()
 	{
 		SetActiveFont(null);
 		mList.Remove(this);
@@ -981,7 +992,7 @@ public class UILabel : UIWidget
 	/// Set the active font, correctly setting and clearing callbacks.
 	/// </summary>
 
-	protected void SetActiveFont (Font fnt)
+	protected void SetActiveFont(Font fnt)
 	{
 		if (mActiveTTF != fnt)
 		{
@@ -1058,7 +1069,7 @@ public class UILabel : UIWidget
 	/// So... queue yet another work-around.
 	/// </summary>
 
-	static void OnFontChanged (Font font)
+	static void OnFontChanged(Font font)
 	{
 		for (int i = 0; i < mList.size; ++i)
 		{
@@ -1164,7 +1175,7 @@ public class UILabel : UIWidget
 	/// The order is left, top, right, bottom.
 	/// </summary>
 
-	public override Vector3[] GetSides (Transform relativeTo)
+	public override Vector3[] GetSides(Transform relativeTo)
 	{
 		if (shouldBeProcessed) ProcessText();
 		return base.GetSides(relativeTo);
@@ -1174,7 +1185,7 @@ public class UILabel : UIWidget
 	/// Upgrading labels is a bit different.
 	/// </summary>
 
-	protected override void UpgradeFrom265 ()
+	protected override void UpgradeFrom265()
 	{
 		ProcessText(true, true);
 
@@ -1212,7 +1223,7 @@ public class UILabel : UIWidget
 	/// If the label is anchored it should not auto-resize.
 	/// </summary>
 
-	protected override void OnAnchor ()
+	protected override void OnAnchor()
 	{
 		if (mOverflow == Overflow.ResizeFreely)
 		{
@@ -1231,7 +1242,7 @@ public class UILabel : UIWidget
 	/// Request the needed characters in the texture.
 	/// </summary>
 
-	void ProcessAndRequest ()
+	void ProcessAndRequest()
 	{
 #if UNITY_EDITOR
 		if (!Application.isPlaying && !NGUITools.GetActive(this)) return;
@@ -1249,7 +1260,7 @@ public class UILabel : UIWidget
 	/// Validate the properties.
 	/// </summary>
 
-	protected override void OnValidate ()
+	protected override void OnValidate()
 	{
 		base.OnValidate();
 
@@ -1289,9 +1300,24 @@ public class UILabel : UIWidget
 #if !UNITY_4_3 && !UNITY_4_5
 	static bool mTexRebuildAdded = false;
 
-	protected override void OnEnable ()
+	protected override void OnEnable()
 	{
 		base.OnEnable();
+		if (Application.isPlaying)
+		{
+			if (useUnityFont)
+			{
+				trueTypeFont = FontChanger.Instance.CurrentTTFont;
+			}
+			else
+			{
+				bitmapFont = FontChanger.Instance.CurrentFont;
+			}
+			if (FontChanger.Instance.FontNum == 1 && !dontUseUpper && modifier != Modifier.ToUppercase)
+			{
+				modifier = Modifier.ToUppercase;
+			}
+		}
 		if (!mTexRebuildAdded)
 		{
 			mTexRebuildAdded = true;
@@ -1304,7 +1330,7 @@ public class UILabel : UIWidget
 	/// Determine start-up values.
 	/// </summary>
 
-	protected override void OnStart ()
+	protected override void OnStart()
 	{
 		base.OnStart();
 
@@ -1332,7 +1358,7 @@ public class UILabel : UIWidget
 	/// UILabel needs additional processing when something changes.
 	/// </summary>
 
-	public override void MarkAsChanged ()
+	public override void MarkAsChanged()
 	{
 		shouldBeProcessed = true;
 		base.MarkAsChanged();
@@ -1342,7 +1368,7 @@ public class UILabel : UIWidget
 	/// Process the raw text, called when something changes.
 	/// </summary>
 
-	public void ProcessText (bool legacyMode = false, bool full = true)
+	public void ProcessText(bool legacyMode = false, bool full = true)
 	{
 		if (!isValid) return;
 
@@ -1352,9 +1378,9 @@ public class UILabel : UIWidget
 		float regionX = mDrawRegion.z - mDrawRegion.x;
 		float regionY = mDrawRegion.w - mDrawRegion.y;
 
-		NGUIText.rectWidth    = legacyMode ? (mMaxLineWidth  != 0 ? mMaxLineWidth  : 1000000) : width;
-		NGUIText.rectHeight   = legacyMode ? (mMaxLineHeight != 0 ? mMaxLineHeight : 1000000) : height;
-		NGUIText.regionWidth  = (regionX != 1f) ? Mathf.RoundToInt(NGUIText.rectWidth  * regionX) : NGUIText.rectWidth;
+		NGUIText.rectWidth = legacyMode ? (mMaxLineWidth != 0 ? mMaxLineWidth : 1000000) : width;
+		NGUIText.rectHeight = legacyMode ? (mMaxLineHeight != 0 ? mMaxLineHeight : 1000000) : height;
+		NGUIText.regionWidth = (regionX != 1f) ? Mathf.RoundToInt(NGUIText.rectWidth * regionX) : NGUIText.rectWidth;
 		NGUIText.regionHeight = (regionY != 1f) ? Mathf.RoundToInt(NGUIText.rectHeight * regionY) : NGUIText.rectHeight;
 
 		mFinalFontSize = Mathf.Abs(legacyMode ? Mathf.RoundToInt(cachedTransform.localScale.x) : defaultFontSize);
@@ -1476,7 +1502,7 @@ public class UILabel : UIWidget
 			mProcessedText = "";
 			mScale = 1f;
 		}
-		
+
 		if (full)
 		{
 			NGUIText.bitmapFont = null;
@@ -1488,7 +1514,7 @@ public class UILabel : UIWidget
 	/// Text is pixel-perfect when its scale matches the size.
 	/// </summary>
 
-	public override void MakePixelPerfect ()
+	public override void MakePixelPerfect()
 	{
 		if (ambigiousFont != null)
 		{
@@ -1539,7 +1565,7 @@ public class UILabel : UIWidget
 	/// Make the label assume its natural size.
 	/// </summary>
 
-	public void AssumeNaturalSize ()
+	public void AssumeNaturalSize()
 	{
 		if (ambigiousFont != null)
 		{
@@ -1555,10 +1581,10 @@ public class UILabel : UIWidget
 	}
 
 	[System.Obsolete("Use UILabel.GetCharacterAtPosition instead")]
-	public int GetCharacterIndex (Vector3 worldPos) { return GetCharacterIndexAtPosition(worldPos, false); }
+	public int GetCharacterIndex(Vector3 worldPos) { return GetCharacterIndexAtPosition(worldPos, false); }
 
 	[System.Obsolete("Use UILabel.GetCharacterAtPosition instead")]
-	public int GetCharacterIndex (Vector2 localPos) { return GetCharacterIndexAtPosition(localPos, false); }
+	public int GetCharacterIndex(Vector2 localPos) { return GetCharacterIndexAtPosition(localPos, false); }
 
 	static List<Vector3> mTempVerts = new List<Vector3>();
 	static List<int> mTempIndices = new List<int>();
@@ -1567,7 +1593,7 @@ public class UILabel : UIWidget
 	/// Return the index of the character at the specified world position.
 	/// </summary>
 
-	public int GetCharacterIndexAtPosition (Vector3 worldPos, bool precise)
+	public int GetCharacterIndexAtPosition(Vector3 worldPos, bool precise)
 	{
 		Vector2 localPos = cachedTransform.InverseTransformPoint(worldPos);
 		return GetCharacterIndexAtPosition(localPos, precise);
@@ -1577,7 +1603,7 @@ public class UILabel : UIWidget
 	/// Return the index of the character at the specified local position.
 	/// </summary>
 
-	public int GetCharacterIndexAtPosition (Vector2 localPos, bool precise)
+	public int GetCharacterIndexAtPosition(Vector2 localPos, bool precise)
 	{
 		if (isValid)
 		{
@@ -1614,7 +1640,7 @@ public class UILabel : UIWidget
 	/// Retrieve the word directly below the specified world-space position.
 	/// </summary>
 
-	public string GetWordAtPosition (Vector3 worldPos)
+	public string GetWordAtPosition(Vector3 worldPos)
 	{
 		int index = GetCharacterIndexAtPosition(worldPos, true);
 		return GetWordAtCharacterIndex(index);
@@ -1624,7 +1650,7 @@ public class UILabel : UIWidget
 	/// Retrieve the word directly below the specified relative-to-label position.
 	/// </summary>
 
-	public string GetWordAtPosition (Vector2 localPos)
+	public string GetWordAtPosition(Vector2 localPos)
 	{
 		int index = GetCharacterIndexAtPosition(localPos, true);
 		return GetWordAtCharacterIndex(index);
@@ -1634,7 +1660,7 @@ public class UILabel : UIWidget
 	/// Retrieve the word right under the specified character index.
 	/// </summary>
 
-	public string GetWordAtCharacterIndex (int characterIndex)
+	public string GetWordAtCharacterIndex(int characterIndex)
 	{
 		string s = printedText;
 
@@ -1644,7 +1670,7 @@ public class UILabel : UIWidget
 			int wordStart = LastIndexOfAny(s, new char[] { ' ', '\n' }, characterIndex) + 1;
 			int wordEnd = IndexOfAny(s, new char[] { ' ', '\n', ',', '.' }, characterIndex);
 #else
-			int wordStart = s.LastIndexOfAny(new char[] {' ', '\n'}, characterIndex) + 1;
+			int wordStart = s.LastIndexOfAny(new char[] { ' ', '\n' }, characterIndex) + 1;
 			int wordEnd = s.IndexOfAny(new char[] { ' ', '\n', ',', '.' }, characterIndex);
 #endif
 			if (wordEnd == -1) wordEnd = s.Length;
@@ -1713,19 +1739,19 @@ public class UILabel : UIWidget
 	/// Retrieve the URL directly below the specified world-space position.
 	/// </summary>
 
-	public string GetUrlAtPosition (Vector3 worldPos) { return GetUrlAtCharacterIndex(GetCharacterIndexAtPosition(worldPos, true)); }
+	public string GetUrlAtPosition(Vector3 worldPos) { return GetUrlAtCharacterIndex(GetCharacterIndexAtPosition(worldPos, true)); }
 
 	/// <summary>
 	/// Retrieve the URL directly below the specified relative-to-label position.
 	/// </summary>
 
-	public string GetUrlAtPosition (Vector2 localPos) { return GetUrlAtCharacterIndex(GetCharacterIndexAtPosition(localPos, true)); }
+	public string GetUrlAtPosition(Vector2 localPos) { return GetUrlAtCharacterIndex(GetCharacterIndexAtPosition(localPos, true)); }
 
 	/// <summary>
 	/// Retrieve the URL right under the specified character index.
 	/// </summary>
 
-	public string GetUrlAtCharacterIndex (int characterIndex)
+	public string GetUrlAtCharacterIndex(int characterIndex)
 	{
 		string s = printedText;
 
@@ -1743,7 +1769,7 @@ public class UILabel : UIWidget
 				linkStart = characterIndex;
 			}
 			else linkStart = s.LastIndexOf("[url=", characterIndex);
-			
+
 			if (linkStart == -1) return null;
 
 			linkStart += 5;
@@ -1761,7 +1787,7 @@ public class UILabel : UIWidget
 	/// Get the index of the character on the line directly above or below the current index.
 	/// </summary>
 
-	public int GetCharacterIndex (int currentIndex, KeyCode key)
+	public int GetCharacterIndex(int currentIndex, KeyCode key)
 	{
 		if (isValid)
 		{
@@ -1816,7 +1842,7 @@ public class UILabel : UIWidget
 	/// Fill the specified geometry buffer with vertices that would highlight the current selection.
 	/// </summary>
 
-	public void PrintOverlay (int start, int end, UIGeometry caret, UIGeometry highlight, Color caretColor, Color highlightColor)
+	public void PrintOverlay(int start, int end, UIGeometry caret, UIGeometry highlight, Color caretColor, Color highlightColor)
 	{
 		if (caret != null) caret.Clear();
 		if (highlight != null) highlight.Clear();
@@ -1868,14 +1894,14 @@ public class UILabel : UIWidget
 	/// Draw the label.
 	/// </summary>
 
-	public override void OnFill (List<Vector3> verts, List<Vector2> uvs, List<Color> cols)
+	public override void OnFill(List<Vector3> verts, List<Vector2> uvs, List<Color> cols)
 	{
 		if (!isValid) return;
 
 		int offset = verts.Count;
 		Color col = color;
 		col.a = finalAlpha;
-		
+
 		if (mFont != null && mFont.premultipliedAlphaShader) col = NGUITools.ApplyPMA(col);
 
 		string text = processedText;
@@ -1954,7 +1980,7 @@ public class UILabel : UIWidget
 	/// Returns the offset that was applied.
 	/// </summary>
 
-	public Vector2 ApplyOffset (List<Vector3> verts, int start)
+	public Vector2 ApplyOffset(List<Vector3> verts, int start)
 	{
 		Vector2 po = pivotOffset;
 
@@ -1980,7 +2006,7 @@ public class UILabel : UIWidget
 	/// Apply a shadow effect to the buffer.
 	/// </summary>
 
-	public void ApplyShadow (List<Vector3> verts, List<Vector2> uvs, List<Color> cols, int start, int end, float x, float y)
+	public void ApplyShadow(List<Vector3> verts, List<Vector2> uvs, List<Color> cols, int start, int end, float x, float y)
 	{
 		Color c = mEffectColor;
 		c.a *= finalAlpha;
@@ -2017,7 +2043,7 @@ public class UILabel : UIWidget
 	/// Calculate the character index offset necessary in order to print the end of the specified text.
 	/// </summary>
 
-	public int CalculateOffsetToFit (string text)
+	public int CalculateOffsetToFit(string text)
 	{
 		UpdateNGUIText();
 		NGUIText.encoding = false;
@@ -2033,7 +2059,7 @@ public class UILabel : UIWidget
 	/// OnValueChanged function in inspector with a label.
 	/// </summary>
 
-	public void SetCurrentProgress ()
+	public void SetCurrentProgress()
 	{
 		if (UIProgressBar.current != null)
 			text = UIProgressBar.current.value.ToString("F");
@@ -2044,7 +2070,7 @@ public class UILabel : UIWidget
 	/// OnValueChanged function in inspector with a label.
 	/// </summary>
 
-	public void SetCurrentPercent ()
+	public void SetCurrentPercent()
 	{
 		if (UIProgressBar.current != null)
 			text = Mathf.RoundToInt(UIProgressBar.current.value * 100f) + "%";
@@ -2055,7 +2081,7 @@ public class UILabel : UIWidget
 	/// by selecting a value in the UIPopupList.
 	/// </summary>
 
-	public void SetCurrentSelection ()
+	public void SetCurrentSelection()
 	{
 		if (UIPopupList.current != null)
 		{
@@ -2069,13 +2095,13 @@ public class UILabel : UIWidget
 	/// Convenience function -- wrap the current text given the label's settings and unlimited height.
 	/// </summary>
 
-	public bool Wrap (string text, out string final) { return Wrap(text, out final, 1000000); }
+	public bool Wrap(string text, out string final) { return Wrap(text, out final, 1000000); }
 
 	/// <summary>
 	/// Convenience function -- wrap the current text given the label's settings and the given height.
 	/// </summary>
 
-	public bool Wrap (string text, out string final, int height)
+	public bool Wrap(string text, out string final, int height)
 	{
 		UpdateNGUIText();
 		NGUIText.rectHeight = height;
@@ -2090,7 +2116,7 @@ public class UILabel : UIWidget
 	/// Update NGUIText.current with all the properties from this label.
 	/// </summary>
 
-	public void UpdateNGUIText ()
+	public void UpdateNGUIText()
 	{
 		Font ttf = trueTypeFont;
 		bool isDynamic = (ttf != null);
@@ -2115,7 +2141,7 @@ public class UILabel : UIWidget
 		if (mFont != null)
 		{
 			NGUIText.bitmapFont = mFont;
-			
+
 			for (; ; )
 			{
 				UIFont fnt = NGUIText.bitmapFont.replacement;
@@ -2171,7 +2197,7 @@ public class UILabel : UIWidget
 		NGUIText.Update();
 	}
 
-	void OnApplicationPause (bool paused)
+	void OnApplicationPause(bool paused)
 	{
 		if (!paused && mTrueTypeFont != null) Invalidate(false);
 	}

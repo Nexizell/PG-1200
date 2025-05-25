@@ -310,6 +310,10 @@ public class UILabelInspector : UIWidgetInspector
 			
 			NGUIEditorTools.DrawProperty("Max Lines", serializedObject, "mMaxLineCount", GUILayout.Width(110f));
 
+			sp = NGUIEditorTools.DrawProperty("Use Unity Font", serializedObject, "useUnityFont", GUILayout.Width(100f));
+
+			sp = NGUIEditorTools.DrawProperty("Don't Use Uppercase", serializedObject, "dontUseUpper", GUILayout.Width(200f));
+
 			GUILayout.BeginHorizontal();
 			sp = NGUIEditorTools.DrawProperty("BBCode", serializedObject, "mEncoding", GUILayout.Width(100f));
 			EditorGUI.BeginDisabledGroup(!sp.boolValue || mLabel.bitmapFont == null || !mLabel.bitmapFont.hasSymbols);

@@ -273,7 +273,12 @@ public static class Storager
         PlayerPrefs.SetString(enc(key), enc(val));
     }
 
-    public static int getInt(string key, bool useICloud = false, int defaultValue = 0)
+    public static int getInt(string key, int defaultValue = 0)
+    {
+        return getInt(key, false, defaultValue);
+    }
+
+    public static int getInt(string key, bool useICloud, int defaultValue = 0)
     {
         return Convert.ToInt32(enc(PlayerPrefs.GetString(enc(key), enc(defaultValue))));
     }
